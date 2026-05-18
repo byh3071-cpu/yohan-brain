@@ -1,4 +1,4 @@
-﻿$repoPath = "C:\Users\user\Desktop\AI 1인 기업\Yohan OS"
+﻿$repoPath = "C:\Users\user\Desktop\01_AI_프로젝트\AI 1인 기업\Yohan OS"
 $logPath = "C:\Users\user\git-autopull.log"
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 

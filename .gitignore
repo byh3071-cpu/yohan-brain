@@ -22,3 +22,11 @@ git-autopull.log
 Thumbs.db
 desktop.ini
 ~$*
+
+# 로컬 전용 — 기기마다 다름
+.agents/
+.claude/
+sot-snapshot.md
+generate-snapshot.ps1
+skills-lock.json
+ntn-install.sh
