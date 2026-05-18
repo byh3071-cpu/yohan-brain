@@ -1,12 +1,15 @@
-# 현재 집중 중인 작업 (한 개만 또는 비워 두기)
+# 현재 집중 중인 작업
 
-id: yohan-os-mcp
-name: Yohan OS — SoT + MCP v0
-goal: get_context로 맥락 통일, append_decision으로 결정 로그 축적, 하네스 체계 안정화
+id: yohan-os-sot-revival
+name: "Yohan OS — SoT 현행화 + 루프 복원"
+goal: "get_context가 2026-05 현재 맥락을 정확히 반환하도록 SoT 갱신"
 repo_path: null
 branch: null
 notes: |
-  - [완료] get_context 파이프 검증, Cursor MCP 연결 확인.
-  - [완료] ingest_url·RSS 인제스트, 노션 양방향 동기(push/pull).
-  - [완료] 하네스 엔지니어링 1인 운영 원칙 정리 및 문서 반영.
-  - [진행] 규칙 드리프트 점검, Evaluator 루프 안정화, 세션당 1건 정리 습관화.
+  - [기준일] 2026-05-18
+  - [상황] 2026-04-10 이후 약 5주간 SoT 갱신 공백이 있었고, 현재 작업은 memory/ 중심 맥락을 2026-05 기준으로 되살리는 것이다.
+  - [완료] caveman Codex 스킬 7개가 .agents/skills/ 아래 설치되었다.
+  - [완료] sot-snapshot.md 생성으로 현재 폴더 구조, 핵심 파일, MCP 도구, TODO, 최근 Git 상태를 한 번 스냅샷했다.
+  - [진행] memory/inbox/의 30일 이상 된 원천 파일을 archive로 이동해 활성 인박스를 가볍게 만든다.
+  - [진행] 루트 CLAUDE.md와 오늘 decision 로그를 추가해 Claude/Codex/Cursor 진입점이 같은 SoT 규칙을 보도록 정렬한다.
+  - [다음] get_context 반환값을 빌드 결과(dist/index.js) 기준으로 점검하고, 필요하면 memory/profile.yaml의 깨진 인코딩 텍스트를 별도 작업으로 정리한다.
