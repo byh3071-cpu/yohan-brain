@@ -18,7 +18,7 @@ updated: 2026-05-18
 - [cursor](entities/cursor.md) — tool. AI 코딩 IDE, 바이브코딩 실행 엔진.
 - [rag](entities/rag.md) — technology. Retrieval-Augmented Generation.
 - [claude-code](entities/claude-code.md) — tool. Anthropic CLI AI 코딩 도구.
-- [llm-wiki-gist-why-how](entities/llm-wiki-gist-why-how.md) — llm-wiki (Karpathy gist) — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
+- [llm-wiki-gist-why-how](entities/llm-wiki-gist-why-how.md) — tool. Karpathy 위키 운영 패턴, Yohan OS `memory/wiki/` 직접 영향원.
 - [supabase-naver-oidc-proxy-github-why-how](entities/supabase-naver-oidc-proxy-github-why-how.md) — supabase-naver-oidc-proxy — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
 - [awesome-design-md-github-why-how](entities/awesome-design-md-github-why-how.md) — awesome-design-md — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
 - [anthropic-sdk-python-github-why-how](entities/anthropic-sdk-python-github-why-how.md) — anthropic-sdk-python — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
