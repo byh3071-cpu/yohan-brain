@@ -1,15 +1,29 @@
 # 현재 집중 중인 작업
 
-id: yohan-os-sot-revival
-name: "Yohan OS — SoT 현행화 + 루프 복원"
-goal: "get_context가 2026-05 현재 맥락을 정확히 반환하도록 SoT 갱신"
+id: wiki-stabilization-and-sync-guard
+name: "Wiki 정착 + 멀티 PC sync 가드"
+goal: "오늘 승격한 Wiki 4건의 사용자 작성 완료 + 멀티 PC 자동 동기 워크플로 안정화"
 repo_path: null
 branch: null
 notes: |
   - [기준일] 2026-05-18
-  - [상황] 2026-04-10 이후 약 5주간 SoT 갱신 공백이 있었고, 현재 작업은 memory/ 중심 맥락을 2026-05 기준으로 되살리는 것이다.
-  - [완료] caveman Codex 스킬 7개가 .agents/skills/ 아래 설치되었다.
-  - [완료] sot-snapshot.md 생성으로 현재 폴더 구조, 핵심 파일, MCP 도구, TODO, 최근 Git 상태를 한 번 스냅샷했다.
-  - [진행] memory/inbox/의 30일 이상 된 원천 파일을 archive로 이동해 활성 인박스를 가볍게 만든다.
-  - [진행] 루트 CLAUDE.md와 오늘 decision 로그를 추가해 Claude/Codex/Cursor 진입점이 같은 SoT 규칙을 보도록 정렬한다.
-  - [다음] get_context 반환값을 빌드 결과(dist/index.js) 기준으로 점검하고, 필요하면 memory/profile.yaml의 깨진 인코딩 텍스트를 별도 작업으로 정리한다.
+  - [완료] SoT 현행화 (`yohan-os-sot-revival`) 종결.
+    - `get_context` 2026-05 맥락 정확 반환 검증 통과
+    - `profile.yaml` 인코딩 정상, differentiation 슬롯 채워짐
+    - CLAUDE.md 진입 문서 생성, AGENTS.md/agent-harness 현행 유지
+    - inbox 121건 archive 이동, sample_decision/evaluation/wiki 모두 오늘자
+  - [완료] Wiki 승격 도구 1사이클 (5건):
+    - llm-wiki-gist-why-how, supabase-naver-oidc-proxy-github-why-how
+    - awesome-design-md-github-why-how, anthropic-sdk-python-github-why-how
+    - 모두 `entities/*.md` (type=tool), Verified+TTL+index/log 자동
+  - [진행 A] Wiki 4건 사용자 작성 마무리:
+    - `## 정의 (1~2문장)` 채우기
+    - Verified 시드 불릿 검수 (Source Lock 사실 검증)
+    - `related_entities`/`related_concepts` 양방향 링크
+    - Owner Notes 1줄 코멘트
+  - [진행 B] 멀티 PC sync 가드 문서화:
+    - `auto-pull.ps1` + 예약 작업(`YohanAutoPull`, `YohanOS-AutomationBatch-30min`) 운용 규칙을
+      `memory/rules/agent-harness.md` §5 또는 신규 `memory/rules/multi-pc-sync.md`로 분리
+    - 다른 세션 자동 커밋 정체 파악 (노트북에서 프로세스 확인) 후 합의 락 규칙 검토
+    - `YohanAutoPull` Access denied 권한 문제 재등록 또는 별도 조사
+  - [다음] Wiki 잔여 4건 채운 뒤, 자동화 가드 문서화 한 사이클 → 새 포커스 설정 (지식 축적 vs 운영 안정)
