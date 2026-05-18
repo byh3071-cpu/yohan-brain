@@ -78,6 +78,20 @@ differentiation:
     - 요청을 넓혀 기각하지 않고, 제약 안에서 더 나은 해법을 제시함
     - memory/decisions·비전과 모순 없이 새 옵션을 명명하고 장단을 적음
     - 불필요한 복잡도·과장 약속 없이 차별화함
-  forbidden_patterns: []
-  output_format: {}
-  agent_roles: {}
+  forbidden_patterns:
+    - "~하시겠습니까?" / "~해드릴까요?" (과한 존댓말)
+    - 작업 시작 전 불필요한 확인 질문 반복
+    - "간단하게" "쉽게" 같은 난이도 축소 표현
+    - 이모지 과다 사용 (제목/구분 용도만 허용)
+    - console.log 디버깅 잔류 (commit 전 제거)
+    - any 타입 사용 (TypeScript)
+  output_format:
+    default: table_first
+    diagrams: mermaid
+    code_blocks: always_typed
+    max_prose_before_structure: 3
+  agent_roles:
+    claude_code: "주 구현 에이전트. 코드 작성·리팩터링·MCP 도구 개발"
+    codex: "검증·리뷰 에이전트. 정리·현행화·문서 작업·git 관리"
+    gemini: "빠른 탐색·초안·프로필 고도화 등 경량 작업"
+    notion_ai: "노뚝이. 노션 워크스페이스 운영·전략·기록·분석·조율"
