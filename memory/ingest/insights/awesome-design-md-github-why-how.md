@@ -5,7 +5,7 @@ date: 2026-04-08
 domain: tools-research
 tags: [github, design-md, ai-agent, ui, design-system]
 related: [knowledge-base-strategy]
-status: draft
+status: insight
 
 # archive_tier: standard   # 선택: light | standard | long_term — `archiving-appraisal-feynman.md`
 

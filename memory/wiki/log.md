@@ -24,3 +24,7 @@ updated: 2026-05-18
 - **PROMOTE** system-income-leverage-structure → concepts/system-income-leverage-structure.md
 - **PROMOTE** self-made-wealth-five-elements → concepts/self-made-wealth-five-elements.md
 - **PROMOTE** personal-finance-low-energy-top3 → concepts/personal-finance-low-energy-top3.md
+- **PROMOTE** llm-wiki-gist-why-how → entities/llm-wiki-gist-why-how.md
+- **PROMOTE** supabase-naver-oidc-proxy-github-why-how → entities/supabase-naver-oidc-proxy-github-why-how.md
+- **PROMOTE** awesome-design-md-github-why-how → entities/awesome-design-md-github-why-how.md
+- **PROMOTE** anthropic-sdk-python-github-why-how → entities/anthropic-sdk-python-github-why-how.md

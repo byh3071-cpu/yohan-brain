@@ -5,7 +5,7 @@ date: 2026-04-08
 domain: knowledge-management
 tags: [github, gist, llm, wiki, obsidian]
 related: [knowledge-base-strategy, karpathy-obsidian-para-workflow]
-status: draft
+status: insight
 
 # archive_tier: standard   # 선택: light | standard | long_term — `archiving-appraisal-feynman.md`
 
