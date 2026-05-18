@@ -5,7 +5,7 @@ aliases: [SSoT, SoT, Single Source of Truth, 단일 진실 소스]
 created: 2026-04-12
 updated: 2026-04-12
 source_insights: [vibe-coding-pipeline, knowledge-base-strategy, vibe-coding-planning-importance]
-related_entities: [cursor]
+related_entities: [cursor, llm-wiki-gist-why-how]
 related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 ---
 
