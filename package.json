@@ -20,6 +20,7 @@
     "mcp:check": "node -e \"import('./dist/index.js').then(()=>console.log('MCP bundle OK')).catch(e=>{console.error(e);process.exit(1)})\"",
     "search:memory": "tsx src/search-memory-cli.ts",
     "plan:task": "tsx src/plan-task-cli.ts",
+    "promote-wiki": "tsx src/promote-wiki-cli.ts",
     "route:task": "tsx src/route-task-cli.ts",
     "route:run": "tsx src/route-and-run-cli.ts",
     "route:dry": "tsx src/route-and-run-cli.ts --dry-run",

@@ -94,6 +94,7 @@ async function checkFile(filePath: string) {
   const ON_DEMAND = [
     "automation-dead-letter.md",
     "automation-review.md",
+    "notion-queue.md",
   ]
 
   const links = extractMdLinks(content)

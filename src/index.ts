@@ -32,6 +32,7 @@ import { pullNotionDatabaseToQueue } from "./notion/pull-queue.js";
 import { loadNotionQueuePreview } from "./notion-queue.js";
 import { searchMemory } from "./search/memory-search.js";
 import { writeEvaluationLog } from "./evaluation-log.js";
+import { promoteToWiki, suggestPromotions } from "./wiki/promote.js";
 
 async function readYamlFile<T>(path: string): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
   try {
@@ -656,6 +657,58 @@ async function main(): Promise<void> {
           content: [{ type: "text", text: JSON.stringify({ ok: false, error: msg }, null, 2) }],
         };
       }
+    },
+  );
+
+  server.registerTool(
+    "promote_to_wiki",
+    {
+      description:
+        "memory/ingest/insights/ 파일 한 건을 memory/wiki/{entities|concepts}/ 아래 wiki 페이지로 승격한다. WIKI-SPEC-v2 §2 형식 (Verified/Inferred/Owner Notes/관련 소스), Source Lock 태그 부여, index.md·log.md 자동 갱신. type 미지정 시 'concept' 기본.",
+      inputSchema: {
+        insight_path: z
+          .string()
+          .min(1)
+          .describe("insight 파일 경로 (절대 또는 레포 루트 기준 상대 경로)"),
+        type: z.enum(["concept", "entity"]).optional().describe("기본 'concept'"),
+        entity_type: z
+          .enum(["person", "company", "technology", "tool", "other"])
+          .optional()
+          .describe("type=entity일 때 사용"),
+        id: z.string().optional().describe("wiki id 슬러그 override. 생략 시 insight id 사용"),
+      },
+    },
+    async (args) => {
+      const r = await promoteToWiki({
+        insightPath: args.insight_path,
+        type: args.type,
+        entityType: args.entity_type,
+        id: args.id,
+      });
+      return {
+        content: [{ type: "text", text: JSON.stringify(r, null, 2) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "suggest_promotions",
+    {
+      description:
+        "memory/ingest/insights/ 스캔 후 wiki에 미등록인 항목을 최대 N건 추천. telegram-ocr* 및 status:draft 제외 (includeDraft=true로 포함 가능). 정렬: archive_tier(long_term>standard>light) → mtime 최신순.",
+      inputSchema: {
+        limit: z.number().int().min(1).max(50).optional().describe("기본 10"),
+        include_draft: z.boolean().optional().describe("기본 false. true면 draft도 포함"),
+      },
+    },
+    async (args) => {
+      const r = await suggestPromotions({
+        limit: args?.limit ?? 10,
+        includeDraft: args?.include_draft ?? false,
+      });
+      return {
+        content: [{ type: "text", text: JSON.stringify(r, null, 2) }],
+      };
     },
   );
 
