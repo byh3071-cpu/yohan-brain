@@ -1,6 +1,6 @@
 ---
 id: wiki-index
-updated: 2026-04-13
+updated: 2026-05-18
 ---
 
 # Wiki Index
@@ -28,6 +28,9 @@ updated: 2026-04-13
 - [second-brain](concepts/second-brain.md) — 제2의 뇌. 개인 지식 관리 시스템.
 - [vibe-coding-pipeline](concepts/vibe-coding-pipeline.md) — 바이브코딩 파이프라인.
 - [harness-engineering](concepts/harness-engineering.md) — 하네스/컨텍스트 엔지니어링.
+- [system-income-leverage-structure](concepts/system-income-leverage-structure.md) — 시스템·파이프라인·자본 소득 — 구조가 먼저인 이유. (TODO: 한 줄 설명 보강)
+- [self-made-wealth-five-elements](concepts/self-made-wealth-five-elements.md) — 스스로 키운 수익 — 다섯 가지 축. (TODO: 한 줄 설명 보강)
+- [personal-finance-low-energy-top3](concepts/personal-finance-low-energy-top3.md) — 자산관리 — ‘적은 노력·큰 효과 3개’로 버티기. (TODO: 한 줄 설명 보강)
 
 ## Answers
 

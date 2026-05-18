@@ -1,6 +1,6 @@
 ---
 id: wiki-log
-updated: 2026-04-13
+updated: 2026-05-18
 ---
 
 # Wiki Change Log (append-only)
@@ -18,3 +18,9 @@ updated: 2026-04-13
 - **Phase 4** insights 7개 프론트매터에 역링크(wiki id) 추가.
 - **Phase 5** `memory/rules/wiki-ops.md` 생성. `.cursor/skills/wiki-ops/SKILL.md` 배치 완료. `AGENTS.md` wiki 경로 등록. Evaluator: **pass**.
 - **QA** 전수 검증 수행. 이슈 2건 수정: cursor.md 양방향 참조 누락(andrej-karpathy 추가), exploration-vs-exploitation insight 역링크 보완. Concept 7개 전항 PASS.
+
+## 2026-05-18
+
+- **PROMOTE** system-income-leverage-structure → concepts/system-income-leverage-structure.md
+- **PROMOTE** self-made-wealth-five-elements → concepts/self-made-wealth-five-elements.md
+- **PROMOTE** personal-finance-low-energy-top3 → concepts/personal-finance-low-energy-top3.md
