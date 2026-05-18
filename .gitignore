@@ -1,5 +1,9 @@
 # yohan-ai-dictionary — public site, own repo (Phase 3 template); not part of private Yohan OS snapshot
 yohan-ai-dictionary/
+sot-snapshot.md
+generate-snapshot.ps1
+.claude/worktrees/
+ntn-install.sh
 
 node_modules/
 dist/
