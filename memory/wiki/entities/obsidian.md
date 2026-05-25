@@ -5,7 +5,7 @@ entity_type: tool
 created: 2026-04-12
 updated: 2026-04-12
 source_insights: [karpathy-obsidian-para-workflow, obsidian-vault-para-system-guide]
-related_entities: [andrej-karpathy, cursor]
+related_entities: [andrej-karpathy, cursor, llm-wiki-gist-why-how]
 related_concepts: [para-method, second-brain]
 ---
 

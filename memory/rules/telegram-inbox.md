@@ -12,7 +12,7 @@ status: active
 ## 저장 위치 (봇 append)
 
 - **현재:** `memory/inbox/telegram/YYYY-MM-DD.md` — 날짜는 메시지 시각 기준 **Asia/Seoul** (`paths.ts` / `telegram-bot.ts`).
-- **과거 단일 파일:** `memory/inbox/telegram-inbox.md` — 이전에 쌓인 로그만 남음. 새 수신은 일별 경로로만 간다.
+- **과거 단일 파일:** `memory/inbox/archive/telegram-inbox.md` — 이전에 쌓인 로그만 남음 (2026-05 아카이브 이관). 새 수신은 일별 경로로만 간다.
 
 ## “읽었고 반영함” 이후
 

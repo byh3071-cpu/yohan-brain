@@ -1,8 +1,10 @@
 import "dotenv/config";
+import { execFile } from "node:child_process";
 import { existsSync } from "node:fs";
 import { mkdir, readFile, readdir, writeFile, stat } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
@@ -32,6 +34,7 @@ import { syncRecordsToNotion } from "./notion/sync-records.js";
 import { loadNotionQueuePreview } from "./notion-queue.js";
 import { searchMemory } from "./search/memory-search.js";
 import { writeEvaluationLog } from "./evaluation-log.js";
+import { promoteToWiki, suggestPromotions } from "./wiki/promote.js";
 
 async function readYamlFile<T>(path: string): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
   try {
@@ -66,6 +69,217 @@ async function loadRecentDecisions(dir: string, limit: number): Promise<
   return out;
 }
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+const execFileAsync = promisify(execFile);
+
+function parseFrontmatter(content: string): Record<string, unknown> | null {
+  if (!content.startsWith("---")) return null;
+  const rest = content.slice(content.indexOf("\n") + 1);
+  const endIdx = rest.indexOf("\n---");
+  if (endIdx < 0) return null;
+  const yaml = rest.slice(0, endIdx);
+  try {
+    const parsed = parseYaml(yaml);
+    return parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : null;
+  } catch {
+    return null;
+  }
+}
+
+function isoDateFromMtime(mtimeMs: number): string {
+  return new Date(mtimeMs).toISOString().slice(0, 10);
+}
+
+async function listRecentlyChangedFiles(
+  dir: string,
+  daysAgo: number,
+  options: { recursive?: boolean; ext?: string } = {},
+): Promise<Array<{ name: string; relPath: string; absPath: string; mtimeMs: number }>> {
+  const { recursive = false, ext = ".md" } = options;
+  if (!existsSync(dir)) return [];
+  const cutoff = Date.now() - daysAgo * DAY_MS;
+  const out: Array<{ name: string; relPath: string; absPath: string; mtimeMs: number }> = [];
+  async function walk(current: string, prefix: string): Promise<void> {
+    const entries = await readdir(current, { withFileTypes: true });
+    for (const entry of entries) {
+      const abs = join(current, entry.name);
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        if (recursive) await walk(abs, rel);
+      } else if (entry.isFile() && (ext === "*" || entry.name.endsWith(ext))) {
+        const s = await stat(abs);
+        if (s.mtimeMs >= cutoff) {
+          out.push({ name: entry.name, relPath: rel, absPath: abs, mtimeMs: s.mtimeMs });
+        }
+      }
+    }
+  }
+  await walk(dir, "");
+  out.sort((a, b) => b.mtimeMs - a.mtimeMs);
+  return out;
+}
+
+async function loadRecentDecisionChanges(
+  dir: string,
+  daysAgo: number,
+): Promise<Array<{ file: string; date: string; title: string }>> {
+  const files = await listRecentlyChangedFiles(dir, daysAgo);
+  const out: Array<{ file: string; date: string; title: string }> = [];
+  for (const f of files) {
+    let title = f.name.replace(/\.md$/, "");
+    let date = isoDateFromMtime(f.mtimeMs);
+    try {
+      const content = await readFile(f.absPath, "utf8");
+      const fm = parseFrontmatter(content);
+      const fmTitle = fm?.title;
+      if (typeof fmTitle === "string" && fmTitle.trim().length > 0) {
+        title = fmTitle.trim();
+      }
+      const fmCreated = fm?.created;
+      if (typeof fmCreated === "string" && /^\d{4}-\d{2}-\d{2}/.test(fmCreated)) {
+        date = fmCreated.slice(0, 10);
+      }
+    } catch {
+      // keep filename-based defaults
+    }
+    out.push({ file: f.name, date, title });
+  }
+  return out;
+}
+
+async function loadRecentEvaluationChanges(
+  dir: string,
+  daysAgo: number,
+): Promise<Array<{ file: string; date: string; verdict: string; score: string; task: string }>> {
+  const files = await listRecentlyChangedFiles(dir, daysAgo);
+  const out: Array<{ file: string; date: string; verdict: string; score: string; task: string }> = [];
+  for (const f of files) {
+    let date = isoDateFromMtime(f.mtimeMs);
+    let verdict = "?";
+    let score = "?";
+    let task = f.name.replace(/\.md$/, "");
+    try {
+      const content = await readFile(f.absPath, "utf8");
+      const fm = parseFrontmatter(content);
+      if (fm) {
+        if (typeof fm.date === "string" && /^\d{4}-\d{2}-\d{2}/.test(fm.date)) {
+          date = fm.date.slice(0, 10);
+        }
+        if (typeof fm.verdict === "string") verdict = fm.verdict;
+        if (typeof fm.task === "string" && fm.task.trim().length > 0) {
+          task = fm.task.trim().slice(0, 160);
+        }
+        const qs = fm.quality_scores;
+        if (qs && typeof qs === "object") {
+          const values = Object.values(qs as Record<string, unknown>);
+          const total = values.length;
+          const passed = values.filter((v) => v === true).length;
+          if (total > 0) score = `${passed}/${total}`;
+        }
+      }
+    } catch {
+      // keep defaults
+    }
+    out.push({ file: f.name, date, verdict, score, task });
+  }
+  return out;
+}
+
+async function loadRecentWikiChanges(
+  memoryRoot: string,
+  daysAgo: number,
+): Promise<{ source: "git" | "mtime" | "none"; files: string[]; note?: string }> {
+  const wikiDir = join(memoryRoot, "wiki");
+  if (!existsSync(wikiDir)) return { source: "none", files: [], note: "wiki 디렉토리 없음" };
+  const repoRoot = dirname(memoryRoot);
+  try {
+    const { stdout } = await execFileAsync(
+      "git",
+      [
+        "log",
+        `--since=${daysAgo}.days.ago`,
+        "--name-only",
+        "--pretty=format:",
+        "--",
+        "memory/wiki",
+      ],
+      { cwd: repoRoot, windowsHide: true, maxBuffer: 4 * 1024 * 1024 },
+    );
+    const files = Array.from(
+      new Set(
+        stdout
+          .split(/\r?\n/)
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0),
+      ),
+    );
+    return { source: "git", files };
+  } catch {
+    const fs = await listRecentlyChangedFiles(wikiDir, daysAgo, { recursive: true, ext: "*" });
+    return {
+      source: "mtime",
+      files: fs.map((f) => `memory/wiki/${f.relPath}`),
+      note: "git 실패, mtime fallback",
+    };
+  }
+}
+
+async function loadInboxStatus(memoryRoot: string): Promise<{
+  total: number;
+  by_subdir: Record<string, number>;
+  stale_30d: number;
+  oldest_days: number | null;
+  warning: string | null;
+}> {
+  const inboxDir = join(memoryRoot, "inbox");
+  if (!existsSync(inboxDir)) {
+    return {
+      total: 0,
+      by_subdir: {},
+      stale_30d: 0,
+      oldest_days: null,
+      warning: "memory/inbox 디렉토리 없음 ⚠️",
+    };
+  }
+  const STALE_MS = 30 * DAY_MS;
+  const now = Date.now();
+  let total = 0;
+  let stale = 0;
+  let oldestMtime: number | null = null;
+  const bySubdir: Record<string, number> = {};
+  async function walk(current: string, subroot: string): Promise<void> {
+    const entries = await readdir(current, { withFileTypes: true });
+    for (const entry of entries) {
+      const abs = join(current, entry.name);
+      if (entry.isDirectory()) {
+        await walk(abs, subroot || entry.name);
+      } else if (entry.isFile()) {
+        total += 1;
+        const key = subroot || "(root)";
+        bySubdir[key] = (bySubdir[key] ?? 0) + 1;
+        try {
+          const s = await stat(abs);
+          if (now - s.mtimeMs > STALE_MS) stale += 1;
+          if (oldestMtime === null || s.mtimeMs < oldestMtime) oldestMtime = s.mtimeMs;
+        } catch {
+          // skip unreadable
+        }
+      }
+    }
+  }
+  await walk(inboxDir, "");
+  const oldestDays =
+    oldestMtime === null ? null : Math.floor((now - oldestMtime) / DAY_MS);
+  const warning = stale > 0 ? `${stale}건 30일 이상 미처리 ⚠️` : null;
+  return {
+    total,
+    by_subdir: bySubdir,
+    stale_30d: stale,
+    oldest_days: oldestDays,
+    warning,
+  };
+}
+
 function slugify(title: string): string {
   const s = title
     .trim()
@@ -93,12 +307,32 @@ async function main(): Promise<void> {
       const profilePath = join(root, "profile.yaml");
       const activePath = join(root, "active-project.yaml");
       const decisionsPath = join(root, "decisions");
+      const evaluationsPath = join(root, "metrics", "evaluations");
 
       const profile = await readYamlFile<Record<string, unknown>>(profilePath);
       const activeProject = await readYamlFile<Record<string, unknown>>(activePath);
       const recentDecisions = await loadRecentDecisions(decisionsPath, 8);
       const recentIngest = await loadRecentIngestSummary(12);
       const notionQueue = await loadNotionQueuePreview();
+
+      const WINDOW_DAYS = 7;
+      const recentDecisions7d = await loadRecentDecisionChanges(decisionsPath, WINDOW_DAYS);
+      const recentEvaluations7d = await loadRecentEvaluationChanges(evaluationsPath, WINDOW_DAYS);
+      const recentWiki7d = await loadRecentWikiChanges(root, WINDOW_DAYS);
+      const inboxStatus = await loadInboxStatus(root);
+
+      const hasAnyRecent =
+        recentDecisions7d.length > 0 ||
+        recentEvaluations7d.length > 0 ||
+        recentWiki7d.files.length > 0;
+
+      const recentChanges = {
+        window_days: WINDOW_DAYS,
+        decisions: recentDecisions7d,
+        evaluations: recentEvaluations7d,
+        wiki: recentWiki7d,
+        warning: hasAnyRecent ? null : "최근 7일 변경 없음 ⚠️",
+      };
 
       const payload = {
         sot_version: "0.1",
@@ -117,6 +351,8 @@ async function main(): Promise<void> {
           truncated: notionQueue.truncated,
           rules: "memory/rules/notion-sync.md",
         },
+        recent_changes_7d: recentChanges,
+        inbox_status: inboxStatus,
       };
 
       const text = JSON.stringify(payload, null, 2);
@@ -463,6 +699,58 @@ async function main(): Promise<void> {
           ],
         };
       }
+    },
+  );
+
+  server.registerTool(
+    "promote_to_wiki",
+    {
+      description:
+        "memory/ingest/insights/ 파일 한 건을 memory/wiki/{entities|concepts}/ 아래 wiki 페이지로 승격한다. WIKI-SPEC-v2 §2 형식 (Verified/Inferred/Owner Notes/관련 소스), Source Lock 태그 부여, index.md·log.md 자동 갱신. type 미지정 시 'concept' 기본.",
+      inputSchema: {
+        insight_path: z
+          .string()
+          .min(1)
+          .describe("insight 파일 경로 (절대 또는 레포 루트 기준 상대 경로)"),
+        type: z.enum(["concept", "entity"]).optional().describe("기본 'concept'"),
+        entity_type: z
+          .enum(["person", "company", "technology", "tool", "other"])
+          .optional()
+          .describe("type=entity일 때 사용"),
+        id: z.string().optional().describe("wiki id 슬러그 override. 생략 시 insight id 사용"),
+      },
+    },
+    async (args) => {
+      const r = await promoteToWiki({
+        insightPath: args.insight_path,
+        type: args.type,
+        entityType: args.entity_type,
+        id: args.id,
+      });
+      return {
+        content: [{ type: "text", text: JSON.stringify(r, null, 2) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "suggest_promotions",
+    {
+      description:
+        "memory/ingest/insights/ 스캔 후 wiki에 미등록인 항목을 최대 N건 추천. telegram-ocr* 및 status:draft 제외 (includeDraft=true로 포함 가능). 정렬: archive_tier(long_term>standard>light) → mtime 최신순.",
+      inputSchema: {
+        limit: z.number().int().min(1).max(50).optional().describe("기본 10"),
+        include_draft: z.boolean().optional().describe("기본 false. true면 draft도 포함"),
+      },
+    },
+    async (args) => {
+      const r = await suggestPromotions({
+        limit: args?.limit ?? 10,
+        includeDraft: args?.include_draft ?? false,
+      });
+      return {
+        content: [{ type: "text", text: JSON.stringify(r, null, 2) }],
+      };
     },
   );
 

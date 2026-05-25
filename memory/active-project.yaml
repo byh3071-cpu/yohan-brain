@@ -1,22 +1,29 @@
-# 현재 집중 중인 작업 (한 개만 또는 비워 두기)
+# 현재 집중 중인 작업
 
-id: yohan-ai-dictionary
-name: Yohan AI Dictionary — 나만의 AI 사전 뷰어
-goal: Phase 3 진입 — Vercel 1차 배포 → GitHub 템플릿화 → 학습 글 3편.
-repo_path: memory/projects/yohan-ai-dictionary (스펙·체크리스트·티켓) · yohan-ai-dictionary (코드, 티켓 001 이후)
-branch: main
+id: wiki-stabilization-and-sync-guard
+name: "Wiki 정착 + 멀티 PC sync 가드"
+goal: "오늘 승격한 Wiki 4건의 사용자 작성 완료 + 멀티 PC 자동 동기 워크플로 안정화"
+repo_path: null
+branch: null
 notes: |
-  - [진행 기준] memory/projects/yohan-ai-dictionary/current-phase.md + phase3-checklist.md (active-project.yaml 아님).
-  - [완료] Phase 1 전부(001~006, 005 빌드·프리뷰 검증 포함, 2026-04-16 확인).
-  - [완료] Phase 2 용어 7개 — `phase2-term-candidates-notion-2026-04.md` 순서, 사전·빌드 반영 (2026-04-16). 빌드 회귀 OK (2026-05-02, 17용어).
-  - [진행] Phase 3 티켓 007 사양 확정 (2026-05-02). 실 Vercel 배포는 다음 세션 — 체크리스트 P3-2.
-  - [복리] 용어·링크 구조는 카페 SOP 위키 등 동일 패턴으로 복제 가능.
-  - [규칙] 4개 겹치는 용어(harness/vibe-coding/rag/layered-context)는 memory/wiki/가 원천, `source:` 프론트매터 필수.
-  - [완료] Evaluator 로그 디렉터리 안내 — `memory/metrics/evaluations/README.md` (2026-04-16).
-
-# yohan-os-mcp는 완료된 기반 인프라 — 지속 유지/점검 대상
-background_ops: |
-  - [완료] get_context, append_decision, Cursor MCP 연결, ingest_url/RSS, 노션 양방향 동기.
-  - [완료] 하네스 엔지니어링 1인 운영 원칙 문서 반영.
-  - [완료] memory/wiki/ 지식 레이어 (Entities 6 + Concepts 8, Phase 1~5; Ch.15–18 인사이트 병합 반영).
-  - [유지] 규칙 드리프트 점검, Evaluator 루프 안정화, 세션당 1건 정리.
+  - [기준일] 2026-05-18
+  - [완료] SoT 현행화 (`yohan-os-sot-revival`) 종결.
+    - `get_context` 2026-05 맥락 정확 반환 검증 통과
+    - `profile.yaml` 인코딩 정상, differentiation 슬롯 채워짐
+    - CLAUDE.md 진입 문서 생성, AGENTS.md/agent-harness 현행 유지
+    - inbox 121건 archive 이동, sample_decision/evaluation/wiki 모두 오늘자
+  - [완료] Wiki 승격 도구 1사이클 (5건):
+    - llm-wiki-gist-why-how, supabase-naver-oidc-proxy-github-why-how
+    - awesome-design-md-github-why-how, anthropic-sdk-python-github-why-how
+    - 모두 `entities/*.md` (type=tool), Verified+TTL+index/log 자동
+  - [진행 A] Wiki 4건 사용자 작성 마무리:
+    - `## 정의 (1~2문장)` 채우기
+    - Verified 시드 불릿 검수 (Source Lock 사실 검증)
+    - `related_entities`/`related_concepts` 양방향 링크
+    - Owner Notes 1줄 코멘트
+  - [진행 B] 멀티 PC sync 가드 문서화:
+    - `auto-pull.ps1` + 예약 작업(`YohanAutoPull`, `YohanOS-AutomationBatch-30min`) 운용 규칙을
+      `memory/rules/agent-harness.md` §5 또는 신규 `memory/rules/multi-pc-sync.md`로 분리
+    - 다른 세션 자동 커밋 정체 파악 (노트북에서 프로세스 확인) 후 합의 락 규칙 검토
+    - `YohanAutoPull` Access denied 권한 문제 재등록 또는 별도 조사
+  - [다음] Wiki 잔여 4건 채운 뒤, 자동화 가드 문서화 한 사이클 → 새 포커스 설정 (지식 축적 vs 운영 안정)

@@ -3,9 +3,9 @@ id: second-brain
 type: concept
 aliases: [제2의 뇌, Second Brain, 개인 지식 관리 시스템]
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-05-25
 source_insights: [knowledge-base-strategy, obsidian-vault-para-system-guide, modern-ai-ch18-knowledge-management-karpathy-wiki]
-related_entities: [andrej-karpathy, obsidian]
+related_entities: [andrej-karpathy, obsidian, llm-wiki-gist-why-how]
 related_concepts: [para-method, layered-context]
 ---
 

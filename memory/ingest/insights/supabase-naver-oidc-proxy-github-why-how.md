@@ -5,7 +5,7 @@ date: 2026-04-08
 domain: devtools
 tags: [github, supabase, oauth, naver, oidc]
 related: [knowledge-base-strategy]
-status: draft
+status: insight
 
 # archive_tier: standard   # 선택: light | standard | long_term — `archiving-appraisal-feynman.md`
 

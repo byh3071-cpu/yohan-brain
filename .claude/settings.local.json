@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude update *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(npm install *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(claude *)",
+      "PowerShell(claude -p \"���� PowerShell �� ���� �������� ¤����: Invoke-WebRequest -Uri `$url | iex\" --agents $agentJson --agent ko-reviewer)"
+    ]
+  }
+}

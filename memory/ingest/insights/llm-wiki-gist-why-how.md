@@ -5,7 +5,7 @@ date: 2026-04-08
 domain: knowledge-management
 tags: [github, gist, llm, wiki, obsidian]
 related: [knowledge-base-strategy, karpathy-obsidian-para-workflow]
-status: draft
+status: insight
 
 # archive_tier: standard   # 선택: light | standard | long_term — `archiving-appraisal-feynman.md`
 
@@ -30,7 +30,7 @@ status: draft
 
 ### 실생활(또는 내 일) 예시
 
-- **내 일:** `memory/ingest/`* 원문을 소스 레이어로 두고, `memory/ingest/insights/`*를 누적 위키 레이어로 관리하면 세션이 바뀌어도 맥락 복구가 빨라지고 중복 정리 비용이 줄어든다.
+- **내 일:** `memory/ingest/`\* 원문을 소스 레이어로 두고, `memory/ingest/insights/`\*를 누적 위키 레이어로 관리하면 세션이 바뀌어도 맥락 복구가 빨라지고 중복 정리 비용이 줄어든다.
 
 ### 궁금한 점
 

@@ -1,6 +1,6 @@
 ---
 id: wiki-log
-updated: 2026-04-16
+updated: 2026-05-25
 ---
 
 # Wiki Change Log (append-only)
@@ -30,3 +30,17 @@ updated: 2026-04-16
 - **Insight → Wiki:** `modern-ai-ch16-skills-packaging` — 신규 컨셉 `cursor-skills.md`. `harness-engineering`·`vibe-coding-pipeline` `related_concepts` 갱신.
 - **Insight → Wiki:** `modern-ai-ch17-rag-select-pipeline` — `entities/rag.md`, `concepts/layered-context.md` Verified 병합·`source_insights`·관련 소스.
 - `index.md` 엔티티 5→6, 컨셉 7→8, Inferred 불릿 합계 갱신(대략 15→17).
+
+## 2026-05-18
+
+- **PROMOTE** system-income-leverage-structure → concepts/system-income-leverage-structure.md
+- **PROMOTE** self-made-wealth-five-elements → concepts/self-made-wealth-five-elements.md
+- **PROMOTE** personal-finance-low-energy-top3 → concepts/personal-finance-low-energy-top3.md
+- **PROMOTE** llm-wiki-gist-why-how → entities/llm-wiki-gist-why-how.md
+- **PROMOTE** supabase-naver-oidc-proxy-github-why-how → entities/supabase-naver-oidc-proxy-github-why-how.md
+- **PROMOTE** awesome-design-md-github-why-how → entities/awesome-design-md-github-why-how.md
+- **PROMOTE** anthropic-sdk-python-github-why-how → entities/anthropic-sdk-python-github-why-how.md
+
+## 2026-05-25
+
+- **MERGE** main ← origin/master: 양쪽 wiki log/index/concepts/entities 통합 (2026-04-16 main 항목 + 2026-05-18 master 항목 모두 보존). index.md 통계 union 재집계, Inferred 재집계 보류(`17+`).

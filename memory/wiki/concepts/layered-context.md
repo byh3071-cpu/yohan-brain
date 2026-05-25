@@ -3,9 +3,9 @@ id: layered-context
 type: concept
 aliases: [다층적 맥락 구조, Layered Context, 점진적 컨텍스트 주입]
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-05-25
 source_insights: [knowledge-base-strategy, vibe-coding-pipeline, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch17-rag-select-pipeline]
-related_entities: [cursor]
+related_entities: [cursor, llm-wiki-gist-why-how]
 related_concepts: [single-source-of-truth, harness-engineering, exploration-vs-exploitation]
 ---
 
