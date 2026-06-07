@@ -1,4 +1,4 @@
----
+﻿---
 id: modern-ai-ch17-rag-select-pipeline
 date: 2026-04-16
 domain: rag
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/17-RAG.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/17-RAG.md`
 
 ## 요약 (짧게)
 

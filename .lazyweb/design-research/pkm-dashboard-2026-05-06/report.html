@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Research: 요한 OS PKM 대시보드</title>
+<style>
+  :root {
+    --fg: #1d1d1f;
+    --fg-soft: #4a4a4f;
+    --fg-mute: #6e6e73;
+    --bg: #fafafa;
+    --bg-card: #ffffff;
+    --border: #e5e5ea;
+    --accent: #2e6bf0;
+    --accent-soft: #e8f0fe;
+    --warn-soft: #fff3e0;
+    --good-soft: #e6f7ed;
+    --code-bg: #f3f3f5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  .wrap {
+    max-width: 920px;
+    margin: 48px auto;
+    padding: 0 24px 64px;
+  }
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--fg-mute);
+    font-size: 15px;
+    margin-bottom: 36px;
+    border-left: 3px solid var(--border);
+    padding-left: 12px;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 48px 0 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 17px;
+    margin: 32px 0 8px;
+    color: var(--fg);
+  }
+  p, li { color: var(--fg-soft); }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--fg); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.92em;
+    color: #d6336c;
+  }
+  pre {
+    background: #1d1d1f;
+    color: #f5f5f7;
+    padding: 16px 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  .tldr {
+    background: var(--accent-soft);
+    border: 1px solid #c9dcfb;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 24px 0 32px;
+    font-size: 15.5px;
+    color: #1f3a8a;
+  }
+  .tldr h2 {
+    margin: 0 0 8px;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: #2e6bf0;
+    text-transform: uppercase;
+  }
+  figure {
+    margin: 18px 0 24px;
+  }
+  figure img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+  }
+  figcaption {
+    font-size: 13.5px;
+    color: var(--fg-mute);
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: var(--good-soft);
+    color: #1a7f3c;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .rec-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px 22px 18px;
+    margin: 18px 0;
+  }
+  .rec-block h3 {
+    margin-top: 18px;
+  }
+  .anti li::marker { color: #d6336c; }
+  .pattern li::marker { color: #1a7f3c; }
+  .unique li::marker { color: #b35c00; }
+  table {
+    border-collapse: collapse;
+    margin: 16px 0;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  th {
+    background: #f3f3f5;
+    color: var(--fg);
+  }
+  blockquote {
+    margin: 0;
+    padding: 0 0 0 14px;
+    border-left: 3px solid var(--border);
+    color: var(--fg-mute);
+  }
+  .ascii-note {
+    font-size: 12.5px;
+    color: var(--fg-mute);
+    margin: -8px 0 18px;
+  }
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Design Research: 요한 OS PKM 대시보드</h1>
+<div class="subtitle">1인 크리에이터/개발자용 로컬 SoT(memory/) 탐색·시각화·실행 허브 — Next.js + Vercel · 데스크톱/웹 우선 · 2026-05-06</div>
+
+<div class="tldr">
+<h2>TL;DR</h2>
+<strong>3-pane "도서관형" 레이아웃을 기본으로 채택하라</strong>: 좌측 224px 고정 사이드바(타입/컬렉션 트리) + 가운데 컨텐츠 캔버스 + 우측 ~320px 컨텍스트 레일(그래프 미니뷰·백링크·메타). 홈 대시보드는 <strong>타입별로 그룹화된 카드 그리드</strong>(Capacities "Created Today" 패턴)로 구성하고, 시각화는 <strong>데일리 노트를 허브</strong>로 삼아 Week/Month 오버뷰가 자연스럽게 따라오게 한다. <strong>Cmd+K 커맨드 팔레트</strong>는 1주차 안에 반드시 넣어라 — SoT 진입점 중 가장 빠른 길이고, 로컬 파일 시스템을 가진 너의 제품이 노션보다 명확히 우월할 수 있는 부분이다.
+</div>
+
+<h2>Recommendations / Next Steps</h2>
+<p>각 항목은 아래 <em>Findings</em>의 증거에 직접 연결된다. 우선순위 순.</p>
+
+<div class="rec-block">
+<h3>1. 3-pane 레이아웃 + 224px 고정 사이드바</h3>
+<p>Notion이 검증한 치수를 그대로 빌려 시작 비용을 줄여라. 사이드바 너비 <strong>224px</strong>, 아이콘 컨테이너 <strong>22px 정사각</strong>, 검색바 <strong>30px</strong> 높이, <strong>8px 그리드</strong>, <strong>8px 라운드</strong> — Notion의 6년치 실험 결과다. 상단 4개 키 슬롯(Search · AI · Home · Inbox)을 132px 영역에 묶고, 그 아래 타입 트리 / 컬렉션 / 즐겨찾기를 배치한다. Capacities처럼 타입 컬러 인디케이터(좌측 1px 보더)를 노출해 비개발자·시각 학습자에게 SoT 구조를 무의식적으로 학습시켜라.</p>
+<pre><code>┌──────────────────────────────────────────────────────────────────────┐
+│ [Y] 요한 OS                                            ⌘K   ☼  ◐    │
+├────────────┬───────────────────────────────────┬────────────────────┤
+│ 🔎 Search  │  데일리 노트 — 2026-05-06 (수)      │  ◯◯◯ Graph       │
+│ ✨ AI      │                                   │   (this note)      │
+│ 🏠 Home    │  # 오늘의 메모                     │ ╭──────────────╮  │
+│ ✉ Inbox   │  ...                               │ │  •●●         │  │
+│ ───────── │                                    │ │  ●  ●        │  │
+│ TYPES     │  ## 연결                            │ │ ●     ●      │  │
+│ │ Note    │  ▸ ADR-2026-05                     │ ╰──────────────╯  │
+│ │ ADR     │  ▸ Insight: MCP Ch.15              │                    │
+│ │ Insight │                                    │  ⤴ Backlinks (3)   │
+│ │ Person  │                                    │  ▸ ADR-2026-04     │
+│ ───────── │                                    │  ▸ Curriculum log  │
+│ ⭐ Pinned  │                                    │                    │
+│ ▾ today   │                                    │  ◧ Meta            │
+│ ▾ active  │                                    │  type: daily-note  │
+└────────────┴────────────────────────────────────┴────────────────────┘
+   224 px               flex                              ~320 px</code></pre>
+</div>
+
+<div class="rec-block">
+<h3>2. 홈 = 타입별 카드 그리드 (Capacities "Created Today" 패턴)</h3>
+<p>Notion의 12-위젯 대시보드는 멀티 프로젝트 요약에는 좋지만 <strong>개인 PKM</strong>에는 너무 비즈니스-같다. 너의 SoT는 <strong>타입(Note / ADR / Insight / Person / Source)별로 묶어 보여주는 게 정체성</strong>이다. Capacities의 데일리노트 "Created Today (16)" 스크린이 정확히 그 패턴 — 수평 섹션 + 갤러리/리스트/월/테이블 토글.</p>
+<ul>
+<li><strong>Today</strong> — 오늘 SoT에 들어온 것 (ADR / Insight / Note 카운트)</li>
+<li><strong>Recent by type</strong> — 타입별 최근 5개, 색상 칩으로 구분</li>
+<li><strong>Pinned</strong> — 수동 고정</li>
+<li><strong>Graph snapshot</strong> — 현재 컨텍스트 미니 그래프, 클릭 시 풀 뷰</li>
+<li><strong>Quick capture</strong> — 인박스 1줄 입력</li>
+</ul>
+<pre><code>┌─ Home ───────────────────────────────────────────────────────────────┐
+│  Today  ─ 6 items                                       [Filter ▾]  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐                │
+│  │ ADR ●    │ │ INSIGHT●│ │ NOTE   ● │ │ PERSON ● │                │
+│  │ session  │ │ MCP15   │ │ daily   │ │ +2 more  │                │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘                │
+│                                                                      │
+│  Recent ── by type                                       [Type ▾]   │
+│  ╭─ ADR ─────╮  ╭─ Insight ─╮  ╭─ Note ────╮  ╭─ Source ─╮          │
+│  │ 1) sync   │  │ 1) ch15   │  │ 1) today  │  │ 1) curr  │          │
+│  │ 2) records│  │ 2) ch14   │  │ 2) yest   │  │ 2) gh-rt │          │
+│  ╰───────────╯  ╰───────────╯  ╰───────────╯  ╰──────────╯          │
+│                                                                      │
+│  ╭─ Graph (this week) ───────────╮   ╭─ Quick capture ─────────╮    │
+│  │     ●●  ●                     │   │ + 빠른 메모...           │    │
+│  │   ●●  ●●                      │   │                          │    │
+│  │  ● ●●                         │   │ [type ▾] [submit ⏎]      │    │
+│  ╰───────────────────────────────╯   ╰──────────────────────────╯    │
+└──────────────────────────────────────────────────────────────────────┘</code></pre>
+</div>
+
+<div class="rec-block">
+<h3>3. Cmd+K 커맨드 팔레트 — 1주차 안에 <span class="badge">P0</span></h3>
+<p>Linear / Notion / Raycast / Vercel — 모든 모던 SaaS의 표준이다. 키보드 중심 사용자에겐 사이드바보다 빠르고, 시각 학습자에게도 <strong>"이 앱에서 뭘 할 수 있는지" 디스커버리</strong>가 된다. 너의 컨텍스트에서 의미 있는 슬래시 명령:</p>
+<table>
+<tr><th>Command</th><th>Action</th></tr>
+<tr><td><code>/jump &lt;title&gt;</code></td><td>노드 즉시 이동 (퍼지 검색)</td></tr>
+<tr><td><code>/new note | adr | insight</code></td><td>타입 지정 생성</td></tr>
+<tr><td><code>/tag &lt;name&gt;</code></td><td>태그 검색·필터</td></tr>
+<tr><td><code>/recent</code></td><td>최근 N개</td></tr>
+<tr><td><code>/graph this | week | type:X</code></td><td>그래프 뷰 진입</td></tr>
+<tr><td><code>/sync notion</code></td><td>미러 채널 푸시</td></tr>
+<tr><td><code>/run &lt;hook&gt;</code></td><td>자동화 실행</td></tr>
+</table>
+<p>Cmd+K를 사이드바보다 먼저 만들어라 — 개발 단계에선 사이드바 메뉴 30개 그리는 것보다 팔레트 하나로 진입점을 통일하는 게 압도적으로 빠르다.</p>
+</div>
+
+<div class="rec-block">
+<h3>4. 그래프 뷰는 "타입 색상 + 깊이 슬라이더" 필수</h3>
+<p>Obsidian / Tana / Anytype 비교 분석의 결론: <strong>그래프의 가치는 "포스 디렉티드 헤어볼"이 아니라 "필터된 클러스터"</strong>다. 너의 SoT 그래프는 처음부터:</p>
+<ol>
+<li><strong>타입별 노드 색상</strong> — 사이드바 색칩과 동일한 팔레트 (학습 비용 0)</li>
+<li><strong>깊이 슬라이더 (1~3)</strong> — 기본 1, 시각 학습자가 자연스럽게 확장</li>
+<li><strong>타입 필터 토글</strong> — 상단 칩 클릭 (Anytype 패턴)</li>
+<li><strong>현재 노드 하이라이트</strong> — 우측 컨텍스트 레일의 미니 그래프와 메인 그래프가 동일 컬러/포커스</li>
+</ol>
+<p>Obsidian의 풀스크린 그래프는 "감탄용", 너의 그래프는 <strong>항상 우측 사이드 320px에 살아있어야</strong> — 이게 비개발자에게 "지식이 연결되고 있다"는 피드백을 매 클릭마다 주는 핵심 장치.</p>
+</div>
+
+<div class="rec-block">
+<h3>5. 데일리 노트를 홈 옆 두 번째 진입점으로</h3>
+<p>Capacities의 가장 강한 차별점은 데일리 노트가 <strong>단순한 일기가 아니라 그날의 모든 SoT 진입을 모으는 허브</strong>라는 점이다. Week/Month/Day 토글, 월 그리드(작은 카드 28개), 타임라인 — 이 패턴은 "오늘 뭐 했지?"라는 질문에 SoT가 직접 답하게 한다.</p>
+<pre><code>Month View (28일 그리드 — Capacities 패턴)
+┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+│ M 1 │ M 2 │ M 3 │ M 4 │ M 5 │ M 6 │ M 7 │
+│ ●●● │ ●●  │ ●●●●│  ●  │ ●●● │     │ ●●  │
+│ adr │ ins │ note│ note│ adr │     │ note│
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│ M 8 │ M 9 │ ... │     │     │     │     │</code></pre>
+<p>각 카드는 그날 생성된 SoT 객체 카운트를 도트로 표시 (타입별 색). 클릭 → 그날의 데일리 노트로 진입.</p>
+</div>
+
+<div class="rec-block">
+<h3>6. 정보 밀도 ≠ 정보 과부하 — 점진적 노출</h3>
+<p>리서치 메타 분석 결론: <strong>75개 연구 중 46.7%가 정보 과부하를 가장 큰 대시보드 문제로 지목</strong>했다. 너의 "정보 밀도 높지만 읽기 부담 적은" 목표를 달성하려면:</p>
+<ul>
+<li><strong>F/Z 패턴</strong>: 가장 중요한 메트릭(Today count, 미처리 인박스)은 좌상단</li>
+<li><strong>컨셉트 그룹화</strong>: 같이 봐야 하는 위젯을 인접 배치 (Recent by type 4개 카드 한 줄)</li>
+<li><strong>스마트 디폴트</strong>: 가능한 모든 데이터 표시 ❌, 추론된 "중요한 것"부터 ⭕</li>
+<li><strong>드릴다운</strong>: 카드 클릭 → 해당 타입 풀 리스트, 호버 → 미리보기</li>
+</ul>
+</div>
+
+<h2>Key Examples</h2>
+<p>각 이미지는 위 권장사항의 직접 증거. 출처 라벨 [Web]은 공식 사이트에서 가져왔음을 표시.</p>
+
+<figure>
+<img src="references/capacities-hero.jpg" alt="Capacities Note + Graph Sidebar">
+<figcaption><strong>Capacities</strong> — 노트 본문 + 우측 그래프 뷰 사이드바. <em>Recommendation 1·4의 직접 모델</em>: "이 노트는 이 개념들과 연결돼 있다"를 매 클릭마다 시각적으로 보여줌. [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/capacities-day-content.jpg" alt="Capacities Created Today">
+<figcaption><strong>Capacities</strong> — "Created Today (16)" 타입별 섹션 그리드: Collections / WebLinks / Tags(컬러 칩) / Tweets. <em>Recommendation 2의 핵심 패턴</em> — PKM 홈은 비즈니스 KPI 위젯이 아니라 타입별 컬렉션 뷰여야 한다는 증거. [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/capacities-month-overview.jpg" alt="Capacities Month Overview">
+<figcaption><strong>Capacities</strong> — 28일 데일리 노트 그리드, 각 카드에 그날 만든 객체 도트. <em>Recommendation 5의 직접 모델</em> — 캘린더가 아니라 "운영 로그 시각화"로 읽힘. [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/capacities-week-overview.jpg" alt="Capacities Week View">
+<figcaption><strong>Capacities</strong> — 3일 동시 표시 주간 뷰. 1인 운영자 회고에 적합한 정보 밀도 균형의 좋은 예. [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/notion-dashboard.png" alt="Notion Dashboard Overview">
+<figcaption><strong>Notion</strong> — 12-위젯 대시보드 그리드(라인 차트 + 도넛 + 바 + 타임라인 + 상태 리스트). <em>참고로만</em> — 비즈니스적이라 PKM 홈에 그대로 적용하지 말 것 (Anti-pattern 섹션 참고). [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/notion-new-dashboard-view.png" alt="Notion Dashboard View Picker">
+<figcaption><strong>Notion</strong> — 동일 데이터를 10가지 뷰(Table/Board/Gallery/List/Chart/Dashboard/Timeline/Feed/Map/Calendar/Form)로 재구성하는 모달. <em>Recommendation 2의 "타입별 카드 안에 갤러리/리스트/테이블 토글"의 출처</em>. [Web]</figcaption>
+</figure>
+
+<figure>
+<img src="references/notion-global-filters.png" alt="Notion Multi-source Filter">
+<figcaption><strong>Notion</strong> — 여러 소스(Meetings / Projects)를 동시에 필터링하는 패널. SoT가 mirror channel(Notion/자동화)을 가질 때 쓸 수 있는 패턴. [Web]</figcaption>
+</figure>
+
+<h2>Patterns</h2>
+<p>리서치한 7개 제품 모두가 공유하는 "테이블 스테이크":</p>
+<ul class="pattern">
+<li><strong>고정 좌측 사이드바</strong> (224~280px) — 워크스페이스명 → 검색 → 키 메뉴 → 트리</li>
+<li><strong>Cmd+K 커맨드 팔레트</strong> — 모든 모던 PKM·생산성 앱의 표준</li>
+<li><strong>마크다운/블록 기반 본문</strong> — Notion·Obsidian·Craft·Capacities·Anytype 전부</li>
+<li><strong>백링크 패널</strong> — 본문 하단 또는 우측 (자동 생성, 양방향)</li>
+<li><strong>태그 시스템</strong> — 컬러 칩, 자동완성</li>
+<li><strong>데일리 노트</strong> — Capacities·Obsidian·Tana·Roam 다 갖춤; "엔트리 포인트" 역할</li>
+<li><strong>다크/라이트 테마 토글</strong> — 헤더 우측</li>
+</ul>
+<p>이 항목들은 "차별화 포인트"가 아니다. 빠지면 사용자가 "어, 이거 뭐가 빠졌네"를 느낀다.</p>
+
+<h2>Anti-Patterns</h2>
+<ul class="anti">
+<li><strong>비즈니스 KPI 위젯 그리드를 PKM 홈에 그대로 가져오기</strong> — Notion의 "프로젝트 진행률 도넛 차트" 같은 건 1인 PKM에서 노이즈. 데이터 소스가 다르다.</li>
+<li><strong>무필터 풀 그래프 뷰를 기본값으로</strong> — Obsidian "헤어볼" 문제. 처음부터 깊이 1, 타입 필터 켜진 상태로 시작.</li>
+<li><strong>사이드바에 "모든 페이지" 무한 트리</strong> — Notion의 가장 큰 약점. 50개 넘으면 못 찾는다. 트리는 <em>타입 / 즐겨찾기 / 최근</em>으로 제한, 나머진 검색·팔레트로.</li>
+<li><strong>위젯을 4개 이상 한 줄에 배치</strong> — Notion 대시보드는 4-per-row까지 허용하지만 1인 PKM 화면(13~16인치)에서 3개 이상이면 각 위젯이 정보를 못 담는다.</li>
+<li><strong>Linear식 키보드 단축키 폭주</strong> — Linear는 팀 도구라 학습 곡선을 정당화한다. 1인 시각 학습자 타겟에서 단축키 30개는 망한다. Cmd+K + 5~7개 핵심 단축키만.</li>
+<li><strong>사이드바 너비 가변</strong> — 위치 일관성이 떨어진다. 고정 224px, 토글로 collapse만.</li>
+</ul>
+
+<h2>Unique Angles</h2>
+<p>리서치하다 "오, 이거"라고 멈췄던 디테일들 — 베끼지 말고 변형해서 가져갈 후보:</p>
+<ul class="unique">
+<li><strong>Capacities의 타입별 좌측 컬러 보더</strong> — 사이드바 트리에서 객체 옆에 1px 세로선만으로 타입을 표시. 기호·이모지보다 시선 노이즈가 훨씬 적다. 시각 학습자에 이상적.</li>
+<li><strong>Linear의 LCH 색공간 + 3-변수 테마</strong> — 베이스/액센트/대비 3개로 전체 테마 생성. 너의 PKM에서 "타입별 컬러 8개"를 직접 정의하는 대신, 단일 액센트 + 타입별 휴 시프트로 자동 생성하면 일관성 무료.</li>
+<li><strong>Capacities의 데일리 노트 "+tomor" 빠른 링크</strong> — 부분 입력만으로 미래 날짜 자동 제안. 너의 프로덕트에선 <code>+@person</code> <code>+#tag</code> 같은 단축 링크로 확장 가능.</li>
+<li><strong>Anytype의 위젯 편집 모드 (jiggle)</strong> — iOS 홈 편집처럼 길게 누르면 흔들리며 삭제 핸들 노출. 데스크톱 PKM에 가져오면 신선함.</li>
+<li><strong>Notion 사이드바의 "personal"·"workspace" 분리</strong> — 1인 운영자에게도 "공개 mirror용" / "private SoT용" 분리가 의미 있을 수 있음 — Notion 미러 가시성과 매핑.</li>
+</ul>
+
+<h2>Findings</h2>
+
+<h3>정보 아키텍처</h3>
+<p><strong>도서관형 vs 워크스페이스형.</strong> Notion은 워크스페이스형(임의 트리, 페이지 안에 페이지) — 자유도는 높지만 50+ 페이지에서 길을 잃는다. Obsidian은 폴더 기반 — 단단하지만 시각적 학습자에 차갑다. <strong>Capacities·Anytype은 타입형(객체 = 타입의 인스턴스)</strong> — 너의 SoT 메타 구조와 정확히 매핑된다. 추천: <strong>타입을 1차 IA, 폴더(컬렉션)를 보조 IA</strong>로.</p>
+
+<h3>사이드바의 정확한 치수 (Notion 분석)</h3>
+<p>UI Breakdown of Notion's Sidebar가 측정한 값:</p>
+<table>
+<tr><th>요소</th><th>값</th></tr>
+<tr><td>사이드바 너비</td><td><strong>224px 고정</strong></td></tr>
+<tr><td>메인 네비게이션 영역 높이</td><td><strong>131px</strong> (Search / AI / Home / Inbox)</td></tr>
+<tr><td>아이콘 컨테이너</td><td><strong>22px 정사각</strong></td></tr>
+<tr><td>검색바 높이</td><td><strong>30px</strong></td></tr>
+<tr><td>섹션 간 갭</td><td><strong>6px</strong></td></tr>
+<tr><td>라운드</td><td><strong>8px</strong></td></tr>
+<tr><td>그리드 베이스</td><td><strong>8px</strong></td></tr>
+</table>
+<p>이건 6년치 사용자 테스트의 결과물이다 — 처음부터 다른 숫자를 쓸 이유가 없다. 너의 한국어 글꼴(Pretendard 등) 라인 하이트만 점검.</p>
+
+<h3>그래프 시각화의 "헤어볼 문제"</h3>
+<p>Obsidian·Tana·Anytype 그래프 비교 결론: 풀 그래프는 <strong>300+ 노드에서 무용지물</strong>. 해결책 3가지:</p>
+<ol>
+<li>포스 디렉티드 + 리펄션 강화 (Obsidian "repel strength")</li>
+<li>깊이 제한 (현재 노드에서 N홉)</li>
+<li>타입/태그 필터링 (Anytype·Tana 방식)</li>
+</ol>
+<p>너의 우측 사이드 320px 미니 그래프는 자연스럽게 (1)+(2) 조합이 된다 — 사이즈가 작으니 풀 그래프 안 보여줘도 됨. 풀 그래프는 <code>/graph</code> 명령으로 별도 페이지.</p>
+
+<h3>커맨드 팔레트의 위치</h3>
+<blockquote>Linear: "Pressing C creates an issue, L opens labels, S changes status, and Cmd+K opens a command palette that can reach any function."</blockquote>
+<p>핵심은 <strong>Cmd+K 하나만 외워도 모든 기능에 도달</strong>할 수 있다는 점. 사이드바는 발견·시각적 위치감, 팔레트는 속도. 둘 다 필요하지만 <strong>개발 우선순위는 팔레트가 먼저</strong>다 (사이드바는 정적 라우팅, 팔레트는 다이나믹).</p>
+
+<h3>정보 밀도 통계</h3>
+<p>UXPilot의 75개 연구 메타 분석: 정보 과부하가 46.7% 사용자에게 가장 큰 문제. 원인은 과도한 데이터 밀도, 빈약한 시각 계층, 컨텍스트 필터 부재. 해결: 점진적 노출, F/Z 스캔 패턴, 컨셉트 그룹화, 청크 단위 표시.</p>
+<p>너의 "정보 밀도 높지만 읽기 부담 적은" 목표는 모순이 아니라 <strong>"체계적 밀도"</strong>의 문제 — 정보가 많아도 그룹·계층이 명확하면 부담은 낮다. Notion 사이드바가 6px 갭 + 8px 그리드로 그걸 한다.</p>
+
+<h2>Sources</h2>
+<ul>
+<li><a href="https://medium.com/@quickmasum/ui-breakdown-of-notions-sidebar-2121364ec78d">UI Breakdown of Notion's Sidebar — Quickmasum</a></li>
+<li><a href="https://linear.app/now/how-we-redesigned-the-linear-ui">How we redesigned the Linear UI (part Ⅱ) — Linear</a></li>
+<li><a href="https://medium.com/@ann_p/visualizing-connections-graph-views-in-obsidian-tana-and-anytype-3c767e08fe66">Visualizing Connections: Graph Views in Obsidian, Tana, and Anytype — Ann P.</a></li>
+<li><a href="https://www.pencilandpaper.io/articles/ux-pattern-analysis-data-dashboards">Dashboard Design UX Patterns Best Practices — Pencil &amp; Paper</a></li>
+<li><a href="https://capacities.io/whats-new/release-8/">Daily notes 2.0 — Capacities</a></li>
+<li><a href="https://doc.anytype.io/anytype-docs/anytype-basics/setting-up-your-profile/sidebar/customize-and-edit-the-sidebar">Sidebar &amp; Widgets — Anytype Docs</a></li>
+<li><a href="https://www.notion.com/help/dashboards">Dashboards view — Notion Help</a></li>
+<li><a href="https://outdraw-academy.gitbook.io/ux-patterns/command-palette">Command Palette UX Patterns — Outdraw Academy</a></li>
+<li><a href="https://toolsbattle.com/anytype-vs-capacities/">Anytype vs Capacities — Toolsbattle</a></li>
+<li><a href="https://uxpilot.ai/blogs/dashboard-design-principles">12 Dashboard Design Principles — UXPilot</a></li>
+<li><a href="https://www.dsebastien.net/why-is-personal-knowledge-management-pkm-useful/">Why is PKM useful — DSebastien</a></li>
+<li><a href="https://medium.com/@lennart.dde/mastering-obsidians-graph-view-for-knowledge-management-f1bbe2c8f087">Mastering Obsidian's Graph View — Lennart</a></li>
+</ul>
+
+</div>
+</body>
+</html>

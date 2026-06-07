@@ -1,6 +1,6 @@
 ---
 id: wiki-index
-updated: 2026-05-25
+updated: 2026-06-07
 ---
 
 # Wiki Index
@@ -21,10 +21,10 @@ updated: 2026-05-25
 - [rag](entities/rag.md) — technology. Retrieval-Augmented Generation.
 - [claude-code](entities/claude-code.md) — tool. Anthropic CLI AI 코딩 도구.
 - [mcp](entities/mcp.md) — technology. Model Context Protocol.
-- [llm-wiki-gist-why-how](entities/llm-wiki-gist-why-how.md) — tool. Karpathy 위키 운영 패턴, Yohan OS `memory/wiki/` 직접 영향원.
-- [supabase-naver-oidc-proxy-github-why-how](entities/supabase-naver-oidc-proxy-github-why-how.md) — supabase-naver-oidc-proxy — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
-- [awesome-design-md-github-why-how](entities/awesome-design-md-github-why-how.md) — awesome-design-md — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
-- [anthropic-sdk-python-github-why-how](entities/anthropic-sdk-python-github-why-how.md) — anthropic-sdk-python — 왜 쓰는지 · 어떻게 쓰는지. (TODO: 한 줄 설명 보강)
+- [llm-wiki-gist-why-how](entities/llm-wiki-gist-why-how.md) — tool. Karpathy LLM Wiki 패턴, Yohan OS `memory/wiki/` 설계 영향원.
+- [supabase-naver-oidc-proxy-github-why-how](entities/supabase-naver-oidc-proxy-github-why-how.md) — tool. Naver OIDC ↔ Supabase Auth Edge Function 어댑터.
+- [awesome-design-md-github-why-how](entities/awesome-design-md-github-why-how.md) — tool. 서비스 UI 스타일을 `DESIGN.md`로 모은 에이전트 레퍼런스.
+- [anthropic-sdk-python-github-why-how](entities/anthropic-sdk-python-github-why-how.md) — tool. Python용 Claude API 공식 SDK.
 
 ## Concepts
 
@@ -36,9 +36,9 @@ updated: 2026-05-25
 - [vibe-coding-pipeline](concepts/vibe-coding-pipeline.md) — 바이브코딩 파이프라인.
 - [harness-engineering](concepts/harness-engineering.md) — 하네스/컨텍스트 엔지니어링.
 - [cursor-skills](concepts/cursor-skills.md) — SKILL.md·에이전트 스킬 패키징.
-- [system-income-leverage-structure](concepts/system-income-leverage-structure.md) — 시스템·파이프라인·자본 소득 — 구조가 먼저인 이유. (TODO: 한 줄 설명 보강)
-- [self-made-wealth-five-elements](concepts/self-made-wealth-five-elements.md) — 스스로 키운 수익 — 다섯 가지 축. (TODO: 한 줄 설명 보강)
-- [personal-finance-low-energy-top3](concepts/personal-finance-low-energy-top3.md) — 자산관리 — '적은 노력·큰 효과 3개'로 버티기. (TODO: 한 줄 설명 보강)
+- [system-income-leverage-structure](concepts/system-income-leverage-structure.md) — 노동 시간 대신 시스템·파이프라인·자본 **구조**를 먼저 설계하는 소득 프레임
+- [self-made-wealth-five-elements](concepts/self-made-wealth-five-elements.md) — 전문성·시장성·성실성·객단가·재구매 **5축 스코어카드**
+- [personal-finance-low-energy-top3](concepts/personal-finance-low-energy-top3.md) — 이번 달 돈/시간 습관 **최대 3개** 제약으로 장기전 유지
 
 ## Answers
 

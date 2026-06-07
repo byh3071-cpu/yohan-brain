@@ -23,11 +23,12 @@ AI 1인 기업 백요한의 **에이전트 운영체제**. 네 개의 축으로 
 | `.cursor/` | Cursor MCP 등록·rules·skills |
 | `package.json` / `tsconfig.json` | 루트 MCP 서버 빌드 설정 |
 | `src/` | MCP 서버 TypeScript 소스 |
-| `scripts/` | 자동화 배치·헬스리포트·Windows 스케줄러 |
+| `scripts/` | 자동화 배치·헬스·Windows 스케줄러 |
+| `launch/` | Windows 더블클릭 실행 (bot·dashboard·batch·RSS) — `launch/README.md` |
 | `docs/` | 비전·스펙·하네스·파이프라인 문서 |
 | `memory/` | **SoT (단일 진실 소스)** |
 | `dashboard/` | Next.js 운영 대시보드 |
-| `auto-pull.ps1` | 원격 변경 자동 풀 |
+| `auto-pull-hidden.vbs` | 예약 작업 진입 → `%USERPROFILE%\git-auto-pull.vbs` 위임 |
 
 ## memory/ — SoT
 

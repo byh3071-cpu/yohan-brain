@@ -3,7 +3,7 @@ id: telegram-workflow
 date: 2026-05-02
 domain: automation
 tags: [telegram, workflow, bot, ocr, playbook]
-related: [telegram-inbox, notion-ocr-pipeline, dashboard-quick-actions]
+related: [telegram-inbox, notion-ocr-pipeline, dashboard-quick-actions, yohan-os-ops-cuesheet]
 status: active
 ---
 

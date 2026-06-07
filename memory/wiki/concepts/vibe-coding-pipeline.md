@@ -5,7 +5,7 @@ aliases: [바이브코딩 파이프라인, Vibe Coding, 바이브 코딩]
 created: 2026-04-12
 updated: 2026-04-12
 source_insights: [vibe-coding-pipeline, vibe-coding-planning-importance]
-related_entities: [cursor, claude-code]
+related_entities: [cursor, claude-code, awesome-design-md-github-why-how]
 related_concepts: [harness-engineering, single-source-of-truth, cursor-skills]
 ---
 

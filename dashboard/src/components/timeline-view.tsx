@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Scale, FileText, ArrowRight, Calendar } from "lucide-react"
+import { FileText, ArrowRight, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { GitCommit, DecisionEntry, SessionLog } from "@/lib/types"
 

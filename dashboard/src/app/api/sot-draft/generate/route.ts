@@ -4,7 +4,7 @@ import { config } from "dotenv"
 
 export const dynamic = "force-dynamic"
 
-config({ path: resolve(process.cwd(), "..", ".env") })
+config({ path: resolve(/* turbopackIgnore: true */ process.cwd(), "..", ".env") })
 
 /** POST 본문 필드 (고정 스키마 — §10.11) */
 export type SotDraftGenerateBody = {

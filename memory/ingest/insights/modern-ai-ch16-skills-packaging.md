@@ -1,4 +1,4 @@
----
+﻿---
 id: modern-ai-ch16-skills-packaging
 date: 2026-04-16
 domain: agent-skills
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/16-Skills.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/16-Skills.md`
 
 ## 요약 (짧게)
 

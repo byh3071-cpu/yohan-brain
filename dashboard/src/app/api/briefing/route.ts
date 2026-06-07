@@ -9,10 +9,10 @@ export const dynamic = "force-dynamic"
 
 function loadDashboardEnv() {
   const paths: [string, boolean][] = [
-    [resolve(process.cwd(), "..", ".env"), false],
-    [resolve(process.cwd(), "..", ".env.local"), true],
-    [resolve(process.cwd(), ".env"), true],
-    [resolve(process.cwd(), ".env.local"), true],
+    [resolve(/* turbopackIgnore: true */ process.cwd(), "..", ".env"), false],
+    [resolve(/* turbopackIgnore: true */ process.cwd(), "..", ".env.local"), true],
+    [resolve(/* turbopackIgnore: true */ process.cwd(), ".env"), true],
+    [resolve(/* turbopackIgnore: true */ process.cwd(), ".env.local"), true],
   ]
   for (const [p, override] of paths) {
     if (existsSync(p)) config({ path: p, override })
@@ -21,7 +21,7 @@ function loadDashboardEnv() {
 
 loadDashboardEnv()
 
-const CACHE_DIR = join(process.cwd(), ".next", "cache", "briefing")
+const CACHE_DIR = join(/* turbopackIgnore: true */ process.cwd(), ".next", "cache", "briefing")
 
 interface CachedBriefing {
   date: string
@@ -32,7 +32,10 @@ interface CachedBriefing {
 
 async function readCache(today: string): Promise<CachedBriefing | null> {
   try {
-    const raw = await readFile(join(CACHE_DIR, `${today}.json`), "utf8")
+    const raw = await readFile(
+      join(/* turbopackIgnore: true */ CACHE_DIR, `${today}.json`),
+      "utf8"
+    )
     return JSON.parse(raw)
   } catch {
     return null
@@ -42,7 +45,11 @@ async function readCache(today: string): Promise<CachedBriefing | null> {
 async function writeCache(data: CachedBriefing): Promise<void> {
   try {
     await mkdir(CACHE_DIR, { recursive: true })
-    await writeFile(join(CACHE_DIR, `${data.date}.json`), JSON.stringify(data), "utf8")
+    await writeFile(
+      join(/* turbopackIgnore: true */ CACHE_DIR, `${data.date}.json`),
+      JSON.stringify(data),
+      "utf8"
+    )
   } catch { /* best effort */ }
 }
 
@@ -106,7 +113,9 @@ export async function GET(req: Request) {
       if (failed && !key) {
         return NextResponse.json({ ...cached, cached: true })
       }
-      await unlink(join(CACHE_DIR, `${today}.json`)).catch(() => { /* stale error cache */ })
+      await unlink(
+        join(/* turbopackIgnore: true */ CACHE_DIR, `${today}.json`)
+      ).catch(() => { /* stale error cache */ })
     }
   }
 

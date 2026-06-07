@@ -3,7 +3,7 @@ id: llm-wiki-gist-why-how
 type: entity
 entity_type: tool
 created: 2026-05-18
-updated: 2026-05-18
+updated: 2026-06-07
 source_insights: [llm-wiki-gist-why-how]
 related_entities: [andrej-karpathy, obsidian]
 related_concepts: [second-brain, layered-context, single-source-of-truth]
@@ -27,12 +27,13 @@ related_concepts: [second-brain, layered-context, single-source-of-truth]
 
 ## Inferred (추론/연결) — TTL 30일
 
-- (TODO: 소스 간 연결로 도출한 추론을 적는다.)
-- created: 2026-05-18, expires: 2026-06-17
+- Yohan OS `memory/ingest/`(소스) → `memory/wiki/`(누적) → MCP `search_memory`/`get_context`(질의) 3단은 Karpathy gist의 ingest/query/lint를 레포 구조에 맞게 구현한 형태로 볼 수 있다.
+- `promote-wiki` CLI로 insights→wiki 승격 시 Source Lock·Verified/Inferred 분리는 “lint” 역할의 최소 하네스에 해당한다.
+- created: 2026-06-07, expires: 2026-07-07
 
 ## Owner Notes
 
-- (Yohan이 직접 작성)
+- Yohan OS wiki 레이어의 **설계 레퍼런스 1순위** — 새 ingest 승격 시 이 패턴과 WIKI-SPEC-v2를 같이 본다.
 
 ## 관련 소스
 

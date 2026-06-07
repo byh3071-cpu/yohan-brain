@@ -1,7 +1,9 @@
 import { readdir, readFile, stat } from "node:fs/promises"
+import { execFileSync } from "node:child_process"
 import { join, relative, resolve, sep } from "node:path"
 import matter from "gray-matter"
 import { buildDomainCounts, DOMAIN_COLORS, tagToDomain } from "./domains"
+import { getMemoryDir } from "./paths"
 import type {
   DocCategory,
   DocMeta,
@@ -35,18 +37,21 @@ export type {
   SessionLog,
 } from "./types"
 
-/** `listDocs` / `getDoc` 허용 경로 (memory/ 기준 상대, `.md`만) */
-export const DOC_SCAN_PREFIXES = [
-  "ingest/insights",
-  "ingest/rss",
-  "ingest/url",
-  "wiki",
-  "inbox/md_files",
-  "projects",
-  "decisions",
-  "rules",
-  "templates",
-] as const
+/** `listDocs` / `getDoc` 허용 경로·카테고리 (memory/ 기준 상대, `.md`만) */
+export const DOC_SOURCES = [
+  { prefix: "ingest/insights", category: "insights" },
+  { prefix: "ingest/rss", category: "rss" },
+  { prefix: "ingest/url", category: "url" },
+  { prefix: "wiki", category: "wiki" },
+  { prefix: "inbox/archive/md_files", category: "curriculum" },
+  { prefix: "inbox/md_files", category: "curriculum" },
+  { prefix: "projects", category: "projects" },
+  { prefix: "decisions", category: "decisions" },
+  { prefix: "rules", category: "rules" },
+  { prefix: "templates", category: "templates" },
+] as const satisfies ReadonlyArray<{ prefix: string; category: DocCategory }>
+
+export const DOC_SCAN_PREFIXES = DOC_SOURCES.map((s) => s.prefix)
 
 export function isDocPathAllowed(relPath: string): boolean {
   if (!relPath || relPath.includes("\0")) return false
@@ -55,23 +60,12 @@ export function isDocPathAllowed(relPath: string): boolean {
   return DOC_SCAN_PREFIXES.some((p) => norm === p || norm.startsWith(`${p}/`))
 }
 
-const MEMORY_ROOT = join(process.cwd(), "..", "memory")
-
-const CATEGORY_MAP: Record<string, DocCategory> = {
-  "inbox/md_files": "curriculum",
-  "ingest/insights": "insights",
-  "ingest/rss": "rss",
-  "ingest/url": "url",
-  wiki: "wiki",
-  projects: "projects",
-  decisions: "decisions",
-  rules: "rules",
-  templates: "templates",
-}
+const MEMORY_ROOT = getMemoryDir()
 
 function categorize(relPath: string): DocCategory {
-  for (const [prefix, cat] of Object.entries(CATEGORY_MAP)) {
-    if (relPath.startsWith(prefix)) return cat
+  const norm = relPath.replace(/\\/g, "/")
+  for (const { prefix, category } of DOC_SOURCES) {
+    if (norm === prefix || norm.startsWith(`${prefix}/`)) return category
   }
   return "rules"
 }
@@ -170,8 +164,8 @@ export async function listDocs(): Promise<DocMeta[]> {
       const fileName = filePath.split(/[\\/]/).pop() ?? ""
 
       const cat = categorize(relPath)
-      let title = extractTitle(data, content, fileName)
-      let excerpt = extractExcerpt(content)
+      const title = extractTitle(data, content, fileName)
+      const excerpt = extractExcerpt(content)
 
       docs.push({
         id: typeof data.id === "string" ? data.id : relPath,
@@ -455,11 +449,11 @@ export async function listEvaluationDetails(limit = 24): Promise<EvaluationListI
 }
 
 export async function getGitLog(limit = 30): Promise<GitCommit[]> {
-  const { execSync } = require("node:child_process") as typeof import("node:child_process")
   try {
     const cwd = join(MEMORY_ROOT, "..")
-    const raw = execSync(
-      `git log --oneline -${limit} --format="%h||%ad||%s" --date=short`,
+    const raw = execFileSync(
+      "git",
+      ["log", `-${limit}`, "--format=%h||%ad||%s", "--date=short"],
       { cwd, encoding: "utf8", timeout: 5000 }
     )
     return raw.trim().split("\n").filter(Boolean).map((line) => {

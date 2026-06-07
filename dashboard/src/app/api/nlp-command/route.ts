@@ -5,7 +5,7 @@ import { config } from "dotenv"
 
 export const dynamic = "force-dynamic"
 
-config({ path: resolve(process.cwd(), "..", ".env") })
+config({ path: resolve(/* turbopackIgnore: true */ process.cwd(), "..", ".env") })
 
 export type NlpIntent =
   | { type: "search_docs"; query: string; dateFilter?: string }
@@ -59,7 +59,7 @@ function resolveDate(raw: string | null | undefined): string | undefined {
   return undefined
 }
 
-function keywordFallback(input: string, docs: Awaited<ReturnType<typeof listDocs>>): NlpIntent {
+function keywordFallback(input: string): NlpIntent {
   const q = input.toLowerCase().trim()
 
   for (const [action] of Object.entries(KNOWN_ACTIONS)) {
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
   const key = process.env.OPENAI_API_KEY?.trim()
 
   if (!key) {
-    const intent = keywordFallback(input, docs)
+    const intent = keywordFallback(input)
     if (intent.type === "search_docs") {
       const q = (intent.query ?? input).toLowerCase()
       const results = docs
@@ -129,7 +129,7 @@ export async function POST(req: NextRequest) {
     })
 
     if (!res.ok) {
-      const intent = keywordFallback(input, docs)
+      const intent = keywordFallback(input)
       return NextResponse.json({ intent, results: [], method: "keyword-fallback" })
     }
 
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
     const raw = data.choices?.[0]?.message?.content ?? ""
     const match = raw.match(/\{[\s\S]*\}/)
     if (!match) {
-      return NextResponse.json({ intent: keywordFallback(input, docs), results: [], method: "keyword-fallback" })
+      return NextResponse.json({ intent: keywordFallback(input), results: [], method: "keyword-fallback" })
     }
 
     const parsed = JSON.parse(match[0]) as Record<string, unknown>
@@ -210,7 +210,7 @@ export async function POST(req: NextRequest) {
       method: "ai",
     })
   } catch {
-    const intent = keywordFallback(input, docs)
+    const intent = keywordFallback(input)
     return NextResponse.json({ intent, results: [], method: "keyword-fallback" })
   }
 }

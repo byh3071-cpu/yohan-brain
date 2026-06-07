@@ -1,4 +1,4 @@
----
+﻿---
 
 ## id: modern-ai-ch10-context-engineering-karpathy
 date: 2026-04-16
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/10-컨텍스트-엔지니어링.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/10-컨텍스트-엔지니어링.md`
 - **챕터 끝 Source:** Karpathy, Chase, Martin, Chroma 등(원문 블록).
 
 ## 요약 (짧게)

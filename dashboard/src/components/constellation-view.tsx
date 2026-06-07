@@ -51,16 +51,19 @@ function AnimatedEdgeLayer({
   color: string
   opacity: number
 }) {
-  const edgeSig = edges.map((e) => `${e.from}|${e.to}`).join(";")
-  const { geometry, arr } = useMemo(() => {
+  const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry()
     const a = new Float32Array(Math.max(6, edges.length * 6))
     g.setAttribute("position", new THREE.BufferAttribute(a, 3))
     g.setDrawRange(0, edges.length * 2)
-    return { geometry: g, arr: a }
-  }, [edgeSig, edges.length])
+    return g
+  }, [edges.length])
+
+  useEffect(() => () => geometry.dispose(), [geometry])
 
   useFrame(() => {
+    const position = geometry.getAttribute("position") as THREE.BufferAttribute
+    const arr = position.array as Float32Array
     const b = gravityBlend.current
     let i = 0
     for (const e of edges) {
@@ -76,8 +79,7 @@ function AnimatedEdgeLayer({
       arr[i++] = THREE.MathUtils.lerp(nb.y, pb.y, b)
       arr[i++] = THREE.MathUtils.lerp(nb.z, pb.z, b)
     }
-    const pos = geometry.getAttribute("position") as THREE.BufferAttribute
-    pos.needsUpdate = true
+    position.needsUpdate = true
   })
 
   if (edges.length === 0) return null

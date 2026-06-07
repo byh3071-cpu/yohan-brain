@@ -6,6 +6,11 @@
   "description": "Yohan OS — SoT + MCP (get_context)",
   "scripts": {
     "build": "tsc",
+    "lint": "npm --prefix dashboard run lint",
+    "test": "npm run test:run",
+    "test:run": "npm run security:secrets && npm run lint && npm run check:router && npx tsx scripts/verify-dashboard-doc-paths.ts && npm run dashboard:build",
+    "security:secrets": "node scripts/check-tracked-secrets.mjs",
+    "audit:all": "npm audit && npm --prefix dashboard audit",
     "start": "node dist/index.js",
     "mcp": "node dist/index.js",
     "ingest:geeknews": "tsx src/ingest-geeknews-cli.ts",
@@ -57,12 +62,11 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@mozilla/readability": "^0.6.0",
     "@notionhq/client": "^2.2.15",
     "dotenv": "^16.4.7",
     "jsdom": "^29.0.1",
-    "node-telegram-bot-api": "^0.67.0",
     "rss-parser": "^3.13.0",
     "tesseract.js": "^7.0.0",
     "yaml": "^2.7.0",
@@ -73,7 +77,6 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@types/jsdom": "^28.0.1",
     "@types/node": "^22.10.0",
-    "@types/node-telegram-bot-api": "^0.64.14",
     "tailwindcss": "^4.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.7.0"

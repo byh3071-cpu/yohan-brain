@@ -1,6 +1,6 @@
 ---
 id: wiki-log
-updated: 2026-05-25
+updated: 2026-06-07
 ---
 
 # Wiki Change Log (append-only)
@@ -41,6 +41,7 @@ updated: 2026-05-25
 - **PROMOTE** awesome-design-md-github-why-how → entities/awesome-design-md-github-why-how.md
 - **PROMOTE** anthropic-sdk-python-github-why-how → entities/anthropic-sdk-python-github-why-how.md
 
-## 2026-05-25
+## 2026-06-07
 
-- **MERGE** main ← origin/master: 양쪽 wiki log/index/concepts/entities 통합 (2026-04-16 main 항목 + 2026-05-18 master 항목 모두 보존). index.md 통계 union 재집계, Inferred 재집계 보류(`17+`).
+- **Goal 2 (VHK):** wiki tool 4건 사용자 작성 마무리 — `llm-wiki-gist`, `supabase-naver-oidc-proxy`, `awesome-design-md`, `anthropic-sdk-python` 정의·Inferred·Owner Notes·양방향 related 갱신. `index.md` 한 줄 설명 TODO 제거.
+- **Goal 3 (VHK):** finance concept 3건 완료 — `personal-finance-low-energy-top3`, `system-income-leverage-structure`, `self-made-wealth-five-elements`. `harness-engineering` ↔ system-income related. `multi-pc-sync.md` 현행화.

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { Sun, RefreshCw, ChevronDown, ChevronUp } from "lucide-react"
 import ReactMarkdown from "react-markdown"
-import { cn } from "@/lib/utils"
 
 interface BriefingData {
   date: string
@@ -37,7 +36,9 @@ export function BriefingCard() {
         onClick={() => data && setExpanded((e) => !e)}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => { if (e.key === "Enter") data && setExpanded((v) => !v) }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && data) setExpanded((v) => !v)
+        }}
       >
         <Sun size={12} className="text-amber-500 shrink-0" />
         <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400 shrink-0">브리핑</span>

@@ -9,18 +9,14 @@ import {
   openSync,
   readFileSync,
   unlinkSync,
-  writeFileSync,
   writeSync,
 } from "node:fs";
 import { appendFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { config } from "dotenv";
-import TelegramBot from "node-telegram-bot-api";
-import type { Message } from "node-telegram-bot-api";
 import { ingestUrl } from "./ingest/url.js";
 import { recognizeImageBuffer } from "./telegram-ocr.js";
 import {
-  getInboxDir,
   getMemoryDir,
   getTelegramInboxDir,
   resolveRepoRoot,
@@ -36,6 +32,86 @@ const allowedChatId = process.env.TELEGRAM_CHAT_ID?.trim();
 if (!token) {
   console.error("TELEGRAM_BOT_TOKEN 이 .env 에 없습니다.");
   process.exit(1);
+}
+
+const botToken = token;
+const telegramApiBase = `https://api.telegram.org/bot${botToken}`;
+const telegramFileBase = `https://api.telegram.org/file/bot${botToken}`;
+
+interface TelegramPhotoSize {
+  file_id: string;
+}
+
+interface TelegramMessage {
+  message_id: number;
+  date?: number;
+  chat: { id: number };
+  text?: string;
+  caption?: string;
+  photo?: TelegramPhotoSize[];
+}
+
+interface TelegramUpdate {
+  update_id: number;
+  message?: TelegramMessage;
+}
+
+interface TelegramApiResponse<T> {
+  ok: boolean;
+  result?: T;
+  description?: string;
+  error_code?: number;
+}
+
+class TelegramApiError extends Error {
+  constructor(
+    readonly status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "TelegramApiError";
+  }
+}
+
+async function callTelegram<T>(
+  method: string,
+  body: Record<string, unknown> = {},
+  signal?: AbortSignal,
+): Promise<T> {
+  const response = await fetch(`${telegramApiBase}/${method}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    signal,
+  });
+  const data = (await response.json()) as TelegramApiResponse<T>;
+  if (!response.ok || !data.ok || data.result === undefined) {
+    throw new TelegramApiError(
+      data.error_code ?? response.status,
+      data.description ?? `Telegram ${method} failed with HTTP ${response.status}`,
+    );
+  }
+  return data.result;
+}
+
+async function sendMessage(
+  chatId: number,
+  text: string,
+  options: { disable_web_page_preview?: boolean } = {},
+): Promise<void> {
+  await callTelegram("sendMessage", {
+    chat_id: chatId,
+    text,
+    ...options,
+  });
+}
+
+async function getFileLink(fileId: string): Promise<string> {
+  const file = await callTelegram<{ file_path?: string }>("getFile", { file_id: fileId });
+  if (!file.file_path) {
+    throw new Error("Telegram getFile 응답에 file_path가 없습니다.");
+  }
+  return `${telegramFileBase}/${file.file_path}`;
 }
 
 /** 동일 PC에서 `npm run bot` 이 두 번 뜨면 Telegram 이 409 를 낸다. PID 락으로 한 인스턴스만 허용. */
@@ -122,7 +198,7 @@ process.on("exit", () => {
 const claimedMessageKeys = new Map<string, number>();
 const DEDUPE_TTL_MS = 120_000;
 
-function tryClaimMessage(msg: Message): boolean {
+function tryClaimMessage(msg: TelegramMessage): boolean {
   const key = `${msg.chat.id}:${msg.message_id}`;
   const now = Date.now();
   for (const [k, t] of claimedMessageKeys) {
@@ -190,19 +266,7 @@ async function appendScreenshotOcrInbox(
   await appendFile(inboxFile, block, "utf8");
 }
 
-/**
- * polling: true 만 쓰면 생성자 안에서 즉시 startPolling() → 리스너 등록 전에 업데이트가 처리될 수 있음.
- * autoStart: false 로 두고, on('message') 등록 후에만 startPolling() 한다.
- */
-const bot = new TelegramBot(token, {
-  polling: {
-    autoStart: false,
-    /** 기본 300ms 마다 재시도 → 409 시 로그·부하 완화 */
-    interval: 3000,
-  },
-});
-
-async function handlePhotoMessage(msg: Message): Promise<void> {
+async function handlePhotoMessage(msg: TelegramMessage): Promise<void> {
   const chatId = msg.chat.id;
   const photos = msg.photo;
   if (!photos || photos.length === 0) return;
@@ -211,7 +275,7 @@ async function handlePhotoMessage(msg: Message): Promise<void> {
   const fileId = largest.file_id;
 
   try {
-    const fileUrl = await bot.getFileLink(fileId);
+    const fileUrl = await getFileLink(fileId);
     const res = await fetch(fileUrl);
     if (!res.ok) {
       throw new Error(`이미지 다운로드 실패 HTTP ${res.status}`);
@@ -227,7 +291,7 @@ async function handlePhotoMessage(msg: Message): Promise<void> {
     const relPath = telegramDailyInboxRelPathFromUnix(tsSec);
     const preview = text.length > 0 ? text.slice(0, 100) : "(비어 있음)";
     const suffix = text.length > 100 ? "…" : "";
-    await bot.sendMessage(
+    await sendMessage(
       chatId,
       `OCR 완료 · 미리보기(100자):\n${preview}${suffix}\n\n→ ${relPath}`,
       { disable_web_page_preview: true },
@@ -235,11 +299,11 @@ async function handlePhotoMessage(msg: Message): Promise<void> {
   } catch (e) {
     const err = e instanceof Error ? e.message : String(e);
     console.error("[photo/ocr]", err);
-    await bot.sendMessage(chatId, `사진 처리 실패: ${err}`);
+    await sendMessage(chatId, `사진 처리 실패: ${err}`);
   }
 }
 
-async function onMessage(msg: Message): Promise<void> {
+async function onMessage(msg: TelegramMessage): Promise<void> {
   if (!tryClaimMessage(msg)) {
     return;
   }
@@ -274,7 +338,7 @@ async function onMessage(msg: Message): Promise<void> {
           lines.push(`• ${url}\n  저장: ${r.out_path}`);
         }
       }
-      await bot.sendMessage(chatId, ["ingest_url 완료:", ...lines].join("\n"), { disable_web_page_preview: true });
+      await sendMessage(chatId, ["ingest_url 완료:", ...lines].join("\n"), { disable_web_page_preview: true });
     } else {
       await appendTextOnlyInbox(text, {
         chatId,
@@ -283,43 +347,23 @@ async function onMessage(msg: Message): Promise<void> {
       });
       const tsSec = msg.date ?? Math.floor(Date.now() / 1000);
       const relPath = telegramDailyInboxRelPathFromUnix(tsSec);
-      await bot.sendMessage(chatId, `${relPath} 에 기록했습니다.`);
+      await sendMessage(chatId, `${relPath} 에 기록했습니다.`);
     }
   } catch (e) {
     const err = e instanceof Error ? e.message : String(e);
     console.error(err);
-    await bot.sendMessage(chatId, `처리 실패: ${err}`);
+    await sendMessage(chatId, `처리 실패: ${err}`);
   }
 }
 
-if (bot.listenerCount("message") !== 0) {
-  console.error("내부 오류: message 리스너가 이미 등록되어 있습니다.");
-  process.exit(1);
-}
-
-bot.on("message", (msg) => {
-  void onMessage(msg);
-});
-
 /**
- * 409 는 폴링 루프가 짧은 간격(기본 ~300ms)으로 재시도하며 매번 `polling_error` 를 쏜다.
+ * 409 는 같은 토큰으로 다른 getUpdates가 실행 중이라는 뜻이다.
  * 프로세스당 안내는 한 번만 출력한다.
  */
 let printed409Guide = false;
 
-function isConflictPollingError(err: Error): boolean {
-  const m = err.message ?? String(err);
-  const status = (err as { response?: { statusCode?: number } }).response?.statusCode;
-  return (
-    status === 409 ||
-    m.includes("409") ||
-    m.includes("Conflict") ||
-    /terminated by other getUpdates/i.test(m)
-  );
-}
-
-bot.on("polling_error", (err: Error) => {
-  if (isConflictPollingError(err)) {
+function reportPollingError(err: unknown): void {
+  if (err instanceof TelegramApiError && err.status === 409) {
     if (!printed409Guide) {
       printed409Guide = true;
       console.error(
@@ -330,30 +374,69 @@ bot.on("polling_error", (err: Error) => {
       );
       console.error("  → 다른 PC·호스팅에서 같은 봇을 쓰는 경우도 동일합니다.");
       console.error(
-        "  (이후 동일 오류는 반복 출력하지 않습니다. 근본 해결 전까지 라이브러리가 재시도합니다.)",
+        "  (이후 동일 오류는 반복 출력하지 않습니다. 3초 뒤 다시 시도합니다.)",
       );
     }
     return;
   }
-  console.error("[polling_error]", err.message ?? String(err));
-});
+  console.error("[polling_error]", err instanceof Error ? err.message : String(err));
+}
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const pollingController = new AbortController();
+let stopping = false;
+
+function requestShutdown(): void {
+  if (stopping) return;
+  stopping = true;
+  pollingController.abort();
+}
+
+process.once("SIGINT", requestShutdown);
+process.once("SIGTERM", requestShutdown);
+
+async function pollUpdates(): Promise<void> {
+  let offset = 0;
+  while (!stopping) {
+    try {
+      const updates = await callTelegram<TelegramUpdate[]>(
+        "getUpdates",
+        {
+          offset,
+          timeout: 25,
+          allowed_updates: ["message"],
+        },
+        pollingController.signal,
+      );
+      for (const update of updates) {
+        offset = Math.max(offset, update.update_id + 1);
+        if (update.message) await onMessage(update.message);
+      }
+    } catch (e) {
+      if (stopping || (e instanceof Error && e.name === "AbortError")) break;
+      reportPollingError(e);
+      await sleep(3000);
+    }
+  }
+}
+
 async function bootstrap(): Promise<void> {
   /** 웹훅이 남아 있으면 getUpdates(폴링)과 충돌할 수 있음 */
-  await bot.deleteWebHook();
+  await callTelegram("deleteWebhook", { drop_pending_updates: false });
   /** 이전 프로세스의 연결이 서버에서 끊기기까지 짧게 대기 (409 완화) */
   await sleep(1500);
-  await bot.startPolling();
   console.log("Telegram bot polling… (Ctrl+C 로 종료)");
   if (allowedChatId) {
     console.log(`허용 chat_id: ${allowedChatId}`);
   } else {
     console.warn("TELEGRAM_CHAT_ID 가 비어 있습니다. 모든 채팅의 메시지를 처리합니다.");
   }
+  await pollUpdates();
+  releaseSingletonLock();
+  console.log("Telegram bot polling stopped.");
 }
 
 void bootstrap().catch((e) => {

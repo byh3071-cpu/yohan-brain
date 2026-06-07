@@ -19,7 +19,9 @@ function isPidAlive(pid: number): boolean {
 }
 
 async function main(): Promise<void> {
+  const requireLock = process.argv.includes("--require-lock")
   const lines: string[] = []
+  let lockOk = false
   const token = process.env.TELEGRAM_BOT_TOKEN?.trim()
   const chatId = process.env.TELEGRAM_CHAT_ID?.trim()
 
@@ -60,6 +62,7 @@ async function main(): Promise<void> {
       const data = JSON.parse(readFileSync(lockPath, "utf8")) as { pid?: number; startedAt?: number }
       const pid = data.pid
       if (typeof pid === "number" && isPidAlive(pid)) {
+        lockOk = true
         lines.push(`Local lock: PID ${pid} alive (polling likely on this PC)`)
       } else {
         lines.push("Local lock: stale — delete memory/.telegram-bot.lock if no bot is running")
@@ -71,6 +74,11 @@ async function main(): Promise<void> {
 
   lines.push("MCP: run npm run mcp:check separately if needed")
   console.log(lines.join("\n"))
+
+  if (requireLock && !lockOk) {
+    console.error("require-lock: bot not running on this PC (npm run bot)")
+    process.exit(1)
+  }
 }
 
 void main()

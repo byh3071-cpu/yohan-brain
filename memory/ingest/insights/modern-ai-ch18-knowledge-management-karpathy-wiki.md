@@ -1,4 +1,4 @@
----
+﻿---
 
 ## id: modern-ai-ch18-knowledge-management-karpathy-wiki
 date: 2026-04-16
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/18-지식-관리와-AI.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/18-지식-관리와-AI.md`
 - **성격:** 교재 챕터. 인용·수치는 원서·저작권 맥락 유의.
 - **챕터 끝 출처:** Lewis et al. (NeurIPS) 2020; Karpathy LLM Wiki 패턴; Tiago Forte — Building a Second Brain; gongnyang-wiki 3,262 sources
 

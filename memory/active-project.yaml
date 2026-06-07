@@ -1,29 +1,22 @@
 # 현재 집중 중인 작업
 
-id: wiki-stabilization-and-sync-guard
-name: "Wiki 정착 + 멀티 PC sync 가드"
-goal: "오늘 승격한 Wiki 4건의 사용자 작성 완료 + 멀티 PC 자동 동기 워크플로 안정화"
+id: yohan-os-revival
+name: "Yohan OS 재가동 — 인제스트·봇·RSS"
+goal: "텔레그램 수집·automation:batch·RSS ingest 파이프라인 재가동 + 일상 운영 큐시트"
 repo_path: null
 branch: null
 notes: |
-  - [기준일] 2026-05-18
-  - [완료] SoT 현행화 (`yohan-os-sot-revival`) 종결.
-    - `get_context` 2026-05 맥락 정확 반환 검증 통과
-    - `profile.yaml` 인코딩 정상, differentiation 슬롯 채워짐
-    - CLAUDE.md 진입 문서 생성, AGENTS.md/agent-harness 현행 유지
-    - inbox 121건 archive 이동, sample_decision/evaluation/wiki 모두 오늘자
-  - [완료] Wiki 승격 도구 1사이클 (5건):
-    - llm-wiki-gist-why-how, supabase-naver-oidc-proxy-github-why-how
-    - awesome-design-md-github-why-how, anthropic-sdk-python-github-why-how
-    - 모두 `entities/*.md` (type=tool), Verified+TTL+index/log 자동
-  - [진행 A] Wiki 4건 사용자 작성 마무리:
-    - `## 정의 (1~2문장)` 채우기
-    - Verified 시드 불릿 검수 (Source Lock 사실 검증)
-    - `related_entities`/`related_concepts` 양방향 링크
-    - Owner Notes 1줄 코멘트
-  - [진행 B] 멀티 PC sync 가드 문서화:
-    - `auto-pull.ps1` + 예약 작업(`YohanAutoPull`, `YohanOS-AutomationBatch-30min`) 운용 규칙을
-      `memory/rules/agent-harness.md` §5 또는 신규 `memory/rules/multi-pc-sync.md`로 분리
-    - 다른 세션 자동 커밋 정체 파악 (노트북에서 프로세스 확인) 후 합의 락 규칙 검토
-    - `YohanAutoPull` Access denied 권한 문제 재등록 또는 별도 조사
-  - [다음] Wiki 잔여 4건 채운 뒤, 자동화 가드 문서화 한 사이클 → 새 포커스 설정 (지식 축적 vs 운영 안정)
+  - [기준일] 2026-06-07
+  - [Goal 5 진단 당시] pull/sync 정상. bottleneck = npm run bot 미실행 + RSS ingest:all 미실행
+  - [현재 확인] 2026-06-07 telegram:health 기준 봇 API 정상, 로컬 polling PID 활성
+  - [봇 PC] 노트북 — 한 PC만 npm run bot (memory/.telegram-bot.lock)
+  - [완료 Goal 5 패치]
+    - memory/rules/yohan-os-ops-cuesheet.md (일상 액션 SoT)
+    - verify-goal-5 · telegram-health --require-lock
+    - multi-pc-sync: 커스텀 git-auto-pull.ps1 vs Goal4 템플릿 구분
+  - [UAT — 사람]
+    1. npm run bot + telegram:health --require-lock
+    2. 텔레그램 테스트 1건 → inbox/telegram/오늘.md
+    3. npm run automation:batch
+    4. npm run ingest:all (RSS 밀린분)
+  - [다음 Goal 후보] 봇 Windows 상시 등록 · RSS batch 통합

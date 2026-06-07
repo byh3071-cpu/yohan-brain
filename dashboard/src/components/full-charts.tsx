@@ -116,7 +116,6 @@ function EvaluatorPanel({ rollup }: { rollup: EvaluatorRollup | null }) {
 
   useEffect(() => {
     if (!open) return
-    setLoading(true)
     fetch(`/api/evaluations?limit=32`, { cache: "no-store" })
       .then((r) => r.json())
       .then((d) => setItems(Array.isArray(d.items) ? d.items : []))
@@ -125,6 +124,11 @@ function EvaluatorPanel({ rollup }: { rollup: EvaluatorRollup | null }) {
   }, [open])
 
   const filtered = vf === "all" ? items : items.filter((x) => x.verdict === vf)
+  const toggleOpen = () => {
+    const next = !open
+    setOpen(next)
+    if (next) setLoading(true)
+  }
 
   return (
     <div className="rounded-xl border border-border bg-card p-4">
@@ -152,7 +156,7 @@ function EvaluatorPanel({ rollup }: { rollup: EvaluatorRollup | null }) {
           </ul>
           <button
             type="button"
-            onClick={() => setOpen((o) => !o)}
+            onClick={toggleOpen}
             className="text-[10px] text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
           >
             {open ? "상세 목록 닫기" : "본문 미리보기 상세"}

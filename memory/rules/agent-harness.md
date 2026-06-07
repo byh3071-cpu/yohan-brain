@@ -48,7 +48,7 @@ status: active
 | 5    | `memory/wiki/concepts/harness-engineering.md` | 하네스·경계·검증                       |
 
 
-- **교재 압축 인사이트:** `memory/ingest/insights/modern-ai-ch*.md` — 수치·연도·제품 단정은 `**memory/inbox/md_files/현대AI개론/` 원문**과 대조. 요약 문단·정제 기준은 **`memory/rules/insight-summary-quality.md`**.
+- **교재 압축 인사이트:** `memory/ingest/insights/modern-ai-ch*.md` — 수치·연도·제품 단정은 `**memory/inbox/archive/md_files/현대AI개론/` 원문**과 대조. 요약 문단·정제 기준은 **`memory/rules/insight-summary-quality.md`**.
 - **사전 뷰어(용어 통일):** `yohan-ai-dictionary/` 로컬 빌드·`src/content/docs/terms/` — 4개 겹치 용어는 `memory/wiki/`가 원천(`source:`).
 
 ---
@@ -82,7 +82,8 @@ status: active
 ## 5. 멀티 PC·백업
 
 1. `memory/`는 **Git으로 버전 관리**하는 것을 전제로 한다. 다른 PC에서 작업하면 **풀/푸시**로 맥락이 갈라지지 않게 한다.
-2. MCP `cwd`가 레포 루트가 아니면 **잘못된 SoT**를 읽을 수 있으므로, 설정이 바뀌면 `**get_context` 결과의 `memory_root`**로 확인한다.
+2. MCP `cwd`가 레포 루트가 아니면 **잘못된 SoT**를 읽을 수 있으므로, 설정이 바뀌면 **`get_context` 결과의 `memory_root`**로 확인한다.
+3. **노트북·집 PC 동기 절차·예약 작업·충돌 가드**는 **`memory/rules/multi-pc-sync.md`** 가 단일 SoT다 (pull-first, push 후 반대 기기 pull, `YohanAutoPull`/`YohanOS-AutomationBatch-30min`).
 
 ---
 
@@ -103,6 +104,8 @@ status: active
 | `memory/rules/pge-pipeline.md`                | Planner→Generator→Evaluator 도구 매핑                                                                                                                                                 |
 | `memory/rules/evaluator-checklist.md`         | Evaluator 대조 항목·`log_evaluation` 호출 안내                                                                                                                                            |
 | `memory/rules/dashboard-runtime-stability.md` | 대시보드 로컬 실행/장애 복구 표준 (Node 폭증, tailwind resolve, EADDRINUSE)                                                                                                                       |
+| `memory/rules/multi-pc-sync.md`               | 멀티 PC Git 동기·예약 작업·인덱스 충돌 가드                                                                                                                                                          |
+| `memory/rules/yohan-os-ops-cuesheet.md`       | 일상 운영 — 텔레그램·봇·batch·RSS·Cursor 역할 (인제스트 재가동)                                                                                                                                      |
 | `.cursor/rules/evaluator-vision-gate.mdc`     | Cursor에서 Evaluator 응답 형식·`log_evaluation` 매핑 강제                                                                                                                                   |
 | `memory/metrics/evaluations/`                 | Evaluator 구조화 로그 (`MCP log_evaluation`)                                                                                                                                           |
 | 외부 (개념 정렬)                                    | [OpenAI — Harness Engineering (ko-KR)](https://openai.com/ko-KR/index/harness-engineering/) — 에이전트 우선 환경·피드백 루프·짧은 `AGENTS.md` 등; 로컬: `memory/ingest/url/url-5c5e7aedc9912aae.md` |

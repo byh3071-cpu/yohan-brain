@@ -1,13 +1,6 @@
 Option Explicit
 
-Dim fso, shell, scriptDir, ps1Path, cmd
-Set fso = CreateObject("Scripting.FileSystemObject")
+' Legacy entrypoint — delegates to canonical home boot script.
+Dim shell
 Set shell = CreateObject("WScript.Shell")
-
-scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
-ps1Path = scriptDir & "\auto-pull.ps1"
-
-cmd = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File """ & ps1Path & """"
-
-' 0 = hidden window, False = do not wait
-shell.Run cmd, 0, False
+shell.Run "wscript.exe """ & shell.ExpandEnvironmentStrings("%USERPROFILE%") & "\git-auto-pull.vbs""", 0, False

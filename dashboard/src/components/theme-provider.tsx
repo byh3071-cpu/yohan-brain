@@ -14,12 +14,11 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark")
-
-  useEffect(() => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark"
     const stored = localStorage.getItem("yohan-os-theme") as Theme | null
-    if (stored) setTheme(stored)
-  }, [])
+    return stored === "light" || stored === "dark" ? stored : "dark"
+  })
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark")

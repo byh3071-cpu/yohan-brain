@@ -1,4 +1,4 @@
----
+﻿---
 
 ## id: modern-ai-ch11-harness-willison-aci
 date: 2026-04-16
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/11-하네스.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/11-하네스.md`
 - **챕터 끝 Source:** Cherny/Orosz; Willison 2026-03-16 등(원문 블록 참조).
 
 ## 요약 (짧게)

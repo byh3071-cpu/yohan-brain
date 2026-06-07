@@ -2,10 +2,11 @@ import { NextResponse } from "next/server"
 import { mkdir, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { clearDocsCache } from "@/lib/docs-cache"
+import { getMemoryDir } from "@/lib/paths"
 
 export const dynamic = "force-dynamic"
 
-const MEMORY_ROOT = join(process.cwd(), "..", "memory")
+const MEMORY_ROOT = getMemoryDir()
 
 const TARGET_PREFIX: Record<string, string> = {
   insights: "ingest/insights",
@@ -170,8 +171,8 @@ export async function POST(req: Request) {
       : `${ymd}-${hm}-sot-${slug}`
   const fileName = `${id}.md`
   const relPath = `${prefix}/${fileName}`
-  const dir = join(MEMORY_ROOT, prefix)
-  const absPath = join(dir, fileName)
+  const dir = join(/* turbopackIgnore: true */ MEMORY_ROOT, prefix)
+  const absPath = join(/* turbopackIgnore: true */ dir, fileName)
 
   const fm = buildFrontMatter(target, draftKind, id, ymd, title, tags, target === "insights" ? domain : undefined)
   const out = `${fm}${bodyMarkdown.trim()}\n`

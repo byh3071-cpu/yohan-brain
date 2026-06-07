@@ -72,8 +72,13 @@ try {
   } else {
     const text = res.result?.content?.[0]?.text ?? "";
     const payload = JSON.parse(text);
+    const profileOk = Boolean(payload.profile && !payload.profile._error);
+    const activeOk = Boolean(payload.active_project && !payload.active_project._error);
     const summary = {
       keys: Object.keys(payload),
+      profile_ok: profileOk,
+      active_project_ok: activeOk,
+      memory_root: payload.memory_root,
       recent_changes_7d: {
         window_days: payload.recent_changes_7d?.window_days,
         decisions_count: payload.recent_changes_7d?.decisions?.length,
@@ -88,6 +93,13 @@ try {
       sample_wiki_files: payload.recent_changes_7d?.wiki?.files?.slice(0, 3),
     };
     console.log(JSON.stringify(summary, null, 2));
+    if (!profileOk || !activeOk) {
+      console.error("SoT parse error:", {
+        profile: payload.profile?._error ?? null,
+        active_project: payload.active_project?._error ?? null,
+      });
+      process.exitCode = 1;
+    }
   }
 } catch (e) {
   console.error("smoke error:", e);

@@ -196,7 +196,7 @@ export default function DashboardPage() {
           ? `✅ ${action} 완료\n${(data.stdout ?? "").slice(0, 200)}`
           : `❌ ${action} 실패\n${data.error ?? ""}\n${(data.stderr ?? "").slice(0, 200)}`,
       })
-    } catch (e) {
+    } catch {
       setActionResult({ action, ok: false, message: "❌ 네트워크 오류" })
     } finally {
       setActionRunning(null)

@@ -5,7 +5,7 @@ import { config } from "dotenv"
 
 export const dynamic = "force-dynamic"
 
-config({ path: resolve(process.cwd(), "..", ".env") })
+config({ path: resolve(/* turbopackIgnore: true */ process.cwd(), "..", ".env") })
 
 export async function POST(req: NextRequest) {
   const { query } = await req.json()

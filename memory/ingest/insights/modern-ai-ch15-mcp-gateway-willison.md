@@ -1,4 +1,4 @@
----
+﻿---
 id: modern-ai-ch15-mcp-gateway-willison
 date: 2026-05-06
 domain: mcp
@@ -15,7 +15,7 @@ status: insight
 
 ## 원본
 
-- **로컬:** `memory/inbox/md_files/현대AI개론/15-MCP.md`
+- **로컬:** `memory/inbox/archive/md_files/현대AI개론/15-MCP.md`
 
 ## 요약
 

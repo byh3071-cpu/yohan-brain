@@ -4,7 +4,7 @@ import { resolve } from "node:path"
 
 export const dynamic = "force-dynamic"
 
-const ROOT = resolve(process.cwd(), "..")
+const ROOT = resolve(/* turbopackIgnore: true */ process.cwd(), "..")
 
 const ALLOWED_ACTIONS: Record<string, { cmd: string; cwd?: string; shell?: string }> = {
   "ingest:url": { cmd: "npx tsx src/ingest-url-cli.ts" },

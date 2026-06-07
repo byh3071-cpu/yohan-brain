@@ -16,19 +16,54 @@ interface DocPreviewProps {
   fullscreenMobile?: boolean
 }
 
-export function DocPreview({ relPath, onClose, fullscreenMobile }: DocPreviewProps) {
+function loadErrorMessage(status: number): string {
+  if (status === 404) return "문서를 찾을 수 없습니다"
+  if (status >= 500) return "서버 오류로 문서를 불러올 수 없습니다"
+  return "문서를 불러오지 못했습니다"
+}
+
+function LoadedDocPreview({
+  relPath,
+  onClose,
+  fullscreenMobile,
+}: {
+  relPath: string
+  onClose: () => void
+  fullscreenMobile?: boolean
+}) {
   const [doc, setDoc] = useState<DocFull | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    if (!relPath) { setDoc(null); return }
-    setLoading(true)
-    fetch(`/api/docs/${relPath}`, { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => setDoc(d))
-      .catch(() => setDoc(null))
-      .finally(() => setLoading(false))
+    const ac = new AbortController()
+    const apiPath = relPath.split("/").map(encodeURIComponent).join("/")
+    fetch(`/api/docs/${apiPath}`, { cache: "no-store", signal: ac.signal })
+      .then(async (r) => {
+        if (!r.ok) {
+          setErrorMsg(loadErrorMessage(r.status))
+          setDoc(null)
+          return
+        }
+        const d = (await r.json()) as DocFull
+        if (typeof d.content !== "string") {
+          setErrorMsg("문서를 찾을 수 없습니다")
+          setDoc(null)
+          return
+        }
+        setDoc(d)
+      })
+      .catch((e: unknown) => {
+        if (e instanceof DOMException && e.name === "AbortError") return
+        setErrorMsg("문서를 불러오지 못했습니다")
+        setDoc(null)
+      })
+      .finally(() => {
+        if (!ac.signal.aborted) setLoading(false)
+      })
+
+    return () => ac.abort()
   }, [relPath])
 
   const handleCopy = async () => {
@@ -36,15 +71,6 @@ export function DocPreview({ relPath, onClose, fullscreenMobile }: DocPreviewPro
     await navigator.clipboard.writeText(doc.content)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-  }
-
-  if (!relPath) {
-    if (fullscreenMobile) return null
-    return (
-      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm px-4">
-        <p className="text-center">문서를 선택하면 여기에 미리보기가 표시됩니다</p>
-      </div>
-    )
   }
 
   if (loading) {
@@ -64,7 +90,7 @@ export function DocPreview({ relPath, onClose, fullscreenMobile }: DocPreviewPro
       : "flex flex-1 flex-col items-center justify-center text-muted-foreground text-sm"
     return (
       <div className={shell}>
-        <p>문서를 찾을 수 없습니다</p>
+        <p>{errorMsg ?? "문서를 찾을 수 없습니다"}</p>
       </div>
     )
   }
@@ -119,5 +145,25 @@ export function DocPreview({ relPath, onClose, fullscreenMobile }: DocPreviewPro
         </article>
       </ScrollArea>
     </div>
+  )
+}
+
+export function DocPreview({ relPath, onClose, fullscreenMobile }: DocPreviewProps) {
+  if (!relPath) {
+    if (fullscreenMobile) return null
+    return (
+      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm px-4">
+        <p className="text-center">문서를 선택하면 여기에 미리보기가 표시됩니다</p>
+      </div>
+    )
+  }
+
+  return (
+    <LoadedDocPreview
+      key={relPath}
+      relPath={relPath}
+      onClose={onClose}
+      fullscreenMobile={fullscreenMobile}
+    />
   )
 }
