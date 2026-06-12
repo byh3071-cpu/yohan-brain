@@ -22,8 +22,11 @@ status: active
 |------|-----------|----------|
 | **레포** | `auto-pull-hidden.vbs`, `scripts/git-auto-pull.template.vbs`, `scripts/install-git-auto-pull.ps1`, `scripts/task-scheduler-auto-pull-setup.ps1` | ✅ |
 | **레포** | `scripts/task-scheduler-setup.ps1` (`YohanOS-AutomationBatch`) | ✅ |
+| **레포** | `scripts/task-scheduler-bot-setup.ps1` (`YohanOS-TelegramBot`) | ✅ |
 | **`%USERPROFILE%`** | `git-auto-pull.vbs` (실제 `git pull`·로그) | ❌ PC별 설치 |
-| **Windows** | 예약 작업 `YohanAutoPull`, `YohanOS-AutomationBatch` | ❌ PC별 등록 |
+| **Windows** | 예약 작업 `YohanAutoPull`, `YohanOS-AutomationBatch`, `YohanOS-TelegramBot` | ❌ PC별 등록 |
+
+**봇 태스크는 노트북 1대에서만 등록** — `task-scheduler-bot-setup.ps1`을 두 PC에 등록하면 텔레그램 polling 409 충돌. 같은 PC 내 중복 기동은 `memory/.telegram-bot.lock` PID 락이 막지만, PC 간 중복은 막지 못한다 (락 파일은 gitignore — 기기별).
 
 pull 로그: `%USERPROFILE%\git-autopull.log`
 레포 루트 **`auto-pull.ps1`은 삭제됨** — 신규 PC는 Goal 4 VBS 템플릿 또는 아래 **커스텀 ps1** 중 택1.

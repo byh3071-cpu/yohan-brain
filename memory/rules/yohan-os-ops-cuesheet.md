@@ -19,13 +19,13 @@ status: active
 
 | 언제 | 너 (PC) | Yohan OS (자동) |
 |------|---------|-----------------|
-| 노트북 켤 때 | `launch\bot.bat` (또는 `npm run bot`) | — |
+| 노트북 켤 때 | **안 해도 됨** | 로그온 시 `YohanOS-TelegramBot` 봇 자동 기동 (실패 시 5분 간격 3회 재시작) |
 | 스크린·URL·메모 볼 때 | 텔레그램 @yohanos_bot 전송 | → `memory/inbox/telegram/YYYY-MM-DD.md` |
 | (대기) | **안 해도 됨** | 하루 2회(09:00·21:00) `automation:batch` |
 | 주 1회 | `launch\ingest-rss.bat` | RSS → `memory/ingest/rss/` |
 | Cursor 세션 | `get_context` | SoT 주입 |
 
-**봇은 PC 1대만** — 기본: **노트북**. 집 PC에서는 텔레그램만 보내도 됨.
+**봇은 PC 1대만** — 기본: **노트북**. `task-scheduler-bot-setup.ps1`도 노트북에서만 실행. 집 PC에서는 텔레그램만 보내도 됨. 수동 기동이 필요하면 `launch\bot.bat` (또는 `npm run bot`).
 
 ---
 
@@ -45,12 +45,13 @@ status: active
 
 | 자동 | 주기/조건 |
 |------|-----------|
+| 봇 기동 | `YohanOS-TelegramBot` (로그온 시, 노트북만 — `scripts/task-scheduler-bot-setup.ps1`) |
 | 인박스 append | 봇 켜진 상태 + 메시지 수신 |
 | OCR·insight·노션 | `YohanOS-AutomationBatch` (09:00·21:00) |
 | git pull (부팅) | `%USERPROFILE%\git-auto-pull.ps1` (커스텀, Workspace 전체) |
 | 텔레그램 완료 알림 | 배치 실행 시 1회 = 하루 최대 2회 (review/failed는 즉시) |
 
-**수동만:** RSS (`npm run ingest:all`), **봇 기동** (`npm run bot`).
+**수동만:** RSS (`npm run ingest:all`).
 
 ---
 
