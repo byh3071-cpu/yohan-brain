@@ -102,7 +102,7 @@ tags: [dashboard, roadmap, tickets, yohan-os]
 
 - **목표**: 프로파일 결과에 따라 포그/인스턴스 범위를 문서에 적고 1차 구현.
 - **AC**
-  - `DB-120-SPIKE.md` 또는 스펙 §10.1에 측정 수치·결정 5줄 이상.
+  - [`DB-120-CONSTELLATION-SPIKE.md`](./DB-120-CONSTELLATION-SPIKE.md) 또는 스펙 §10.1에 측정 수치·결정 5줄 이상.
 - **파일 힌트**: Three 인스턴스/포그 실험 브랜치.
 
 ### DB-301 — §10.3 주의 히트맵

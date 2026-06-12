@@ -11,7 +11,14 @@ notes: |
     - 봇 상시 등록: YohanOS-TelegramBot (로그온 트리거·재시작 x3, 노트북) — polling 가동 중
     - automation:batch 하루 2회(09:00·21:00)로 축소 — 알림 피로 해소 (decisions/2026-06-12-automation-batch-twice-daily)
     - telegram-health PID 거짓 양성 수정 (src/pid-alive.ts, tasklist 교차 검증)
+  - [Goal 6 완료 2026-06-12] goals/6-automation-wiki-consolidation.md
+    - RSS ingest → automation:batch 24h 가드 통합 (수동 제거, catch-up 완료 — themilk DNS 이슈만 잔존)
+    - wiki:lint CLI + 부채 해소 (0 errors/0 warnings) + ch10·ch11 승격 + answers/ 신설
+    - batch 루틴 알림에 wiki 승격 후보 표시
+    - 대시보드 DB-101~401 전체 AC 검증 + 문서 동기화 — 백로그 완료, 다음은 v4
   - [UAT — 사람, 남은 것]
     1. 텔레그램 테스트 1건 → inbox/telegram/오늘.md 확인
-    2. npm run ingest:all (RSS 5/6 이후 밀린분)
-  - [다음 Goal 후보] RSS ingest를 automation:batch에 통합 (수동 제거)
+    2. 노트북 재부팅 → YohanOS-TelegramBot 자동 기동 확인
+    3. themilk RSS 피드 URL 확인 (www.the-mill.kr ENOTFOUND — 피드 교체 또는 제거)
+    4. wiki Owner Notes 채우기 (placeholder 14건) + 주 1회 MVI
+  - [다음 Goal 후보] 대시보드 v4 (음성 메모 STT·2차 가공 내보내기) · knowledge-hub 루프 정착

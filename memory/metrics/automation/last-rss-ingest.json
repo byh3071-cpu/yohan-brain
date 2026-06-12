@@ -1,0 +1,42 @@
+{
+  "ranAt": 1781263352848,
+  "perFeed": [
+    {
+      "feed_key": "yozm",
+      "ok": true,
+      "written": 0,
+      "skipped": 20
+    },
+    {
+      "feed_key": "aitimes",
+      "ok": true,
+      "written": 0,
+      "skipped": 20
+    },
+    {
+      "feed_key": "themilk",
+      "ok": false,
+      "written": 0,
+      "skipped": 0,
+      "error": "getaddrinfo ENOTFOUND www.the-mill.kr"
+    },
+    {
+      "feed_key": "paulgraham",
+      "ok": true,
+      "written": 0,
+      "skipped": 20
+    },
+    {
+      "feed_key": "samaltman",
+      "ok": true,
+      "written": 0,
+      "skipped": 20
+    },
+    {
+      "feed_key": "karpathy",
+      "ok": true,
+      "written": 0,
+      "skipped": 10
+    }
+  ]
+}
