@@ -10,7 +10,9 @@ import { pushToNotionWithRetry } from "./automation/notion.js"
 import { ingestGithubAndUpsertCard } from "./automation/github.js"
 import { notifyTelegram } from "./automation/notify.js"
 import { appendQueueLine, deadLetterPath, loadState, reviewPath, saveState } from "./automation/state.js"
+import { isRssDue, writeLastRssIngest, RSS_INGEST_INTERVAL_MS } from "./automation/rss.js"
 import type { AutomationState, CliOptions, ScreenshotBlock, Stats } from "./automation/types.js"
+import { ingestAllRssFeeds } from "../src/ingest/rss-all.js"
 import { resolveRepoRoot } from "../src/paths.js"
 
 config({ path: join(resolveRepoRoot(), ".env") })
@@ -155,8 +157,35 @@ async function main(): Promise<void> {
     await saveState(state)
   }
 
-  const summary = `[Yohan OS][batch] 완료: 스캔=${stats.scanned} 처리=${stats.processed} 스킵=${stats.skipped} 검토=${stats.review} 실패=${stats.failed}`
-  const needsAttention = stats.review > 0 || stats.failed > 0
+  // RSS ingest 24h 가드 — 인박스 처리 후, 알림 전. 실패는 비치명(needs-attention 라인으로만).
+  let rssLine = ""
+  let rssFailed = false
+  const rssDue = await isRssDue()
+  if (opts.dryRun) {
+    console.log(
+      `[batch] RSS ingest ${rssDue ? "due (라이브 실행 시 수행됨)" : "skip (24h 미경과)"} — 주기 ${RSS_INGEST_INTERVAL_MS / 3_600_000}h`,
+    )
+  } else if (rssDue) {
+    try {
+      const perFeed = await ingestAllRssFeeds(20)
+      await writeLastRssIngest(perFeed)
+      const written = perFeed.reduce((n, f) => n + f.written, 0)
+      const skippedRss = perFeed.reduce((n, f) => n + f.skipped, 0)
+      rssLine = ` RSS=신규${written}/스킵${skippedRss}`
+      for (const f of perFeed.filter((f) => !f.ok)) {
+        rssFailed = true
+        issueDetails.push(`failed: rss_${f.feed_key} (${f.error ?? "unknown"})`)
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e)
+      rssFailed = true
+      issueDetails.push(`failed: rss_ingest (${msg})`)
+      await writeLastRssIngest([]).catch(() => {})
+    }
+  }
+
+  const summary = `[Yohan OS][batch] 완료: 스캔=${stats.scanned} 처리=${stats.processed} 스킵=${stats.skipped} 검토=${stats.review} 실패=${stats.failed}${rssLine}`
+  const needsAttention = stats.review > 0 || stats.failed > 0 || rssFailed
   const lastNotify = await readLastRoutineNotifyAt()
   const routineDue =
     lastNotify === null || Date.now() - lastNotify >= ROUTINE_NOTIFY_INTERVAL_MS
