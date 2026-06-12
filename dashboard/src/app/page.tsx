@@ -38,6 +38,18 @@ const ConstellationCanvas = dynamic(
   }
 )
 
+const GraphView2DCanvas = dynamic(
+  () => import("@/components/graph-view-2d").then((m) => m.GraphView2D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
+        그래프 뷰 로드 중…
+      </div>
+    ),
+  }
+)
+
 const CAT_LABEL: Record<string, string> = {
   all: "전체",
   insights: "인사이트",
@@ -86,6 +98,7 @@ export default function DashboardPage() {
   const [constellationAsOfYmd, setConstellationAsOfYmd] = useState<string | null>(null)
   const [constellationHubGravity, setConstellationHubGravity] = useState(false)
   const [constellationNebula, setConstellationNebula] = useState(true)
+  const [constellationMode, setConstellationMode] = useState<"2d" | "3d">("2d")
 
   const loadDashboard = useCallback(async (fresh = false) => {
     const url = fresh ? `/api/docs?fresh=1&t=${Date.now()}` : `/api/docs?t=${Date.now()}`
@@ -307,29 +320,52 @@ export default function DashboardPage() {
             <div className="flex flex-1 min-h-0 flex-col overflow-hidden md:flex-row">
               <div className="flex min-h-0 min-w-0 flex-1 flex-col border-border md:border-r">
                 <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-border/60 px-3 py-2">
-                  <p className="text-[11px] text-muted-foreground">
-                    사이드바 카테고리로 은하 필터 · 드래그 회전 · 휠 줌 · 별 클릭 → 미리보기
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <label className="flex cursor-pointer items-center gap-2 text-[10px] text-muted-foreground">
-                      <input
-                        type="checkbox"
-                        className="size-3.5 rounded border-border accent-foreground"
-                        checked={constellationHubGravity}
-                        onChange={(e) => setConstellationHubGravity(e.target.checked)}
-                      />
-                      허브 중력
-                    </label>
-                    <label className="flex cursor-pointer items-center gap-2 text-[10px] text-muted-foreground">
-                      <input
-                        type="checkbox"
-                        className="size-3.5 rounded border-border accent-foreground"
-                        checked={constellationNebula}
-                        onChange={(e) => setConstellationNebula(e.target.checked)}
-                      />
-                      성운
-                    </label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex items-center rounded-md border border-border p-0.5">
+                      {(["2d", "3d"] as const).map((m) => (
+                        <button
+                          key={m}
+                          type="button"
+                          onClick={() => setConstellationMode(m)}
+                          className={cn(
+                            "rounded px-2 py-0.5 text-[10px] font-medium transition-colors",
+                            constellationMode === m
+                              ? "bg-accent text-foreground"
+                              : "text-muted-foreground hover:text-foreground"
+                          )}
+                        >
+                          {m === "2d" ? "그래프 2D" : "은하 3D"}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="hidden text-[11px] text-muted-foreground sm:block">
+                      {constellationMode === "2d"
+                        ? "옵시디언식 그래프 · 노드 드래그 · 휠 줌 · 더블클릭 화면 맞춤 · 클릭 → 미리보기"
+                        : "사이드바 카테고리로 은하 필터 · 드래그 회전 · 휠 줌 · 별 클릭 → 미리보기"}
+                    </p>
                   </div>
+                  {constellationMode === "3d" && (
+                    <div className="flex flex-wrap items-center gap-3">
+                      <label className="flex cursor-pointer items-center gap-2 text-[10px] text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          className="size-3.5 rounded border-border accent-foreground"
+                          checked={constellationHubGravity}
+                          onChange={(e) => setConstellationHubGravity(e.target.checked)}
+                        />
+                        허브 중력
+                      </label>
+                      <label className="flex cursor-pointer items-center gap-2 text-[10px] text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          className="size-3.5 rounded border-border accent-foreground"
+                          checked={constellationNebula}
+                          onChange={(e) => setConstellationNebula(e.target.checked)}
+                        />
+                        성운
+                      </label>
+                    </div>
+                  )}
                 </div>
                 {constellationData?.timeRange.dateMin &&
                   constellationData.timeRange.dateMax &&
@@ -362,6 +398,15 @@ export default function DashboardPage() {
                   )}
                 <div className="min-h-0 flex-1 bg-background">
                   {constellationViewData ? (
+                    constellationMode === "2d" ? (
+                      <GraphView2DCanvas
+                        data={constellationViewData}
+                        filterCategory={activeCategory}
+                        selectedRelPath={selectedDoc}
+                        onSelectDoc={(p) => { setSelectedDoc(p); setMobileNavOpen(false) }}
+                        className="h-full min-h-[320px] w-full"
+                      />
+                    ) : (
                     <ConstellationCanvas
                       data={constellationViewData}
                       filterCategory={activeCategory}
@@ -372,6 +417,7 @@ export default function DashboardPage() {
                       nebula={constellationNebula}
                       className="h-full min-h-[320px] w-full"
                     />
+                    )
                   ) : (
                     <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
                       그래프 준비 중…
