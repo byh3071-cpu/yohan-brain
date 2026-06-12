@@ -42,6 +42,7 @@ tags: [dashboard, roadmap, tickets, yohan-os]
 
 - 2026-04-23: **DB-101–102 · DB-201–202** 완료(이전 커밋).
 - 2026-04-23: **DB-203** `draftKind`·인사이트 `status`/`domain`·결정 `created` 정합. **DB-110** 허브 중력 강도 옵션·lerp 조정. **DB-120** [`DB-120-CONSTELLATION-SPIKE.md`](./DB-120-CONSTELLATION-SPIKE.md). **DB-301** 히트맵 도메인 스택·범례. **DB-401** `GET /api/evaluations`·차트 탭 상세 미리보기.
+- 2026-06-12: **DB-101~401 전체 AC 검증 패스 + `npm run dashboard:build` 통과** — 코드 증거: D-2 포함 규칙 주석(`constellation.ts`)·슬라이더 날짜 레이블·`/api/sot-draft/generate` 고정 스키마(키 없으면 200+stub 일관)·`onSaved→fresh=1` 갱신·허브 중력 기본 OFF·스파이크 메모·`DOMAIN_COLORS` 범례·evaluations 본문 400자 truncate. **백로그 전체 완료** — 다음은 v4.
 
 **이미 반영된 것(티켓 생략·참고만)**:
 
