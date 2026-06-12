@@ -27,7 +27,7 @@ related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 ## Inferred (추론/연결) — TTL 30일
 
 - 검증 루프(Evaluator)·하네스 규칙과 스킬의 "절차 문서화"가 맞물릴 수 있음.
-- created: 2026-04-16, expires: 2026-05-16 — status: expired
+- created: 2026-04-16, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 

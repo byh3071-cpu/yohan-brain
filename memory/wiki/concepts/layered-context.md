@@ -25,9 +25,10 @@ related_concepts: [single-source-of-truth, harness-engineering, exploration-vs-e
 - RAG와 **LC(대규모 컨텍스트)** 비교·비용·**Self-Route·하이브리드** 전략이 논의된다. [source: modern-ai-ch17-rag-select-pipeline]
 - **에이전틱 RAG** 맥락에서 필요한 청크·문서만 고르는 **Select** 축이 강조된다는 서술. [source: modern-ai-ch17-rag-select-pipeline]
 
+- Yohan OS 대응: 1계층(Static) = AGENTS.md·agent-harness.md, 2계층(Domain) = memory/rules/ + wiki/, 3계층(Dynamic) = memory/inbox/ + active-project.yaml — 소스의 3계층 정의와 레포 구조가 합치. [source: knowledge-base-strategy · AGENTS.md] (2026-06-12 Inferred→Verified 승격)
+
 ## Inferred (추론/연결) — TTL 30일
-- Yohan OS에서 1계층 = agent-harness.md, 2계층 = memory/rules/ + wiki/, 3계층 = memory/inbox/ + active-project로 대응 가능.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- (없음)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

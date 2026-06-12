@@ -52,3 +52,5 @@ updated: 2026-06-12
 - **STRUCT** 지식 레이어 역할 분리 명세 신설: `docs/KNOWLEDGE-LOOP.md` — wiki=사전(개념·도구·인물 카드), `memory/knowledge-hub/`=주제 종합 문서+트리플맵+키워드. 원문→요약 프로토콜 로컬판: `memory/rules/source-to-summary-protocol.md`.
 - **PROMOTE** modern-ai-ch10-context-engineering-karpathy → concepts/modern-ai-ch10-context-engineering-karpathy.md
 - **PROMOTE** modern-ai-ch11-harness-willison-aci → concepts/modern-ai-ch11-harness-willison-aci.md
+- **CREATE** entities/sam-altman.md — person. 원문→요약 프로토콜 실전 1회전(samaltman-productivity)의 인물 감지 훅으로 생성. RSS 30건 보유 저자 = 반복 등장 기준 충족. `index.md` 엔티티 10→11.
+- **EXPIRE-CLEAR** 만료 Inferred 16불릿 전수 청산 — ① Verified 승격 8건 (rag, obsidian, harness-engineering, single-source-of-truth, second-brain×2, layered-context, para-method — 소스 대조 후 `[source:]` 태그, `(2026-06-12 Inferred→Verified 승격)` 표기) ② TTL 재발급 8건 (andrej-karpathy, claude-code×2, cursor, mcp, vibe-coding-pipeline, exploration-vs-exploitation, cursor-skills — 사용자 승인, expires 2026-07-12, Owner 검증 대기). `index.md` 통계 갱신 (만료 0), ch10·ch11을 "지식관리·컨텍스트" 그룹으로 병합 + 한 줄 설명 보강.

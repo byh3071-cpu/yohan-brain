@@ -31,9 +31,10 @@ related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-
 - **MCP**는 외부 도구·리소스 연결을 표준화하며, 하네스가 정한 **허용 범위·검증**과 맞물려야 한다는 맥락이 제시된다. [source: modern-ai-ch15-mcp-gateway-willison]
 - 도구 스키마가 컨텍스트에 과도하게 상주하는 비용·**보안 게이트웨이**·노출 최소화는 MCP 운영 시 하네스 설계와 직결된다는 서술. [source: modern-ai-ch15-mcp-gateway-willison]
 
+- Yohan OS의 `agent-harness.md`가 이 개념의 직접 구현체이며 `memory/rules/` 전체가 하네스 레이어 — AGENTS.md가 "필수 하네스"로 명시. [source: AGENTS.md §1] (2026-06-12 Inferred→Verified 승격)
+
 ## Inferred (추론/연결) — TTL 30일
-- Yohan OS의 agent-harness.md가 이 개념의 직접 구현체. memory/rules/ 전체가 하네스 레이어.
-- created: 2026-04-16, expires: 2026-05-16 — status: expired
+- (없음)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

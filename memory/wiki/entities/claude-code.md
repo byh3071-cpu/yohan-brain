@@ -20,7 +20,7 @@ related_concepts: [vibe-coding-pipeline, harness-engineering, modern-ai-ch11-har
 ## Inferred (추론/연결) — TTL 30일
 - Cursor(IDE) + Claude Code(CLI) 이중 체계로, 개발은 Cursor에서 수행하고 검증·자동화·배치 작업은 Claude Code에서 수행하는 역할 분담이 가능.
 - MCP `yohan-os`를 통해 memory/ 전체를 get_context로 읽는 구조는 Claude Code가 세션 간 맥락을 유지하는 핵심 메커니즘.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- created: 2026-04-12, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

@@ -19,10 +19,10 @@ related_concepts: [para-method, second-brain]
 - Vault가 무너지지 않게 원칙·뼈대를 문서화하는 System Guide 방식으로 운영. [source: obsidian-vault-para-system-guide]
 - "저마찰 수집 / 고레버리지 정리" 원칙: 수집은 최대한 빠르게, 정리는 AI·도구 레버리지. [source: obsidian-vault-para-system-guide]
 - PARA를 변형한 대분류 약 10개만 유지 — 하위 폴더 난립 금지. [source: obsidian-vault-para-system-guide]
+- Vault + PARA 구조는 Yohan OS의 `memory/inbox`·`memory/rules`와 같은 긴장 관계(수집 큐 vs SoT 정제)를 가진다 — 소스에 "Yohan OS 대응"으로 명시. [source: obsidian-vault-para-system-guide] (2026-06-12 Inferred→Verified 승격)
 
 ## Inferred (추론/연결) — TTL 30일
-- Obsidian의 Vault + PARA 구조는 Yohan OS의 memory/ 디렉터리 구조와 같은 긴장 관계(수집 큐 vs SoT 정제)를 가짐.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- (없음)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

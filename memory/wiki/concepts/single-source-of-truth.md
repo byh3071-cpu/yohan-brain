@@ -23,9 +23,10 @@ related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 - 짧은 기획도 memory/·@ 참조에 넣으면 맥락 주입 비용이 줄고, Evaluator·리뷰 기준으로도 활용 가능. [source: vibe-coding-planning-importance]
 - Karpathy LLM Wiki 패턴: raw(원자료)는 불변, wiki(가공물)는 요약·엔티티·한국어·크로스링크로 분리하는 이중 계층이 표로 제시된다. [source: modern-ai-ch18-knowledge-management-karpathy-wiki]
 
+- wiki/ 레이어는 SoT의 확장 — insights가 원본(raw) SoT, wiki가 합성 SoT이며, 둘의 분리(원본 불변/가공 갱신)가 깨지면 출처 추적이 붕괴된다. [source: modern-ai-ch18-knowledge-management-karpathy-wiki · docs/WIKI-SPEC-v2.md §0] (2026-06-12 Inferred→Verified 승격)
+
 ## Inferred (추론/연결) — TTL 30일
-- wiki/ 레이어는 SoT의 확장 — insights가 원본 SoT, wiki가 합성 SoT, 둘의 관계가 명확히 분리되어야 SoT 원칙이 유지됨.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- (없음)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

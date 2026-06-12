@@ -22,7 +22,9 @@
 1. **구조 이해 (선택, 1회):** `[docs/CONTEXT-AND-HARNESS-SYSTEM.md](docs/CONTEXT-AND-HARNESS-SYSTEM.md)` — 컨텍스트 vs 하네스, 파이프라인 다이어그램. **대시보드 작업 시:** `[docs/DASHBOARD-SPEC.md](docs/DASHBOARD-SPEC.md)` — 전체 스펙·로드맵·디자인·기술 스택. **하네스 = 통제만이 아니라 바닥(비전·안전) + 그 위의 유연함**은 동 문서 **§1.1** 참고. Claude 등 **타 클라이언트에 프로젝트 전체 맥락 붙일 때**는 `[docs/CLAUDE-CONTEXT-BOOTSTRAP.md](docs/CLAUDE-CONTEXT-BOOTSTRAP.md)` 전체를 첨부하거나 첫 턴에 붙여 넣기.
 2. **필수 하네스:** `[memory/rules/agent-harness.md](memory/rules/agent-harness.md)` — 세션 시작 `get_context`, SoT, P/G/E, 결정 로그.
 3. **Cursor:** `.cursor/rules/` — 세션 시작·Evaluator 형식 등 워크스페이스 규칙. 요약 스킬: `.cursor/skills/yohan-os-workflow/SKILL.md`.
-4. **Wiki:** `memory/wiki/` — 지식 레이어. 명세: `[docs/WIKI-SPEC-v2.md](docs/WIKI-SPEC-v2.md)` | 규칙: `memory/rules/wiki-ops.md` | 스킬: `.cursor/skills/wiki-ops/SKILL.md`.
+4. **지식 레이어 (복리 루프):** 전체 구조·폴더 역할은 `[docs/KNOWLEDGE-LOOP.md](docs/KNOWLEDGE-LOOP.md)`가 단일 명세 — inbox(대기열) → ingest(원본·요약) → wiki(사전) · knowledge-hub(주제 문서·트리플맵·키워드) → 역전파·온톨로지 → 재사용. 원본 처리 절차: `memory/rules/source-to-summary-protocol.md`.
+   - **Wiki:** `memory/wiki/` — 개념·도구·인물 사전. 명세: `[docs/WIKI-SPEC-v2.md](docs/WIKI-SPEC-v2.md)` | 규칙: `memory/rules/wiki-ops.md` | 스킬: `.cursor/skills/wiki-ops/SKILL.md`.
+   - **지식 허브:** `memory/knowledge-hub/` — 주제별 종합 문서 + 트리플맵 + 키워드 (노션 「요한 지식 허브 DB」와 `sync_to_notion` 멱등 동기화, 원천 구분은 KNOWLEDGE-LOOP.md §3).
 5. **우선 wiki (에이전트·도구·검색 축)** — 필요할 때만 `@`로 **최소 주입** (한 세션 전부 금지). 목록·표는 `[memory/rules/agent-harness.md](memory/rules/agent-harness.md)` §1.1.
    - `memory/wiki/entities/mcp.md` · `concepts/cursor-skills.md` · `entities/rag.md` · `concepts/layered-context.md` · `concepts/harness-engineering.md`
    - 교재 인사이트: `memory/ingest/insights/modern-ai-ch*.md`

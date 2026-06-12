@@ -48,3 +48,9 @@ updated: 2026-06-12
 | 인간 통제·책임 유지 | precondition_of | 프로덕션 에이전트 코딩 | AI/자동화 | 3 | coding-agents-normal-technology | 2026-06-12 |
 | 소프트웨어 가격 탄력성 (Jevons) | enables | AI 비용 하락 → 소프트웨어 수요 증가 | 비즈니스 | 3 | coding-agents-normal-technology | 2026-06-12 |
 | AI washing | signals | 해고 명분과 실제 원인(재무 압박)의 불일치 | 비즈니스 | 3 | coding-agents-normal-technology | 2026-06-12 |
+| 복리 성장 | applies_to | 커리어·생산성 (금융 개념의 확장) | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| 방향 선택 (무엇을 할지) | precondition_of | 생산성 (속도는 그 다음) | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| 생산성 포르노 | blocks | 올바른 문제 선택 | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| 리스트 재작성 의식 | enables | 우선순위 재평가 강제 | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| 모멘텀 (완수→기분→완수) | triggers | 생산성 선순환 | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| 수면·운동·영양 | precondition_of | 지적 생산성 (합산 1.5x) | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |

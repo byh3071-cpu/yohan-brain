@@ -16,6 +16,14 @@ function readFlag(name: string): string | undefined {
 async function main(): Promise<void> {
   const since = readFlag("--since") || "today";
   const json = process.argv.includes("--json");
+  // --files a.md,b.md : git log 대신 명시 파일 목록 동기화 (미커밋 파일 검증용)
+  const filesFlag = readFlag("--files");
+  const files = filesFlag
+    ? filesFlag
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : undefined;
 
   let env;
   try {
@@ -33,7 +41,7 @@ async function main(): Promise<void> {
   }
 
   try {
-    const summary = await syncRecordsToNotion(env, { since });
+    const summary = await syncRecordsToNotion(env, { since, files });
     if (json) {
       process.stdout.write(JSON.stringify(summary, null, 2) + "\n");
       return;

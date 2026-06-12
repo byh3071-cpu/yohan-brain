@@ -23,10 +23,11 @@ related_concepts: [para-method, layered-context]
 - 수집만 하고 연결하지 않은 지식은 뇌가 아니라 HDD에 비유된다는 서술(Tiago Forte 계열). [source: modern-ai-ch18-knowledge-management-karpathy-wiki]
 - AI 시대 제2의 뇌의 세 요소: 원본 보존, 개념 간 명시적 링크, AI의 연결 제안. [source: modern-ai-ch18-knowledge-management-karpathy-wiki]
 
+- Yohan OS 자체가 Second Brain의 구현체 — insights(원본) → wiki(합성) → Owner Notes(내재화) 3계층이 명세에 "저장소가 아니라 학습 시스템"으로 정의됨. [source: docs/WIKI-SPEC-v2.md §0] (2026-06-12 Inferred→Verified 승격)
+- Atomic Notes 원칙(지식 최소 단위 분절)은 wiki의 entity/concept "개념=파일" 단위 분리와 직접 대응. [source: knowledge-base-strategy, modern-ai-ch18-knowledge-management-karpathy-wiki] (2026-06-12 Inferred→Verified 승격)
+
 ## Inferred (추론/연결) — TTL 30일
-- Yohan OS 자체가 Second Brain의 구현체. memory/ = 외부 뇌, wiki/ = 합성된 이해, Owner Notes = 내재화된 지식.
-- Atomic Notes 원칙은 wiki의 entity/concept 단위 분리와 직접 대응.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- (없음)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

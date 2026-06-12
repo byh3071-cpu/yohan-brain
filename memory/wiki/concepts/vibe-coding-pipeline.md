@@ -25,7 +25,7 @@ related_concepts: [harness-engineering, single-source-of-truth, cursor-skills]
 
 ## Inferred (추론/연결) — TTL 30일
 - 바이브코딩의 "기획 부재 → AI 임의 충전" 문제는 PROJECT-PIPELINE-SPEC의 Vision Lock으로 구조적 해결 가능.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- created: 2026-04-12, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

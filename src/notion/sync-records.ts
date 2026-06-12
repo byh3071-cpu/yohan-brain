@@ -11,7 +11,11 @@ import type { NotionRecordsEnv } from "./notion-records-env.js";
 
 const execFileAsync = promisify(execFile);
 
-export type RecordKind = "adr" | "session-log" | "troubleshooting";
+export type RecordKind =
+  | "adr"
+  | "session-log"
+  | "troubleshooting"
+  | "knowledge-hub";
 
 export type SyncResult = {
   file: string;
@@ -49,6 +53,17 @@ function classifyPath(rel: string): RecordKind | null {
   if (p.startsWith("docs/adr/")) return "adr";
   if (p.startsWith("memory/logs/sessions/")) return "session-log";
   if (p.startsWith("docs/troubleshooting/")) return "troubleshooting";
+  if (p.startsWith("memory/knowledge-hub/")) {
+    // 부속 자산(목록·트리플맵·키워드)은 주제 문서가 아니므로 푸시 제외
+    if (
+      p.endsWith("/index.md") ||
+      p.endsWith("/triple-map.md") ||
+      p.endsWith("/keywords.md")
+    ) {
+      return null;
+    }
+    return "knowledge-hub";
+  }
   return null;
 }
 
@@ -313,24 +328,27 @@ function buildHubProps(
   rel: string,
   title: string,
   sotKey: string,
+  overrides?: { status?: string; category?: string },
 ): Record<string, unknown> {
   const hub = env.knowledgeHub;
+  const statusValue = overrides?.status?.trim() || hub.statusValue;
+  const categoryValue = overrides?.category?.trim() || hub.categoryValue;
   const props: Record<string, unknown> = {
     ...titleProp(hub.titleProp, title),
     ...richProp(hub.sotKeyProp, sotKey),
   };
   if (hub.statusKind === "notion_status") {
-    Object.assign(props, statusProp(hub.statusProp, hub.statusValue));
+    Object.assign(props, statusProp(hub.statusProp, statusValue));
   } else {
-    Object.assign(props, selectProp(hub.statusProp, hub.statusValue));
+    Object.assign(props, selectProp(hub.statusProp, statusValue));
   }
   if (hub.categoryKind === "multi_select") {
     Object.assign(
       props,
-      multiSelectProp(hub.categoryProp, hub.categoryValue),
+      multiSelectProp(hub.categoryProp, categoryValue),
     );
   } else {
-    Object.assign(props, selectProp(hub.categoryProp, hub.categoryValue));
+    Object.assign(props, selectProp(hub.categoryProp, categoryValue));
   }
   if (hub.sourcePathProp) {
     Object.assign(
@@ -362,7 +380,7 @@ function buildLogProps(
 }
 
 /**
- * 변경 파일을 분류해 ADR/트러블슈팅은 지식 허브 DB로, 세션 로그는 EXECUTION LOG DB로 푸시.
+ * 변경 파일을 분류해 ADR/트러블슈팅/지식허브 문서는 지식 허브 DB로, 세션 로그는 EXECUTION LOG DB로 푸시.
  * 멱등 키(`SoT Key` 컬럼)로 중복 페이지 스킵.
  */
 export async function syncRecordsToNotion(
@@ -387,6 +405,7 @@ export async function syncRecordsToNotion(
     adr: 0,
     "session-log": 0,
     troubleshooting: 0,
+    "knowledge-hub": 0,
   };
 
   // 중복 처리: 같은 파일 경로가 여러 커밋에 등장해도 1회만
@@ -411,13 +430,26 @@ export async function syncRecordsToNotion(
       const title = deriveTitle(rel, fm, body);
       const blocks = mdToBlocks(body);
 
-      const isHub = kind === "adr" || kind === "troubleshooting";
+      const isHub =
+        kind === "adr" ||
+        kind === "troubleshooting" ||
+        kind === "knowledge-hub";
       const dbId = isHub ? env.knowledgeHubDbId : env.executionLogDbId;
       const sotKeyProp = isHub
         ? env.knowledgeHub.sotKeyProp
         : env.executionLog.sotKeyProp;
+      // knowledge-hub 문서만 frontmatter category/status로 노션 속성 오버라이드
+      // (ADR·트러블슈팅의 status: active 등은 노션 옵션과 무관한 값이라 제외)
+      const hubOverrides =
+        kind === "knowledge-hub"
+          ? {
+              status: typeof fm.status === "string" ? fm.status : undefined,
+              category:
+                typeof fm.category === "string" ? fm.category : undefined,
+            }
+          : undefined;
       const props = isHub
-        ? buildHubProps(env, rel, title, sotKey)
+        ? buildHubProps(env, rel, title, sotKey, hubOverrides)
         : buildLogProps(env, rel, title, sotKey);
 
       const existingId = await findPageBySotKey(
@@ -477,6 +509,8 @@ export function summarizeForStdout(s: SyncSummary): string {
     parts.push(`로그 ${s.by_kind["session-log"]}건`);
   if (s.by_kind.troubleshooting)
     parts.push(`트러블슈팅 ${s.by_kind.troubleshooting}건`);
+  if (s.by_kind["knowledge-hub"])
+    parts.push(`지식허브 ${s.by_kind["knowledge-hub"]}건`);
   const head = parts.length
     ? `✅ Notion 동기화: ${parts.join(", ")}`
     : "ℹ️ Notion 동기화 대상 없음";

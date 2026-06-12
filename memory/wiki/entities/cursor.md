@@ -24,7 +24,7 @@ related_concepts: [vibe-coding-pipeline, harness-engineering, single-source-of-t
 
 ## Inferred (추론/연결) — TTL 30일
 - Cursor + Claude Code 조합이 Yohan OS의 "교차 검증" 패턴(Cursor 개발 → Claude 검증, 또는 역)을 가능하게 함.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- created: 2026-04-12, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

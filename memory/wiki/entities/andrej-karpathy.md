@@ -22,7 +22,7 @@ related_concepts: [para-method, second-brain, layered-context]
 
 ## Inferred (추론/연결) — TTL 30일
 - Karpathy의 병목 인식은 Yohan OS의 ingest → wiki → query 순환 구조 설계에 직접적 영향을 준 것으로 보임.
-- created: 2026-04-12, expires: 2026-05-12 — status: expired
+- created: 2026-04-12, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

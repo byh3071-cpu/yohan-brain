@@ -24,7 +24,7 @@ related_concepts: [harness-engineering, layered-context, single-source-of-truth,
 
 ## Inferred (추론/연결) — TTL 30일
 - Yohan OS MCP(`yohan-os`)는 `memory/` SoT와 직결되는 실행 경로로 볼 수 있음.
-- created: 2026-04-16, expires: 2026-05-16 — status: expired
+- created: 2026-04-16, expires: 2026-07-12 — 2026-06-12 TTL 재발급 (Owner 검증 대기)
 
 ## Owner Notes
 - (Yohan이 직접 작성)

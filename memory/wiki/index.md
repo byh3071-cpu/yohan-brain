@@ -10,11 +10,11 @@ updated: 2026-06-12
 ## 통계
 
 ```
-엔티티: 10/80 | 컨셉: 13/50 | 답변: 0 | 고아: 0
-Inferred TTL: 만료 14페이지 | 유효 9페이지
+엔티티: 11/80 | 컨셉: 13/50 | 답변: 0 | 고아: 0
+Inferred TTL: 만료 0 | 유효 17페이지 (재발급 8건 ~7/12 · 6월 생성분 ~7/7·7/12)
 ```
 
-- **⚠️ 만료 Inferred 처리 필요 (14건):** 4월 생성 페이지 전체. 주간 리뷰에서 검증해 Verified 승격 또는 삭제 — `wiki-ops.md` 불변 규칙 "TTL 30일 초과 → expired".
+- **2026-06-12 만료 청산 완료:** 만료 16불릿 중 8건 소스 대조 후 Verified 승격, 8건 사용자 승인으로 TTL 재발급(~7/12, Owner 검증 대기). 다음 주간 리뷰: 재발급분 Owner Notes 확인.
 
 ## Entities — AI·개발 도구/기술
 
@@ -31,6 +31,7 @@ Inferred TTL: 만료 14페이지 | 유효 9페이지
 ## Entities — 인물
 
 - [andrej-karpathy](entities/andrej-karpathy.md) — person. LLM Wiki·PARA 워크플로우 영감.
+- [sam-altman](entities/sam-altman.md) — person. 복리 성장·우선순위 1차 소스 (RSS 30건 보유).
 
 ## Concepts — 지식관리·컨텍스트
 
@@ -39,6 +40,8 @@ Inferred TTL: 만료 14페이지 | 유효 9페이지
 - [single-source-of-truth](concepts/single-source-of-truth.md) — SSoT. 단일 진실 소스.
 - [layered-context](concepts/layered-context.md) — 다층적 맥락 구조, 점진적 컨텍스트 주입.
 - [harness-engineering](concepts/harness-engineering.md) — 하네스/컨텍스트 엔지니어링.
+- [modern-ai-ch10-context-engineering-karpathy](concepts/modern-ai-ch10-context-engineering-karpathy.md) — 컨텍스트 = 추론 시점 토큰 집합 전체의 큐레이션(윈도우 형식·순서·예산 설계).
+- [modern-ai-ch11-harness-willison-aci](concepts/modern-ai-ch11-harness-willison-aci.md) — 하네스·ACI·검증 루프 — 같은 모델도 하네스 차이로 챗봇 vs 에이전트.
 
 ## Concepts — 개발 워크플로우
 
@@ -55,9 +58,3 @@ Inferred TTL: 만료 14페이지 | 유효 9페이지
 ## Answers
 
 (아직 없음)
-
-
-## Concepts
-
-- [modern-ai-ch10-context-engineering-karpathy](concepts/modern-ai-ch10-context-engineering-karpathy.md) — 현대AI개론 Ch.10 — 컨텍스트 엔지니어링 (인사이트). (TODO: 한 줄 설명 보강)
-- [modern-ai-ch11-harness-willison-aci](concepts/modern-ai-ch11-harness-willison-aci.md) — 현대AI개론 Ch.11 — 하네스 (인사이트). (TODO: 한 줄 설명 보강)
