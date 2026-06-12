@@ -3,7 +3,7 @@ id: telegram-workflow
 date: 2026-05-02
 domain: automation
 tags: [telegram, workflow, bot, ocr, playbook]
-related: [telegram-inbox, notion-ocr-pipeline, dashboard-quick-actions, yohan-os-ops-cuesheet]
+related: [telegram-inbox, notion-ocr-pipeline, dashboard-quick-actions, yohan-os-ops-cuesheet, source-to-summary-protocol]
 status: active
 ---
 
@@ -28,6 +28,8 @@ status: active
 | C | 자동 OCR→인사이트·노션·GitHub URL | `npm run automation:batch` (예약: 하루 2회 09:00·21:00 — 텔레그램 완료 알림도 하루 최대 2회, 검토·실패는 매번) |
 | D | 사람 검토 | `memory/inbox/automation-review.md`, `memory/logs/errors/` |
 | E | 노션 원본·서머리 | `memory/rules/notion-ocr-pipeline.md`, `sync:notion:ocr:*` |
+
+**요약 규칙(타입별):** 링크·깃헙·블로그·SNS·영상 등 **입력 타입별 원문 확보→요약 절차**는 `memory/rules/source-to-summary-protocol.md` §입력 타입별 분기가 단일 SoT다. 자동 추출이 안 되는 소스(네이버 블로그·Threads·일반 영상)는 **본문 복붙/스크린샷을 링크와 같이 보낸다**.
 
 ---
 
