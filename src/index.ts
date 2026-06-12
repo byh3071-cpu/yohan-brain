@@ -16,7 +16,7 @@ import {
   RSS_FEED_KARPATHY,
   RSS_FEED_PAULGRAHAM,
   RSS_FEED_SAMALTMAN,
-  RSS_FEED_THEMILK,
+  RSS_FEED_TECHREVIEWKR,
   RSS_FEED_YOZM,
 } from "./ingest/rss-feed-config.js";
 import { ingestRssFeed } from "./ingest/rss-feed.js";
@@ -502,10 +502,10 @@ async function main(): Promise<void> {
       def: RSS_FEED_AITIMES,
     },
     {
-      name: "ingest_themilk_rss",
+      name: "ingest_techreviewkr_rss",
       description:
-        "더 밀크 RSS(https://www.the-mill.kr/rss) → memory/ingest/rss/themilk/. OPENAI_API_KEY 있으면 한국어 필드 추가.",
-      def: RSS_FEED_THEMILK,
+        "MIT 테크놀로지 리뷰 코리아 RSS(https://www.technologyreview.kr/feed/) → memory/ingest/rss/techreviewkr/. OPENAI_API_KEY 있으면 한국어 필드 추가.",
+      def: RSS_FEED_TECHREVIEWKR,
     },
     {
       name: "ingest_paulgraham_rss",

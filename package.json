@@ -16,7 +16,7 @@
     "ingest:geeknews": "tsx src/ingest-geeknews-cli.ts",
     "ingest:yozm": "tsx src/ingest-yozm-cli.ts",
     "ingest:aitimes": "tsx src/ingest-aitimes-cli.ts",
-    "ingest:themilk": "tsx src/ingest-themilk-cli.ts",
+    "ingest:techreviewkr": "tsx src/ingest-techreviewkr-cli.ts",
     "ingest:paulgraham": "tsx src/ingest-paulgraham-cli.ts",
     "ingest:samaltman": "tsx src/ingest-samaltman-cli.ts",
     "ingest:karpathy": "tsx src/ingest-karpathy-cli.ts",

@@ -18,11 +18,11 @@ export const RSS_FEED_AITIMES: RssFeedDefinition = {
   sourceName: "aitimes",
 };
 
-/** 도메인이 해석되지 않으면(ENOTFOUND) 네트워크·DNS 또는 피드 URL 변경 필요 */
-export const RSS_FEED_THEMILK: RssFeedDefinition = {
-  feedKey: "themilk",
-  feedUrl: "https://www.the-mill.kr/rss",
-  sourceName: "themilk",
+/** 구 themilk 슬롯 대체(2026-06-12) — 더밀크는 공개 피드 전무(decisions/2026-06-12-themilk-feed-replacement) */
+export const RSS_FEED_TECHREVIEWKR: RssFeedDefinition = {
+  feedKey: "techreviewkr",
+  feedUrl: "https://www.technologyreview.kr/feed/",
+  sourceName: "techreviewkr",
 };
 
 /** paulgraham.com/rss.html 은 HTML 안내 페이지. 공식 페이지가 링크하는 Aaron Swartz 스크랩 RSS 사용. */

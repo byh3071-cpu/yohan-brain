@@ -94,7 +94,7 @@ src/
 │   ├── ingest-geeknews-cli
 │   ├── ingest-yozm-cli
 │   ├── ingest-aitimes-cli
-│   ├── ingest-themilk-cli
+│   ├── ingest-techreviewkr-cli
 │   ├── ingest-paulgraham-cli
 │   ├── ingest-samaltman-cli
 │   ├── ingest-karpathy-cli
@@ -122,7 +122,7 @@ src/
 └── telegram-ocr.ts                # 텔레그램 OCR 처리
 ```
 
-**MCP 도구 16종**: `get_context`, `append_decision`, `log_evaluation`, `ingest_geeknews_rss`, `ingest_yozm_rss`, `ingest_aitimes_rss`, `ingest_themilk_rss`, `ingest_paulgraham_rss`, `ingest_samaltman_rss`, `ingest_karpathy_rss`, `ingest_url`, `search_memory`, `plan_task`, `notion_push_decisions`, `notion_push_ocr_pair`, `notion_pull_to_queue`.
+**MCP 도구 16종**: `get_context`, `append_decision`, `log_evaluation`, `ingest_geeknews_rss`, `ingest_yozm_rss`, `ingest_aitimes_rss`, `ingest_techreviewkr_rss`, `ingest_paulgraham_rss`, `ingest_samaltman_rss`, `ingest_karpathy_rss`, `ingest_url`, `search_memory`, `plan_task`, `notion_push_decisions`, `notion_push_ocr_pair`, `notion_pull_to_queue`.
 
 > 참고: `route_task` / `route_and_run`은 CLI 전용 (현재 MCP 미노출).
 

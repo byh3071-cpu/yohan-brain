@@ -215,7 +215,7 @@ docs/
 | `notion_pull_to_queue` | 노션 DB 행 → `memory/inbox/notion-queue.md`에 append 만. |
 | `sync_to_notion` | git log 기준 변경된 `docs/adr/`·`docs/troubleshooting/`·`memory/logs/sessions/` 마크다운을 두 노션 DB로 자동 푸시 (멱등 `SoT Key`). 인자 `since` (기본 `today`, ISO 날짜 가능). `.claude/hooks/post-session.sh` Stop hook으로 자동 트리거. |
 
-그 외 RSS 전용 MCP(`ingest_yozm_rss`, `ingest_aitimes_rss`, `ingest_themilk_rss`, `ingest_paulgraham_rss`, `ingest_samaltman_rss`, `ingest_karpathy_rss`)는 각각 대응 피드를 `memory/ingest/rss/{이름}/`에 저장한다. 인자는 공통으로 선택 `limit` (1–100, 기본 20).
+그 외 RSS 전용 MCP(`ingest_yozm_rss`, `ingest_aitimes_rss`, `ingest_techreviewkr_rss`, `ingest_paulgraham_rss`, `ingest_samaltman_rss`, `ingest_karpathy_rss`)는 각각 대응 피드를 `memory/ingest/rss/{이름}/`에 저장한다. 인자는 공통으로 선택 `limit` (1–100, 기본 20).
 
 ## 문서
 

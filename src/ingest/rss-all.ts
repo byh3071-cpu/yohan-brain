@@ -8,7 +8,7 @@ import {
   RSS_FEED_KARPATHY,
   RSS_FEED_PAULGRAHAM,
   RSS_FEED_SAMALTMAN,
-  RSS_FEED_THEMILK,
+  RSS_FEED_TECHREVIEWKR,
   RSS_FEED_YOZM,
 } from "./rss-feed-config.js";
 import { ingestRssFeed, type IngestRssFeedResult } from "./rss-feed.js";
@@ -16,7 +16,7 @@ import { ingestRssFeed, type IngestRssFeedResult } from "./rss-feed.js";
 export const ALL_RSS_FEEDS: RssFeedDefinition[] = [
   RSS_FEED_YOZM,
   RSS_FEED_AITIMES,
-  RSS_FEED_THEMILK,
+  RSS_FEED_TECHREVIEWKR,
   RSS_FEED_PAULGRAHAM,
   RSS_FEED_SAMALTMAN,
   RSS_FEED_KARPATHY,

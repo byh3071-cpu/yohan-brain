@@ -45,5 +45,5 @@ priority: P1
 
 1. 텔레그램 1건 전송 → `inbox/telegram/` append → 다음 배치에서 처리 확인
 2. 노트북 재부팅 → 봇 자동 기동(`telegram:health --require-lock`) 확인
-3. themilk 피드 URL 결정 (`www.the-mill.kr` ENOTFOUND — 매 RSS 주기마다 failed 알림 발생)
+3. ~~themilk 피드 URL 결정~~ — ✅ 해결 (2026-06-12): 더밀크 공개 피드 전무 확인 → MIT 테크리뷰 코리아로 교체 (`decisions/2026-06-12-themilk-feed-replacement.md`)
 4. wiki Owner Notes 채우기 + 주 1회 MVI 시작
