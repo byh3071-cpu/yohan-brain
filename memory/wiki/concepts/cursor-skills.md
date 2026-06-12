@@ -1,13 +1,13 @@
 ---
-
-## id: cursor-skills
+id: cursor-skills
 type: concept
 aliases: [Cursor Skills, SKILL.md, 에이전트 스킬]
 created: 2026-04-16
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [modern-ai-ch16-skills-packaging]
-related_entities: [cursor, mcp]
+related_entities: [cursor, mcp, awesome-design-md-github-why-how]
 related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
+---
 
 # Cursor / Agent Skills (SKILL.md)
 
@@ -27,7 +27,7 @@ related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 ## Inferred (추론/연결) — TTL 30일
 
 - 검증 루프(Evaluator)·하네스 규칙과 스킬의 "절차 문서화"가 맞물릴 수 있음.
-- created: 2026-04-16, expires: 2026-05-16
+- created: 2026-04-16, expires: 2026-05-16 — status: expired
 
 ## Owner Notes
 

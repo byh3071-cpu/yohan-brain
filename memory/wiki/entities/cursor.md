@@ -3,10 +3,10 @@ id: cursor
 type: entity
 entity_type: tool
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [knowledge-base-strategy, vibe-coding-pipeline, last30days-github-skill-why-how]
-related_entities: [obsidian, claude-code, andrej-karpathy, mcp]
-related_concepts: [vibe-coding-pipeline, harness-engineering, single-source-of-truth, layered-context]
+related_entities: [obsidian, claude-code, andrej-karpathy, mcp, awesome-design-md-github-why-how]
+related_concepts: [vibe-coding-pipeline, harness-engineering, single-source-of-truth, layered-context, cursor-skills]
 ---
 
 # Cursor
@@ -24,7 +24,7 @@ related_concepts: [vibe-coding-pipeline, harness-engineering, single-source-of-t
 
 ## Inferred (추론/연결) — TTL 30일
 - Cursor + Claude Code 조합이 Yohan OS의 "교차 검증" 패턴(Cursor 개발 → Claude 검증, 또는 역)을 가능하게 함.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

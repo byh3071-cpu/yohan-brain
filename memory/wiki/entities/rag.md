@@ -3,7 +3,7 @@ id: rag
 type: entity
 entity_type: technology
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [knowledge-base-strategy, exploration-vs-exploitation, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch17-rag-select-pipeline]
 related_entities: [mcp]
 related_concepts: [layered-context, exploration-vs-exploitation]
@@ -26,7 +26,7 @@ related_concepts: [layered-context, exploration-vs-exploitation]
 
 ## Inferred (추론/연결) — TTL 30일
 - LLM Wiki 패턴은 RAG의 "매번 재검색" 한계를 보완하는 상위 레이어. RAG가 query-time이라면 wiki는 compile-time 지식 축적.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

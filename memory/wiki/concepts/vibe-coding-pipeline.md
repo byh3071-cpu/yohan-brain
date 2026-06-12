@@ -3,7 +3,7 @@ id: vibe-coding-pipeline
 type: concept
 aliases: [바이브코딩 파이프라인, Vibe Coding, 바이브 코딩]
 created: 2026-04-12
-updated: 2026-04-12
+updated: 2026-06-12
 source_insights: [vibe-coding-pipeline, vibe-coding-planning-importance]
 related_entities: [cursor, claude-code, awesome-design-md-github-why-how]
 related_concepts: [harness-engineering, single-source-of-truth, cursor-skills]
@@ -25,7 +25,7 @@ related_concepts: [harness-engineering, single-source-of-truth, cursor-skills]
 
 ## Inferred (추론/연결) — TTL 30일
 - 바이브코딩의 "기획 부재 → AI 임의 충전" 문제는 PROJECT-PIPELINE-SPEC의 Vision Lock으로 구조적 해결 가능.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

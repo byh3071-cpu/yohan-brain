@@ -5,7 +5,7 @@ entity_type: tool
 created: 2026-05-18
 updated: 2026-06-07
 source_insights: [awesome-design-md-github-why-how]
-related_entities: [cursor, awesome-design-md-github-why-how]
+related_entities: [cursor]
 related_concepts: [vibe-coding-pipeline, cursor-skills]
 ---
 # awesome-design-md — 왜 쓰는지 · 어떻게 쓰는지

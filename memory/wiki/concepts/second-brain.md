@@ -3,7 +3,7 @@ id: second-brain
 type: concept
 aliases: [제2의 뇌, Second Brain, 개인 지식 관리 시스템]
 created: 2026-04-12
-updated: 2026-05-25
+updated: 2026-06-12
 source_insights: [knowledge-base-strategy, obsidian-vault-para-system-guide, modern-ai-ch18-knowledge-management-karpathy-wiki]
 related_entities: [andrej-karpathy, obsidian, llm-wiki-gist-why-how]
 related_concepts: [para-method, layered-context]
@@ -26,7 +26,7 @@ related_concepts: [para-method, layered-context]
 ## Inferred (추론/연결) — TTL 30일
 - Yohan OS 자체가 Second Brain의 구현체. memory/ = 외부 뇌, wiki/ = 합성된 이해, Owner Notes = 내재화된 지식.
 - Atomic Notes 원칙은 wiki의 entity/concept 단위 분리와 직접 대응.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

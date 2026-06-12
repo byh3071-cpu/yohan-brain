@@ -3,7 +3,7 @@ id: claude-code
 type: entity
 entity_type: tool
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [last30days-github-skill-why-how]
 related_entities: [cursor, mcp, anthropic-sdk-python-github-why-how]
 related_concepts: [vibe-coding-pipeline, harness-engineering, modern-ai-ch11-harness-willison-aci]
@@ -20,7 +20,7 @@ related_concepts: [vibe-coding-pipeline, harness-engineering, modern-ai-ch11-har
 ## Inferred (추론/연결) — TTL 30일
 - Cursor(IDE) + Claude Code(CLI) 이중 체계로, 개발은 Cursor에서 수행하고 검증·자동화·배치 작업은 Claude Code에서 수행하는 역할 분담이 가능.
 - MCP `yohan-os`를 통해 memory/ 전체를 get_context로 읽는 구조는 Claude Code가 세션 간 맥락을 유지하는 핵심 메커니즘.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

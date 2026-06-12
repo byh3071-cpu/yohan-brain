@@ -3,7 +3,7 @@ id: para-method
 type: concept
 aliases: [PARA, PARA Method, PARA 메서드]
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [karpathy-obsidian-para-workflow, obsidian-vault-para-system-guide, modern-ai-ch18-knowledge-management-karpathy-wiki]
 related_entities: [andrej-karpathy, obsidian]
 related_concepts: [second-brain]
@@ -24,7 +24,7 @@ related_concepts: [second-brain]
 
 ## Inferred (추론/연결) — TTL 30일
 - Yohan OS의 memory/inbox → memory/ingest → memory/wiki 흐름은 PARA의 Inbox → 분류 패턴과 같은 구조.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

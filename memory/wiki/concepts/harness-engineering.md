@@ -3,9 +3,9 @@ id: harness-engineering
 type: concept
 aliases: [하네스 엔지니어링, Context Engineering, 컨텍스트 엔지니어링]
 created: 2026-04-12
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [knowledge-base-strategy, exploration-vs-exploitation, vibe-coding-pipeline, root-ai-harness-engineering-youtube-intro, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch15-mcp-gateway-willison]
-related_entities: [cursor, mcp]
+related_entities: [cursor, mcp, anthropic-sdk-python-github-why-how, claude-code]
 related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-context, vibe-coding-pipeline, cursor-skills, system-income-leverage-structure, modern-ai-ch10-context-engineering-karpathy, modern-ai-ch11-harness-willison-aci]
 ---
 
@@ -33,7 +33,7 @@ related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-
 
 ## Inferred (추론/연결) — TTL 30일
 - Yohan OS의 agent-harness.md가 이 개념의 직접 구현체. memory/rules/ 전체가 하네스 레이어.
-- created: 2026-04-16, expires: 2026-05-16
+- created: 2026-04-16, expires: 2026-05-16 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

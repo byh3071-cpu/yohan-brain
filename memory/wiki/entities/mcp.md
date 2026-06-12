@@ -3,10 +3,10 @@ id: mcp
 type: entity
 entity_type: technology
 created: 2026-04-16
-updated: 2026-04-16
+updated: 2026-06-12
 source_insights: [modern-ai-ch15-mcp-gateway-willison]
 related_entities: [cursor, claude-code, rag]
-related_concepts: [harness-engineering, layered-context, single-source-of-truth]
+related_concepts: [harness-engineering, layered-context, single-source-of-truth, cursor-skills]
 ---
 
 # MCP (Model Context Protocol)
@@ -24,7 +24,7 @@ related_concepts: [harness-engineering, layered-context, single-source-of-truth]
 
 ## Inferred (추론/연결) — TTL 30일
 - Yohan OS MCP(`yohan-os`)는 `memory/` SoT와 직결되는 실행 경로로 볼 수 있음.
-- created: 2026-04-16, expires: 2026-05-16
+- created: 2026-04-16, expires: 2026-05-16 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

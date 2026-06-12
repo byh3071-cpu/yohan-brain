@@ -3,7 +3,7 @@ id: obsidian
 type: entity
 entity_type: tool
 created: 2026-04-12
-updated: 2026-04-12
+updated: 2026-06-12
 source_insights: [karpathy-obsidian-para-workflow, obsidian-vault-para-system-guide]
 related_entities: [andrej-karpathy, cursor, llm-wiki-gist-why-how]
 related_concepts: [para-method, second-brain]
@@ -22,7 +22,7 @@ related_concepts: [para-method, second-brain]
 
 ## Inferred (추론/연결) — TTL 30일
 - Obsidian의 Vault + PARA 구조는 Yohan OS의 memory/ 디렉터리 구조와 같은 긴장 관계(수집 큐 vs SoT 정제)를 가짐.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)

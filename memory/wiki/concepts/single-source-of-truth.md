@@ -3,9 +3,9 @@ id: single-source-of-truth
 type: concept
 aliases: [SSoT, SoT, Single Source of Truth, 단일 진실 소스]
 created: 2026-04-12
-updated: 2026-05-25
+updated: 2026-06-12
 source_insights: [vibe-coding-pipeline, knowledge-base-strategy, vibe-coding-planning-importance, modern-ai-ch18-knowledge-management-karpathy-wiki]
-related_entities: [cursor, llm-wiki-gist-why-how]
+related_entities: [cursor, llm-wiki-gist-why-how, mcp, supabase-naver-oidc-proxy-github-why-how]
 related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 ---
 
@@ -25,7 +25,7 @@ related_concepts: [harness-engineering, vibe-coding-pipeline, layered-context]
 
 ## Inferred (추론/연결) — TTL 30일
 - wiki/ 레이어는 SoT의 확장 — insights가 원본 SoT, wiki가 합성 SoT, 둘의 관계가 명확히 분리되어야 SoT 원칙이 유지됨.
-- created: 2026-04-12, expires: 2026-05-12
+- created: 2026-04-12, expires: 2026-05-12 — status: expired
 
 ## Owner Notes
 - (Yohan이 직접 작성)
