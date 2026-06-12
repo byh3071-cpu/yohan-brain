@@ -1,6 +1,13 @@
 $ErrorActionPreference = "Stop"
 
-$taskName = "YohanOS-AutomationBatch-30min"
+$taskName = "YohanOS-AutomationBatch"
+$legacyTaskName = "YohanOS-AutomationBatch-30min"
+
+# 구버전(30분 주기) 작업이 남아 있으면 이중 실행을 막기 위해 먼저 제거
+if (Get-ScheduledTask -TaskName $legacyTaskName -ErrorAction SilentlyContinue) {
+  Unregister-ScheduledTask -TaskName $legacyTaskName -Confirm:$false
+  Write-Host "Removed legacy task: $legacyTaskName"
+}
 $runner = Join-Path $PSScriptRoot "run-automation-batch.ps1"
 $runnerVbs = Join-Path $PSScriptRoot "run-automation-batch-hidden.vbs"
 $wscript = Join-Path $env:WINDIR "System32\wscript.exe"
@@ -15,18 +22,15 @@ if (-not (Test-Path $wscript)) {
   throw "wscript.exe not found: $wscript"
 }
 
-# 버전/로캘별 schtasks 인수 파싱 이슈 회피:
-# 30분 반복 대신 "매일 00:00~23:30, 30분 간격" 트리거 48개를 등록한다.
+# 하루 2회(09:00, 21:00)만 실행 — 루틴 텔레그램 알림도 하루 최대 2회가 된다.
+# (검토·실패 알림은 배치 실행 시점에 즉시 발송되는 기존 동작 유지)
 $arg = "`"$runnerVbs`""
 $action = New-ScheduledTaskAction -Execute $wscript -Argument $arg
 
-$triggers = @()
-for ($h = 0; $h -lt 24; $h++) {
-  foreach ($m in @(0, 30)) {
-    $time = (Get-Date -Hour $h -Minute $m -Second 0)
-    $triggers += New-ScheduledTaskTrigger -Daily -At $time
-  }
-}
+$triggers = @(
+  (New-ScheduledTaskTrigger -Daily -At (Get-Date -Hour 9 -Minute 0 -Second 0)),
+  (New-ScheduledTaskTrigger -Daily -At (Get-Date -Hour 21 -Minute 0 -Second 0))
+)
 
 $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
@@ -44,7 +48,7 @@ try {
     -Action $action `
     -Trigger $triggers `
     -Settings $settings `
-    -Description "Yohan OS automation batch every 30 minutes (48 daily triggers, hidden vbs)" `
+    -Description "Yohan OS automation batch twice daily 09:00/21:00 (hidden vbs)" `
     -Force | Out-Null
 } catch {
   Register-ScheduledTask `
@@ -52,7 +56,7 @@ try {
     -Action $action `
     -Trigger $triggers `
     -Settings $settings `
-    -Description "Yohan OS automation batch every 30 minutes (user-level, hidden vbs)" `
+    -Description "Yohan OS automation batch twice daily 09:00/21:00 (user-level, hidden vbs)" `
     -Force | Out-Null
   Write-Host "Registered without -RunLevel Highest (non-admin fallback)."
 }

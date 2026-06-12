@@ -21,9 +21,9 @@ status: active
 | 위치 | 파일·작업 | Git 추적 |
 |------|-----------|----------|
 | **레포** | `auto-pull-hidden.vbs`, `scripts/git-auto-pull.template.vbs`, `scripts/install-git-auto-pull.ps1`, `scripts/task-scheduler-auto-pull-setup.ps1` | ✅ |
-| **레포** | `scripts/task-scheduler-setup.ps1` (`YohanOS-AutomationBatch-30min`) | ✅ |
+| **레포** | `scripts/task-scheduler-setup.ps1` (`YohanOS-AutomationBatch`) | ✅ |
 | **`%USERPROFILE%`** | `git-auto-pull.vbs` (실제 `git pull`·로그) | ❌ PC별 설치 |
-| **Windows** | 예약 작업 `YohanAutoPull`, `YohanOS-AutomationBatch-30min` | ❌ PC별 등록 |
+| **Windows** | 예약 작업 `YohanAutoPull`, `YohanOS-AutomationBatch` | ❌ PC별 등록 |
 
 pull 로그: `%USERPROFILE%\git-autopull.log`
 레포 루트 **`auto-pull.ps1`은 삭제됨** — 신규 PC는 Goal 4 VBS 템플릿 또는 아래 **커스텀 ps1** 중 택1.
@@ -59,7 +59,7 @@ flowchart LR
 | **`YohanAutoPull`** | 30분 주기. `wscript.exe` → 레po `auto-pull-hidden.vbs` |
 | **`auto-pull-hidden.vbs`** | `%USERPROFILE%\git-auto-pull.vbs`로 위임 (창 숨김) |
 | **`git-auto-pull.vbs`** | PC별 clone 경로에서 `git pull --rebase origin main` + 로그 |
-| **`YohanOS-AutomationBatch-30min`** | 30분 주기 `npm run automation:batch`. **직접 git 명령 없음** |
+| **`YohanOS-AutomationBatch`** | 하루 2회(09:00·21:00) `npm run automation:batch`. **직접 git 명령 없음** |
 
 ## AutomationBatch vs 수동 git (필수 가드)
 
@@ -67,8 +67,8 @@ flowchart LR
 
 | 상황 | 규칙 |
 |------|------|
-| `git add` / commit 준비 / rebase 중 | **`YohanOS-AutomationBatch-30min` 일시 중지** 또는 작업 완료까지 직렬화 |
-| 장시간 편집 세션 | 배치 비활성화: `Disable-ScheduledTask -TaskName YohanOS-AutomationBatch-30min` |
+| `git add` / commit 준비 / rebase 중 | **`YohanOS-AutomationBatch` 일시 중지** 또는 작업 완료까지 직렬화 |
+| 장시간 편집 세션 | 배치 비활성화: `Disable-ScheduledTask -TaskName YohanOS-AutomationBatch` |
 | 작업 재개 전 | `git status -b --short` 로 staged·unstaged 확인 후 배치 재활성화 |
 | `YohanAutoPull` | pull-only — 인덱스 충돌 가능성은 batch보다 낮음. 그래도 **commit 직전 pull**은 수동 `git pull --rebase` 권장 |
 

@@ -83,7 +83,7 @@ status: active
 
 1. `memory/`는 **Git으로 버전 관리**하는 것을 전제로 한다. 다른 PC에서 작업하면 **풀/푸시**로 맥락이 갈라지지 않게 한다.
 2. MCP `cwd`가 레포 루트가 아니면 **잘못된 SoT**를 읽을 수 있으므로, 설정이 바뀌면 **`get_context` 결과의 `memory_root`**로 확인한다.
-3. **노트북·집 PC 동기 절차·예약 작업·충돌 가드**는 **`memory/rules/multi-pc-sync.md`** 가 단일 SoT다 (pull-first, push 후 반대 기기 pull, `YohanAutoPull`/`YohanOS-AutomationBatch-30min`).
+3. **노트북·집 PC 동기 절차·예약 작업·충돌 가드**는 **`memory/rules/multi-pc-sync.md`** 가 단일 SoT다 (pull-first, push 후 반대 기기 pull, `YohanAutoPull`/`YohanOS-AutomationBatch`).
 
 ---
 

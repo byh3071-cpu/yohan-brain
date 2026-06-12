@@ -25,7 +25,7 @@ status: active
 | --- | --- | --- |
 | A | 로컬에서 봇 폴링 | `npm run bot` (한 PC·한 프로세스; `memory/.telegram-bot.lock`) |
 | B | 텍스트·URL·사진 수신 | `memory/inbox/telegram/YYYY-MM-DD.md` |
-| C | 자동 OCR→인사이트·노션·GitHub URL | `npm run automation:batch` (텔레그램 완료 알림: 루틴은 최대 2시간마다, 검토·실패는 매번) |
+| C | 자동 OCR→인사이트·노션·GitHub URL | `npm run automation:batch` (예약: 하루 2회 09:00·21:00 — 텔레그램 완료 알림도 하루 최대 2회, 검토·실패는 매번) |
 | D | 사람 검토 | `memory/inbox/automation-review.md`, `memory/logs/errors/` |
 | E | 노션 원본·서머리 | `memory/rules/notion-ocr-pipeline.md`, `sync:notion:ocr:*` |
 
