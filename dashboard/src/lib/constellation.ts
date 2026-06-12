@@ -25,7 +25,7 @@ export const CATEGORY_GLOW_COLORS: Record<DocCategory, string> = {
   templates: "#38bdf8",
 }
 
-const CATEGORY_LABELS: Record<DocCategory, string> = {
+export const CATEGORY_LABELS: Record<DocCategory, string> = {
   insights: "인사이트",
   rss: "RSS",
   url: "URL",
