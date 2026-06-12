@@ -13,6 +13,7 @@ import { appendQueueLine, deadLetterPath, loadState, reviewPath, saveState } fro
 import { isRssDue, writeLastRssIngest, RSS_INGEST_INTERVAL_MS } from "./automation/rss.js"
 import type { AutomationState, CliOptions, ScreenshotBlock, Stats } from "./automation/types.js"
 import { ingestAllRssFeeds } from "../src/ingest/rss-all.js"
+import { suggestPromotions } from "../src/wiki/promote.js"
 import { resolveRepoRoot } from "../src/paths.js"
 
 config({ path: join(resolveRepoRoot(), ".env") })
@@ -191,11 +192,27 @@ async function main(): Promise<void> {
     lastNotify === null || Date.now() - lastNotify >= ROUTINE_NOTIFY_INTERVAL_MS
   const shouldTelegram = opts.noNotify ? false : needsAttention || routineDue
 
+  // wiki 승격 후보 — 루틴 알림 due일 때만 조회 (2h 스로틀 재사용, 자동 승격 없음, 비치명)
+  const wikiLines: string[] = []
+  if (routineDue || opts.dryRun) {
+    try {
+      const sug = await suggestPromotions({ limit: 3 })
+      if (sug.suggestions.length > 0) {
+        wikiLines.push(`wiki 후보: ${sug.suggestions.map((s) => s.insight_id).join(", ")}`)
+      }
+      if (opts.dryRun && wikiLines.length > 0) {
+        console.log(`[batch] ${wikiLines[0]}`)
+      }
+    } catch (e) {
+      console.log(`[batch] wiki 승격 후보 조회 실패 (무시): ${e instanceof Error ? e.message : e}`)
+    }
+  }
+
   if (shouldTelegram) {
     if (needsAttention) {
-      await notifyTelegram([summary, ...issueDetails.slice(0, 20)], false)
+      await notifyTelegram([summary, ...issueDetails.slice(0, 20), ...wikiLines], false)
     } else {
-      await notifyTelegram([summary], false)
+      await notifyTelegram([summary, ...wikiLines], false)
     }
     if (!opts.dryRun) {
       await writeLastRoutineNotifyAt()
