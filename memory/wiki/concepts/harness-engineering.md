@@ -6,7 +6,7 @@ created: 2026-04-12
 updated: 2026-04-16
 source_insights: [knowledge-base-strategy, exploration-vs-exploitation, vibe-coding-pipeline, root-ai-harness-engineering-youtube-intro, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch15-mcp-gateway-willison]
 related_entities: [cursor, mcp]
-related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-context, vibe-coding-pipeline, cursor-skills, system-income-leverage-structure]
+related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-context, vibe-coding-pipeline, cursor-skills, system-income-leverage-structure, modern-ai-ch10-context-engineering-karpathy, modern-ai-ch11-harness-willison-aci]
 ---
 
 # 하네스 엔지니어링 (Harness Engineering)

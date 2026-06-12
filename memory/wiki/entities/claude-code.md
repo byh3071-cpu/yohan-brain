@@ -6,7 +6,7 @@ created: 2026-04-12
 updated: 2026-04-16
 source_insights: [last30days-github-skill-why-how]
 related_entities: [cursor, mcp, anthropic-sdk-python-github-why-how]
-related_concepts: [vibe-coding-pipeline, harness-engineering]
+related_concepts: [vibe-coding-pipeline, harness-engineering, modern-ai-ch11-harness-willison-aci]
 ---
 
 # Claude Code

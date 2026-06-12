@@ -1,6 +1,6 @@
 ---
 id: wiki-log
-updated: 2026-06-07
+updated: 2026-06-12
 ---
 
 # Wiki Change Log (append-only)
@@ -45,3 +45,10 @@ updated: 2026-06-07
 
 - **Goal 2 (VHK):** wiki tool 4건 사용자 작성 마무리 — `llm-wiki-gist`, `supabase-naver-oidc-proxy`, `awesome-design-md`, `anthropic-sdk-python` 정의·Inferred·Owner Notes·양방향 related 갱신. `index.md` 한 줄 설명 TODO 제거.
 - **Goal 3 (VHK):** finance concept 3건 완료 — `personal-finance-low-energy-top3`, `system-income-leverage-structure`, `self-made-wealth-five-elements`. `harness-engineering` ↔ system-income related. `multi-pc-sync.md` 현행화.
+
+## 2026-06-12
+
+- **REORG** `index.md` 도메인 그룹핑 (AI·개발 도구/인물/지식관리/개발 워크플로우/재무) + 통계 재집계: 엔티티 10, 컨셉 11, Inferred TTL 만료 14페이지·유효 7페이지. 만료분 주간 리뷰 처리 항목으로 표기.
+- **STRUCT** 지식 레이어 역할 분리 명세 신설: `docs/KNOWLEDGE-LOOP.md` — wiki=사전(개념·도구·인물 카드), `memory/knowledge-hub/`=주제 종합 문서+트리플맵+키워드. 원문→요약 프로토콜 로컬판: `memory/rules/source-to-summary-protocol.md`.
+- **PROMOTE** modern-ai-ch10-context-engineering-karpathy → concepts/modern-ai-ch10-context-engineering-karpathy.md
+- **PROMOTE** modern-ai-ch11-harness-willison-aci → concepts/modern-ai-ch11-harness-willison-aci.md

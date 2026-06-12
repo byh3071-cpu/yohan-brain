@@ -6,7 +6,7 @@ created: 2026-04-12
 updated: 2026-05-25
 source_insights: [knowledge-base-strategy, vibe-coding-pipeline, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch17-rag-select-pipeline]
 related_entities: [cursor, llm-wiki-gist-why-how]
-related_concepts: [single-source-of-truth, harness-engineering, exploration-vs-exploitation]
+related_concepts: [single-source-of-truth, harness-engineering, exploration-vs-exploitation, modern-ai-ch10-context-engineering-karpathy]
 ---
 
 # Layered Context (다층적 맥락 구조)
