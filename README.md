@@ -1,4 +1,6 @@
-# Yohan OS (v0)
+# 요한 브레인 (Yohan Brain) — v0
+
+> 구 명칭 "Yohan OS" (노션 ADR D-13, 2026-06-08 개명). **요한 OS**는 이제 별도의 베어메탈 OS 프로젝트(레포 `yohan-os`)를 가리킨다. 이 레포의 MCP 서버 이름 `yohan-os`(`.cursor/mcp.json`·`package.json`)는 클라이언트 등록 호환을 위해 `yohan-mcp` 레포 분리 전까지 유지한다.
 
 에이전트용 SoT(`memory/`) + MCP **stdio** 서버. 첫 목표: **`get_context`**로 맥락 통일.
 

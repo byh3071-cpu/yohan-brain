@@ -57,7 +57,7 @@ status: active
 
 1. 에이전트 SoT 루트는 `**memory/`** 이다. 레포 루트는 MCP `cwd` 또는 환경 변수 `**YOHAN_OS_ROOT`** 로 결정된다.
 2. **비밀번호·API 키·토큰**은 SoT 마크다운·YAML·커밋에 **평문으로 넣지 않는다**. 필요하면 `.env`·OS 시크릿·예시만 문서화한다.
-3. **노션·다른 툴이 “최종 진실”이 되게 설계 변경을 제안하지 않는다.** 사람용 미러·입력은 가능하나, **런타임 진실은 `memory/`**다. 노션과 양방향을 쓸 때는 `**memory/rules/notion-sync.md`** (SoT 항상 우선)를 따른다.
+3. **에이전트 런타임 맥락(profile·active-project·decisions·rules)은 노션·다른 툴이 “최종 진실”이 되게 설계 변경을 제안하지 않는다** — **런타임 진실은 `memory/`**다. 단, 이 조항은 런타임 맥락에 한한다: **지식·기획 정본(SSoT)은 노션**이다 (ADR-006 · SoT 3축: `docs/VISION-AND-REQUIREMENTS.md` §0.3). 노션과 양방향을 쓸 때는 `**memory/rules/notion-sync.md`** (런타임 SoT 우선)를 따른다.
 
 ---
 

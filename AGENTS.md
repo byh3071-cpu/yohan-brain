@@ -1,4 +1,7 @@
-# Yohan OS — 에이전트 진입점
+# 요한 브레인 (Yohan Brain) — 에이전트 진입점
+
+> **명칭 (노션 ADR D-13, 2026-06-08):** 이 레포 = **요한 브레인** (구 "Yohan OS"). **요한 OS**는 이제 별도의 베어메탈 OS 프로젝트(레포 `yohan-os`)를 가리킨다. 이 레포의 MCP 서버 이름 `yohan-os`는 `yohan-mcp` 레포 분리 전까지 유지.
+> **SoT 3축:** 코드 = Git · 지식·기획 정본 = 노션(ADR-006) · 에이전트 런타임 맥락 = `memory/`. 상세: `docs/VISION-AND-REQUIREMENTS.md` §0.
 
 이 레포에서 작업하는 **모든 에이전트**(Cursor 포함)는 아래 순서를 따른다.
 

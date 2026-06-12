@@ -1,8 +1,10 @@
-# Yohan OS — Claude 진입 요약
+# 요한 브레인 (Yohan Brain) — Claude 진입 요약
 
 먼저 AGENTS.md를 읽어라.
 
-이 레포는 Yohan 1명과 AI 에이전트가 함께 운영하는 개인 AI 운영체제다. 핵심 SoT는 `memory/`이며, MCP `yohan-os`의 `get_context`가 세션 시작 맥락을 공급한다.
+이 레포는 Yohan 1명과 AI 에이전트가 함께 운영하는 개인 AI 생태계의 두뇌(세컨드 브레인)다. 구 명칭은 "Yohan OS"이며, **요한 OS는 이제 별도의 베어메탈 운영체제 프로젝트(레포 `yohan-os`)를 가리킨다** (노션 ADR D-13, 2026-06-08). 이 레포의 MCP 서버 이름 `yohan-os`는 옛 명칭의 잔재로, `yohan-mcp` 레포 분리 전까지 유지한다.
+
+에이전트 런타임 SoT는 `memory/`이며, MCP `yohan-os`의 `get_context`가 세션 시작 맥락을 공급한다. 지식·기획 정본은 노션(ADR-006), 코드 정본은 Git이다 — SoT 3축 상세는 `docs/VISION-AND-REQUIREMENTS.md` §0.
 
 ## 필수 기준
 
