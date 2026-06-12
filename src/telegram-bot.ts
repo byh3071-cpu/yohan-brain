@@ -15,6 +15,7 @@ import { appendFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { config } from "dotenv";
 import { ingestUrl } from "./ingest/url.js";
+import { isPidAlive } from "./pid-alive.js";
 import { recognizeImageBuffer } from "./telegram-ocr.js";
 import {
   getMemoryDir,
@@ -117,15 +118,6 @@ async function getFileLink(fileId: string): Promise<string> {
 /** 동일 PC에서 `npm run bot` 이 두 번 뜨면 Telegram 이 409 를 낸다. PID 락으로 한 인스턴스만 허용. */
 const LOCK_FILE = join(getMemoryDir(), ".telegram-bot.lock");
 const LOCK_MAX_AGE_MS = 86_400_000;
-
-function isPidAlive(pid: number): boolean {
-  try {
-    process.kill(pid, 0);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * `exists` 후 `write` 방식은 두 프로세스가 동시에 통과할 수 있다.

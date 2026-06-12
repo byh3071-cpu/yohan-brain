@@ -6,17 +6,9 @@ import { config } from "dotenv"
 import { existsSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { getMemoryDir, resolveRepoRoot } from "../src/paths.js"
+import { isPidAlive } from "../src/pid-alive.js"
 
 config({ path: join(resolveRepoRoot(), ".env") })
-
-function isPidAlive(pid: number): boolean {
-  try {
-    process.kill(pid, 0)
-    return true
-  } catch {
-    return false
-  }
-}
 
 async function main(): Promise<void> {
   const requireLock = process.argv.includes("--require-lock")
