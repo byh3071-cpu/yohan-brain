@@ -292,7 +292,9 @@ export function GraphView2D({
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const simRef = useRef<ForceSim2D<GraphNode> | null>(null)
-  if (!simRef.current) simRef.current = new ForceSim2D<GraphNode>()
+  if (simRef.current == null) {
+    simRef.current = new ForceSim2D<GraphNode>()
+  }
   const nodesRef = useRef<GraphNode[]>([])
   const linksRef = useRef<GraphLink[]>([])
   const adjRef = useRef<Map<string, Set<string>>>(new Map())
@@ -312,9 +314,11 @@ export function GraphView2D({
   const [display, setDisplay] = useState<DisplaySettings>(DEFAULT_DISPLAY)
   const [forces, setForces] = useState<ForceParams>(DEFAULT_FORCE_PARAMS)
 
-  // RAF 루프·이벤트 핸들러가 항상 최신 값을 읽도록 ref 미러
+  // RAF 루프·이벤트 핸들러가 항상 최신 값을 읽도록 ref 미러 (커밋 후 동기화)
   const stateRef = useRef({ filterCategory, selectedRelPath, display, forces, onSelectDoc })
-  stateRef.current = { filterCategory, selectedRelPath, display, forces, onSelectDoc }
+  useEffect(() => {
+    stateRef.current = { filterCategory, selectedRelPath, display, forces, onSelectDoc }
+  })
 
   /* 필터 적용 후 보이는 그래프 (옵시디언: 검색·고아·그룹 토글은 노드를 제거) */
   const visible = useMemo(() => {
