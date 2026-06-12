@@ -54,3 +54,5 @@ updated: 2026-06-12
 - **PROMOTE** modern-ai-ch11-harness-willison-aci → concepts/modern-ai-ch11-harness-willison-aci.md
 - **CREATE** entities/sam-altman.md — person. 원문→요약 프로토콜 실전 1회전(samaltman-productivity)의 인물 감지 훅으로 생성. RSS 30건 보유 저자 = 반복 등장 기준 충족. `index.md` 엔티티 10→11.
 - **EXPIRE-CLEAR** 만료 Inferred 16불릿 전수 청산 — ① Verified 승격 8건 (rag, obsidian, harness-engineering, single-source-of-truth, second-brain×2, layered-context, para-method — 소스 대조 후 `[source:]` 태그, `(2026-06-12 Inferred→Verified 승격)` 표기) ② TTL 재발급 8건 (andrej-karpathy, claude-code×2, cursor, mcp, vibe-coding-pipeline, exploration-vs-exploitation, cursor-skills — 사용자 승인, expires 2026-07-12, Owner 검증 대기). `index.md` 통계 갱신 (만료 0), ch10·ch11을 "지식관리·컨텍스트" 그룹으로 병합 + 한 줄 설명 보강.
+- **PROMOTE** coding-agents-normal-technology → concepts/agentic-engineering.md — 사용자 승인 승격. vibe coding(무감독)과의 구분 개념, Yohan OS P/G/E가 1인 구현체라는 Inferred 포함. `index.md` 컨셉 13→14.
+- **BACKFILL** [2026-06-12 역전파] coding-agents-normal-technology → `harness-engineering`(agentic engineering 용어·샌드위치 모델에서 하네스=전달 층 장치, Verified 추가) · `modern-ai-ch11-harness-willison-aci`(Willison 감독 피로 수렴 증거, Inferred 추가). 양방향 related 연결.

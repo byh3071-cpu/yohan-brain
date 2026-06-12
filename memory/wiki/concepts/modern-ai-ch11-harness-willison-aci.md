@@ -22,7 +22,7 @@ related_concepts: [harness-engineering]
 - **무상태:** LLM은 턴마다 백지에 가깝고, **하네스가 매 턴 컨텍스트를 재구성**(토큰 캐시는 비용 완화일 뿐). [source: modern-ai-ch11-harness-willison-aci]
 
 ## Inferred (추론/연결) — TTL 30일
-- (TODO: 소스 간 연결로 도출한 추론을 적는다.)
+- Willison의 "에이전트 감독은 오전 11시면 정신적으로 지친다"(coding-agents-normal-technology 경유) — 하네스가 줄이려는 비용이 바로 이 **감독 부하**라는 수렴 증거. 하네스(자동 게이트·검증 루프)는 감독 노동의 자동화 장치. [source: coding-agents-normal-technology] [2026-06-12 역전파]
 - created: 2026-06-12, expires: 2026-07-12
 
 ## Owner Notes

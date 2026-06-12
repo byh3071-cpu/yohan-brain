@@ -4,9 +4,9 @@ type: concept
 aliases: [하네스 엔지니어링, Context Engineering, 컨텍스트 엔지니어링]
 created: 2026-04-12
 updated: 2026-06-12
-source_insights: [knowledge-base-strategy, exploration-vs-exploitation, vibe-coding-pipeline, root-ai-harness-engineering-youtube-intro, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch15-mcp-gateway-willison]
+source_insights: [knowledge-base-strategy, exploration-vs-exploitation, vibe-coding-pipeline, root-ai-harness-engineering-youtube-intro, modern-ai-ch18-knowledge-management-karpathy-wiki, modern-ai-ch15-mcp-gateway-willison, coding-agents-normal-technology]
 related_entities: [cursor, mcp, anthropic-sdk-python-github-why-how, claude-code]
-related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-context, vibe-coding-pipeline, cursor-skills, system-income-leverage-structure, modern-ai-ch10-context-engineering-karpathy, modern-ai-ch11-harness-willison-aci]
+related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-context, vibe-coding-pipeline, cursor-skills, system-income-leverage-structure, modern-ai-ch10-context-engineering-karpathy, modern-ai-ch11-harness-willison-aci, agentic-engineering]
 ---
 
 # 하네스 엔지니어링 (Harness Engineering)
@@ -32,6 +32,7 @@ related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-
 - 도구 스키마가 컨텍스트에 과도하게 상주하는 비용·**보안 게이트웨이**·노출 최소화는 MCP 운영 시 하네스 설계와 직결된다는 서술. [source: modern-ai-ch15-mcp-gateway-willison]
 
 - Yohan OS의 `agent-harness.md`가 이 개념의 직접 구현체이며 `memory/rules/` 전체가 하네스 레이어 — AGENTS.md가 "필수 하네스"로 명시. [source: AGENTS.md §1] (2026-06-12 Inferred→Verified 승격)
+- 하네스가 통제하는 실무 관행의 업계 명칭은 **agentic engineering**(인간이 통제·책임 유지한 채 에이전트 사용) — vibe coding(무감독·무검토)과 구분되며, 소프트웨어 개발의 결정–실행–전달 샌드위치에서 하네스는 전달 층(검증·책임)의 자동화 장치에 해당. [source: coding-agents-normal-technology] [2026-06-12 역전파]
 
 ## Inferred (추론/연결) — TTL 30일
 - (없음)
@@ -46,3 +47,4 @@ related_concepts: [single-source-of-truth, exploration-vs-exploitation, layered-
 - [root-ai-harness-engineering-youtube-intro](../../ingest/insights/root-ai-harness-engineering-youtube-intro.md)
 - [modern-ai-ch18-knowledge-management-karpathy-wiki](../../ingest/insights/modern-ai-ch18-knowledge-management-karpathy-wiki.md)
 - [modern-ai-ch15-mcp-gateway-willison](../../ingest/insights/modern-ai-ch15-mcp-gateway-willison.md)
+- [coding-agents-normal-technology](../../ingest/insights/coding-agents-normal-technology.md)

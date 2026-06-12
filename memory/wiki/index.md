@@ -10,8 +10,8 @@ updated: 2026-06-12
 ## 통계
 
 ```
-엔티티: 11/80 | 컨셉: 13/50 | 답변: 0 | 고아: 0
-Inferred TTL: 만료 0 | 유효 17페이지 (재발급 8건 ~7/12 · 6월 생성분 ~7/7·7/12)
+엔티티: 11/80 | 컨셉: 14/50 | 답변: 0 | 고아: 0
+Inferred TTL: 만료 0 | 유효 18페이지 (재발급 8건 ~7/12 · 6월 생성분 ~7/7·7/12)
 ```
 
 - **2026-06-12 만료 청산 완료:** 만료 16불릿 중 8건 소스 대조 후 Verified 승격, 8건 사용자 승인으로 TTL 재발급(~7/12, Owner 검증 대기). 다음 주간 리뷰: 재발급분 Owner Notes 확인.
@@ -46,6 +46,7 @@ Inferred TTL: 만료 0 | 유효 17페이지 (재발급 8건 ~7/12 · 6월 생성
 ## Concepts — 개발 워크플로우
 
 - [vibe-coding-pipeline](concepts/vibe-coding-pipeline.md) — 바이브코딩 파이프라인.
+- [agentic-engineering](concepts/agentic-engineering.md) — 인간이 통제·책임 유지한 채 에이전트 사용 — vibe coding의 대척점.
 - [cursor-skills](concepts/cursor-skills.md) — SKILL.md·에이전트 스킬 패키징.
 - [exploration-vs-exploitation](concepts/exploration-vs-exploitation.md) — 통제력 vs 창조성 균형.
 
