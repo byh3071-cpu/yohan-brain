@@ -16,7 +16,7 @@ status: active
 ## 트리거
 
 - 새 insights (standard+ & status:insight) → /wiki-ingest
-- 주간 리뷰 → /wiki-lint
+- 주간 리뷰 → /wiki-lint — 구조 검사는 `npm run wiki:lint` (수정: `wiki:lint:fix`), 에이전트는 Fact-Check(의미 대조)만 수동
 - 지식 질문 → /wiki-query → (선택) /wiki-answer
 - 단건 승격 (insight → wiki) → MCP `promote_to_wiki` 또는 `npm run promote-wiki`
 - 승격 후보 스캔 → MCP `suggest_promotions`

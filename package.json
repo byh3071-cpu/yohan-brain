@@ -26,6 +26,8 @@
     "search:memory": "tsx src/search-memory-cli.ts",
     "plan:task": "tsx src/plan-task-cli.ts",
     "promote-wiki": "tsx src/promote-wiki-cli.ts",
+    "wiki:lint": "tsx src/wiki-lint-cli.ts",
+    "wiki:lint:fix": "tsx src/wiki-lint-cli.ts --fix",
     "route:task": "tsx src/route-task-cli.ts",
     "route:run": "tsx src/route-and-run-cli.ts",
     "route:dry": "tsx src/route-and-run-cli.ts --dry-run",

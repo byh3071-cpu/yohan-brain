@@ -73,6 +73,8 @@ description: >-
 
 **트리거:** 주간 리뷰 시, 또는 사용자가 "wiki 점검" 요청 시.
 
+**구조 검사(1~5, 7~8)는 CLI가 수행:** `npm run wiki:lint` (자동 수정: `npm run wiki:lint:fix` — TTL expired 마킹 + index 통계 재생성, JSON: `-- --json`). 에이전트는 CLI 결과를 읽고 **Fact-Check(6)만** 수동 수행.
+
 ```
 1. 고아 페이지: source_insights가 모두 삭제/부재인 wiki 페이지.
 2. 깨진 링크: 존재하지 않는 파일 참조하는 related_* 필드.
