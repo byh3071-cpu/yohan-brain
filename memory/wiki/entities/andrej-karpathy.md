@@ -5,7 +5,7 @@ entity_type: person
 created: 2026-04-12
 updated: 2026-06-12
 source_insights: [knowledge-base-strategy, karpathy-obsidian-para-workflow, modern-ai-ch18-knowledge-management-karpathy-wiki]
-related_entities: [obsidian, cursor, llm-wiki-gist-why-how]
+related_entities: [obsidian, cursor, llm-wiki-gist-why-how, sam-altman]
 related_concepts: [para-method, second-brain, layered-context]
 ---
 

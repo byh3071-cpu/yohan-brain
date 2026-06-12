@@ -13,7 +13,7 @@ import { existsSync } from "node:fs";
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { parse as parseYaml } from "yaml";
-import { getMemoryDir } from "../paths.js";
+import { getMemoryDir, resolveRepoRoot } from "../paths.js";
 
 export type LintSeverity = "error" | "warning" | "info";
 
@@ -233,6 +233,27 @@ function sectionOf(body: string, headingPrefix: string): string | null {
   return lines.slice(start, end).join("\n");
 }
 
+/**
+ * [source: …] 태그 내용 분해. 코퍼스 표기 규약:
+ *  - 복수 소스는 `,` 또는 `·` 구분: [source: a, b] / [source: a · b]
+ *  - insight id 외에 레포 문서 참조 허용: [source: AGENTS.md §1], [source: docs/WIKI-SPEC-v2.md §0]
+ */
+function splitSourceTokens(tag: string): string[] {
+  return tag
+    .split(/[,·]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/** 토큰이 가리키는 원본이 실존하는지 — insight id 우선, .md 포함 시 레포 문서 경로(§절 표기 제거) */
+function sourceTokenExists(token: string): { exists: boolean; kind: "insight" | "doc" } {
+  if (/\.md/i.test(token)) {
+    const path = token.replace(/\s*§.*$/, "").trim();
+    return { exists: existsSync(join(resolveRepoRoot(), path)), kind: "doc" };
+  }
+  return { exists: existsSync(join(insightsDir(), `${token}.md`)), kind: "insight" };
+}
+
 function checkSourceLock(page: WikiPage, findings: LintFinding[]): void {
   const verified = sectionOf(page.body, "Verified");
   if (verified === null) {
@@ -258,21 +279,27 @@ function checkSourceLock(page: WikiPage, findings: LintFinding[]): void {
       });
       continue;
     }
-    for (const tag of tags) {
-      if (sourceInsights.length > 0 && !sourceInsights.includes(tag)) {
-        findings.push({
-          severity: "warning",
-          rule: "source-lock",
-          file: page.rel,
-          message: `[source: ${tag}]가 frontmatter source_insights에 없음`,
-        });
-      }
-      if (!existsSync(join(insightsDir(), `${tag}.md`))) {
+    for (const token of tags.flatMap(splitSourceTokens)) {
+      const { exists, kind } = sourceTokenExists(token);
+      if (!exists) {
         findings.push({
           severity: "error",
           rule: "source-lock",
           file: page.rel,
-          message: `[source: ${tag}] 원본 insight 파일 없음 (memory/ingest/insights/${tag}.md)`,
+          message:
+            kind === "doc"
+              ? `[source: ${token}] 레포 문서 없음`
+              : `[source: ${token}] 원본 insight 파일 없음 (memory/ingest/insights/${token}.md)`,
+        });
+        continue;
+      }
+      // source_insights 등재 검사는 insight 토큰에만 적용 (문서 참조는 대상 아님)
+      if (kind === "insight" && sourceInsights.length > 0 && !sourceInsights.includes(token)) {
+        findings.push({
+          severity: "warning",
+          rule: "source-lock",
+          file: page.rel,
+          message: `[source: ${token}]가 frontmatter source_insights에 없음`,
         });
       }
     }

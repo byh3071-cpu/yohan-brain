@@ -6,7 +6,7 @@ created: 2026-06-12
 updated: 2026-06-12
 source_insights: [modern-ai-ch11-harness-willison-aci]
 related_entities: [claude-code]
-related_concepts: [harness-engineering]
+related_concepts: [harness-engineering, agentic-engineering]
 ---
 # 현대AI개론 Ch.11 — 하네스 (인사이트)
 

@@ -5,7 +5,7 @@ aliases: [system-income, pipeline-income, capital-income]
 created: 2026-05-18
 updated: 2026-06-07
 source_insights: [system-income-leverage-structure]
-related_entities: []
+related_entities: [sam-altman]
 related_concepts: [self-made-wealth-five-elements, harness-engineering, personal-finance-low-energy-top3]
 ---
 

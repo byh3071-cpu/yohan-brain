@@ -5,7 +5,7 @@ aliases: [low-energy-top3, 재무-3개-제약]
 created: 2026-05-18
 updated: 2026-06-07
 source_insights: [personal-finance-low-energy-top3]
-related_entities: []
+related_entities: [sam-altman]
 related_concepts: [self-made-wealth-five-elements, system-income-leverage-structure]
 ---
 
