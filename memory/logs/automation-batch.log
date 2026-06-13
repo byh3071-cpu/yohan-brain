@@ -8046,3 +8046,18 @@
 [batch] ?붾젅洹몃옩 ?꾨즺 ?뚮┝ ?앸왂 (猷⑦떞 ?붿빟? 2?쒓컙??理쒕? 1??
 [Yohan OS][batch] ?꾨즺: ?ㅼ틪=0 泥섎━=0 ?ㅽ궢=0 寃??0 ?ㅽ뙣=0
 [2026-06-12 20:00:05] DONE automation:batch
+[2026-06-13 20:19:03] START automation:batch
+
+> yohan-os@0.1.0 automation:batch
+> tsx scripts/automation-batch.ts
+
+[Yohan OS][batch] ?꾨즺: ?ㅼ틪=0 泥섎━=0 ?ㅽ궢=0 寃??0 ?ㅽ뙣=0
+[2026-06-13 20:19:12] DONE automation:batch
+[2026-06-13 21:22:54] START automation:batch
+
+> yohan-os@0.1.0 automation:batch
+> tsx scripts/automation-batch.ts
+
+[batch] ?붾젅洹몃옩 ?꾨즺 ?뚮┝ ?앸왂 (猷⑦떞 ?붿빟? 2?쒓컙??理쒕? 1??
+[Yohan OS][batch] ?꾨즺: ?ㅼ틪=0 泥섎━=0 ?ㅽ궢=0 寃??0 ?ㅽ뙣=0 RSS=?좉퇋25/?ㅽ궢75
+[2026-06-13 21:24:08] DONE automation:batch
