@@ -44,7 +44,8 @@ source:
 - **URL:** https://activetheory.net
 - **무엇:** WebGL·실시간 3D 몰입 경험 전문 스튜디오 (Webby "Crafted with Code" 등).
 - **왜 유사:** 브라우저에서 고퀄 실시간 그래픽을 뽑는 기술·연출 레퍼런스. 대형 캠페인급 인터랙티브의 상한선.
-- **참고점:** 연출·트랜지션·로딩 경험의 디테일 참고. *(직접 작업 목록은 방문해 갱신 필요 — secondhand)*
+- **대표작(케이스스터디 확인):** *Thorne: The Frontier Within*(필름+설치+웹 결합, 18ft 4K 모놀리스 갤러리 전시) · *The Harmonic State*(IBM Watson을 인터랙티브 게임으로 교육) · *Mira*(파티클 경험을 모바일·Apple TV·Kinect까지) · *The Field VR*(WSJ, 지속가능성/웰빙 VR+웹) · *Adult Swim: Rick and Morty*(5섹션 단일 스크롤 사이트).
+- **참고점:** 웹 기술을 설치·전시·OTT 등 비(非)브라우저로 확장하는 멀티 엔드포인트 연출. 트랜지션·로딩 디테일.
 
 ---
 
@@ -81,10 +82,11 @@ source:
 - **저마찰 소셜(6):** 텍스트 대신 이모트/제스처. 협업·공유 기능을 가볍게 붙이는 패턴.
 - **발굴 루틴(B):** 레퍼런스 고갈 시 Awwwards Three.js → FWA → Codrops 순으로 순회.
 
-## E. 후속 / 검증 TODO
-- [ ] A·B 각 사이트 **직접 방문**해 인터랙션·로딩 체감 1줄씩 갱신 (현재 일부 secondhand)
-- [ ] Active Theory 실제 대표작 목록 확인 후 보강
-- [ ] 인터랙티브 웹 레퍼런스가 8건+로 늘면 knowledge-hub 「인터랙티브 웹 디자인」 주제 문서로 승격 검토 (현재는 collected 단계)
+## E. 후속 / 검증 노트
+- ⚠️ **자동 방문 불가:** `bruno-simon.com`·`lusion.co`·`activetheory.net` 모두 봇 차단(HTTP 403) — WebFetch로 렌더 본문 추출 실패. 아래 묘사는 **공식 케이스스터디(Medium/Codrops)·Awwwards·FWA 기준**이며, 사람이 실제 브라우저로 열어 인터랙션 체감(조작감·로딩 시간)을 1줄씩 덧붙이면 신뢰도 상승.
+- [x] Active Theory 대표작 목록 보강 완료 (2026-06-15).
+- [x] 인터랙티브 웹 레퍼런스 8건+ 도달 → 다양화 카탈로그 분리: **`web-design-references-catalog.md`**.
+- [ ] knowledge-hub 「인터랙티브 웹 디자인」 주제 문서로 **승격 검토** (현재 collected 단계 — 카탈로그 채워지면 진행).
 
 ---
 출처: [Awwwards Three.js](https://www.awwwards.com/websites/three-js/) · [Bruno Simon](https://bruno-simon.com/) · [Lusion](https://lusion.co/) · [Lusion 케이스(Codrops)](https://tympanus.net/codrops/2026/04/13/lusion-where-digital-craft-meets-ambitious-experimentation/) · [Active Theory(Webby)](https://www.webbyawards.com/crafted-with-code/active-theory/) · [Sky — thatgamecompany](https://thatgamecompany.com/sky/)
