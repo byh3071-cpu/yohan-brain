@@ -30,6 +30,26 @@ background:
     note: "흐름·맥락 파악에 시각 자료가 핵심. 머릿속에 그림으로 기억하는 타입."
   knowledge_style: "도서관처럼 분류별로 꺼내 쓰는 구조를 선호. 깔끔·심플·직관적 정리."
 
+# 선호하는 일하는 방식 (에이전트가 작업 진행 흐름·산출물 형태를 맞출 때 참고)
+work_process:
+  philosophy: "무작정 실행도, 기획만 오래 끄는 것도 싫음. 큰 그림 → 빠른 기획 → 작은 실행 → 반복 개선."
+  flow: [큰 그림, 빠른 기획, 작은 실행, 반복 개선]
+  steps:
+    - 큰 그림 정리
+    - 목표·완료 조건 정의
+    - 빠른 기획
+    - 작은 프로토타입
+    - 실행
+    - 피드백
+    - 개선 반복
+  answer_style:
+    - 짧고 명확한 Markdown
+    - 표·bullet 중심
+    - 복사해서 바로 쓸 수 있는 문서
+    - 장단점·리스크·ROI·추천안 포함
+    - 필요하면 반대 의견도 제시
+  # 참고: 톤·표 우선 등 세부는 differentiation.output_format / communication 과 함께 적용
+
 # 코딩·문서 선호 (예: 포매팅)
 preferences:
   code_style:
