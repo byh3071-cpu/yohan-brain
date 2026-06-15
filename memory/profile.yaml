@@ -48,6 +48,7 @@ work_process:
     - 복사해서 바로 쓸 수 있는 문서
     - 장단점·리스크·ROI·추천안 포함
     - 필요하면 반대 의견도 제시
+  source: "실밸개발자 'Hermes Agent — 노트북 꺼도 24시간 일하는 AI 팀' 영상(youtu.be/h_6jRAkMATI) 데모의 USER 프로필 출력에서 영감 → 요한 방식으로 채택 (2026-06-15)"
   # 참고: 톤·표 우선 등 세부는 differentiation.output_format / communication 과 함께 적용
 
 # 코딩·문서 선호 (예: 포매팅)
