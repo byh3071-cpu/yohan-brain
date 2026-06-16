@@ -36,6 +36,112 @@ import { searchMemory } from "./search/memory-search.js";
 import { writeEvaluationLog } from "./evaluation-log.js";
 import { promoteToWiki, suggestPromotions } from "./wiki/promote.js";
 
+// ---------------------------------------------------------------------------
+// Core-ruleset types & marker helpers (MCP1 + get_context 공유)
+// ---------------------------------------------------------------------------
+
+type CoreRuleset = {
+  version?: string;
+  updated?: string;
+  identity?: { role?: string; doctrine?: string };
+  non_negotiable?: string[];
+  coding_execution?: string[];
+  rule_design?: { layering?: string; formulas?: string[] };
+  judgment_routing?: {
+    workflow_vs_agent?: string;
+    research_budget?: string;
+    tool_call_scaling?: string;
+    source_priority?: string;
+    product_facts?: string;
+    artifact_vs_inline?: string;
+  };
+  safety?: {
+    instruction_hierarchy?: string;
+    ingest_isolation?: string;
+    capability_gating?: string;
+    refusal?: string;
+    owasp_self_check?: string;
+  };
+  cost?: string[];
+  measurement?: string[];
+  pattern_refs?: string[];
+};
+
+const CORE_RULES_START_TAG = "<!-- CORE-RULES:START";
+const CORE_RULES_END_TAG = "<!-- CORE-RULES:END -->";
+
+function renderCoreRulesetMd(data: CoreRuleset): string {
+  const version = data.version ?? "unknown";
+  const origin = "yohan-brain/memory/core/core-ruleset.yaml";
+  const startTag = `${CORE_RULES_START_TAG} v${version} (generated from ${origin} — 직접 편집 금지) -->`;
+
+  const items = (list: string[] | undefined) =>
+    list?.length ? list.map((s) => `- ${s}`).join("\n") : "";
+  const kv = (obj: Record<string, string | undefined>) =>
+    Object.entries(obj)
+      .filter(([, v]) => v)
+      .map(([k, v]) => `- **${k}:** ${v}`)
+      .join("\n");
+
+  const sections: string[] = [];
+  if (data.identity) {
+    sections.push(
+      `## 0. 정체성 (Stable)\n\n- **role:** ${data.identity.role ?? ""}\n- **doctrine:** ${data.identity.doctrine ?? ""}`,
+    );
+  }
+  if (data.non_negotiable?.length) {
+    sections.push(`## 1. 절대 규칙 (NON-NEGOTIABLE)\n\n${items(data.non_negotiable)}`);
+  }
+  if (data.coding_execution?.length) {
+    sections.push(`## 2. 코딩 실행 규율\n\n${items(data.coding_execution)}`);
+  }
+  if (data.rule_design) {
+    const lines: string[] = [];
+    if (data.rule_design.layering) lines.push(`- **layering:** ${data.rule_design.layering}`);
+    if (data.rule_design.formulas?.length) {
+      lines.push("- **formulas:**");
+      data.rule_design.formulas.forEach((f) => lines.push(`  - ${f}`));
+    }
+    if (lines.length) sections.push(`## 3. 규칙·프롬프트 설계 3공식\n\n${lines.join("\n")}`);
+  }
+  if (data.judgment_routing) {
+    sections.push(`## 4. 판단·라우팅\n\n${kv(data.judgment_routing as Record<string, string>)}`);
+  }
+  if (data.safety) {
+    sections.push(`## 5. 안전\n\n${kv(data.safety as Record<string, string>)}`);
+  }
+  if (data.cost?.length) {
+    sections.push(`## 6. 비용·효율\n\n${items(data.cost)}`);
+  }
+  if (data.measurement?.length) {
+    sections.push(`## 7. 측정·진화\n\n${items(data.measurement)}`);
+  }
+  if (data.pattern_refs?.length) {
+    sections.push(`## 패턴 참조\n\n${items(data.pattern_refs)}`);
+  }
+  return [startTag, sections.join("\n\n"), CORE_RULES_END_TAG].join("\n\n");
+}
+
+function applyMarkerBlockMcp(existing: string | null, newBlock: string): string {
+  if (existing !== null) {
+    const s = existing.indexOf(CORE_RULES_START_TAG);
+    const e = existing.indexOf(CORE_RULES_END_TAG);
+    if (s !== -1 && e !== -1 && e > s) {
+      return existing.slice(0, s) + newBlock + existing.slice(e + CORE_RULES_END_TAG.length);
+    }
+  }
+  return [
+    newBlock,
+    "",
+    "## 이 프로젝트 특화 (사람이 작성 — sync가 건드리지 않음)",
+    "",
+    "<!-- 여기부터는 core-ruleset 상속 밖입니다. 프로젝트 고유 규칙을 자유롭게 추가하세요. -->",
+    "",
+  ].join("\n");
+}
+
+// ---------------------------------------------------------------------------
+
 async function readYamlFile<T>(path: string): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
   try {
     const raw = await readFile(path, "utf8");
@@ -310,6 +416,8 @@ const TOOL_NAMES = [
   "promote_to_wiki",
   "suggest_promotions",
   "plan_task",
+  "get_core_ruleset",
+  "inject_core_rules",
 ] as const;
 
 async function main(): Promise<void> {
@@ -360,12 +468,6 @@ async function main(): Promise<void> {
         warning: hasAnyRecent ? null : "최근 7일 변경 없음 ⚠️",
       };
 
-      type CoreRuleset = {
-        version?: string;
-        non_negotiable?: string[];
-        safety?: { instruction_hierarchy?: string };
-        judgment_routing?: { research_budget?: string; tool_call_scaling?: string };
-      };
       const coreData = coreRuleset.ok ? (coreRuleset.data as CoreRuleset) : null;
       const core_rules_digest = coreData
         ? {
@@ -824,6 +926,103 @@ async function main(): Promise<void> {
       });
       return {
         content: [{ type: "text", text: JSON.stringify(plan, null, 2) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "get_core_ruleset",
+    {
+      description:
+        "core-ruleset.yaml 전체 내용을 반환한다. inject_core_rules 호출 전 내용 확인, 또는 에이전트가 독트린 전문을 참조할 때 사용.",
+    },
+    async () => {
+      const root = getMemoryDir();
+      const yamlPath = join(root, "core", "core-ruleset.yaml");
+      const result = await readYamlFile<CoreRuleset>(yamlPath);
+      if (!result.ok) {
+        return { content: [{ type: "text", text: JSON.stringify({ error: result.error }) }] };
+      }
+      const rendered = renderCoreRulesetMd(result.data);
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              { version: result.data.version ?? "unknown", yaml_path: yamlPath, rendered_md: rendered },
+              null,
+              2,
+            ),
+          },
+        ],
+      };
+    },
+  );
+
+  server.registerTool(
+    "inject_core_rules",
+    {
+      description:
+        "target 레포의 .agents/CORE-RULES.md에 core-ruleset.yaml을 마커블록으로 렌더·주입한다. " +
+        "마커 안만 갱신하고 마커 밖(프로젝트 특화)은 보존. " +
+        "⚠️ 파일 쓰기(capability gating): confirm=true 명시 필요.",
+      inputSchema: {
+        target_path: z
+          .string()
+          .min(1)
+          .describe("주입 대상 레포 루트 절대경로 (예: /Users/me/dev/my-project)"),
+        confirm: z
+          .boolean()
+          .refine((v) => v === true, { message: "capability gating: confirm must be true" })
+          .describe("파일 쓰기 명시 승인. true 여야만 실행."),
+      },
+    },
+    async ({ target_path, confirm }) => {
+      if (!confirm) {
+        return {
+          content: [{ type: "text", text: JSON.stringify({ error: "confirm=false — 실행 취소됨" }) }],
+        };
+      }
+
+      const root = getMemoryDir();
+      const yamlPath = join(root, "core", "core-ruleset.yaml");
+      const coreResult = await readYamlFile<CoreRuleset>(yamlPath);
+      if (!coreResult.ok) {
+        return { content: [{ type: "text", text: JSON.stringify({ error: coreResult.error }) }] };
+      }
+
+      const newBlock = renderCoreRulesetMd(coreResult.data);
+      const agentsDir = join(target_path, ".agents");
+      const outPath = join(agentsDir, "CORE-RULES.md");
+
+      await mkdir(agentsDir, { recursive: true });
+
+      let existing: string | null = null;
+      try {
+        existing = await readFile(outPath, "utf8");
+      } catch {
+        // 신규 생성
+      }
+
+      const content = applyMarkerBlockMcp(existing, newBlock);
+      await writeFile(outPath, content, "utf8");
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                action: existing === null ? "created" : "updated",
+                path: outPath,
+                version: coreResult.data.version ?? "unknown",
+                marker_preserved: existing !== null,
+              },
+              null,
+              2,
+            ),
+          },
+        ],
       };
     },
   );
