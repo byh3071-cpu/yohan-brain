@@ -290,6 +290,28 @@ function slugify(title: string): string {
   return s || "decision";
 }
 
+const TOOL_NAMES = [
+  "get_context",
+  "append_decision",
+  "log_evaluation",
+  "ingest_geeknews_rss",
+  "ingest_yozm_rss",
+  "ingest_aitimes_rss",
+  "ingest_techreviewkr_rss",
+  "ingest_paulgraham_rss",
+  "ingest_samaltman_rss",
+  "ingest_karpathy_rss",
+  "ingest_url",
+  "search_memory",
+  "notion_push_decisions",
+  "notion_pull_to_queue",
+  "notion_push_ocr_pair",
+  "sync_to_notion",
+  "promote_to_wiki",
+  "suggest_promotions",
+  "plan_task",
+] as const;
+
 async function main(): Promise<void> {
   const server = new McpServer({
     name: "yohan-os",
@@ -306,11 +328,15 @@ async function main(): Promise<void> {
       const root = getMemoryDir();
       const profilePath = join(root, "profile.yaml");
       const activePath = join(root, "active-project.yaml");
+      const coreRulesetPath = join(root, "core", "core-ruleset.yaml");
       const decisionsPath = join(root, "decisions");
       const evaluationsPath = join(root, "metrics", "evaluations");
 
-      const profile = await readYamlFile<Record<string, unknown>>(profilePath);
-      const activeProject = await readYamlFile<Record<string, unknown>>(activePath);
+      const [profile, activeProject, coreRuleset] = await Promise.all([
+        readYamlFile<Record<string, unknown>>(profilePath),
+        readYamlFile<Record<string, unknown>>(activePath),
+        readYamlFile<Record<string, unknown>>(coreRulesetPath),
+      ]);
       const recentDecisions = await loadRecentDecisions(decisionsPath, 8);
       const recentIngest = await loadRecentIngestSummary(12);
       const notionQueue = await loadNotionQueuePreview();
@@ -334,8 +360,31 @@ async function main(): Promise<void> {
         warning: hasAnyRecent ? null : "최근 7일 변경 없음 ⚠️",
       };
 
+      type CoreRuleset = {
+        version?: string;
+        non_negotiable?: string[];
+        safety?: { instruction_hierarchy?: string };
+        judgment_routing?: { research_budget?: string; tool_call_scaling?: string };
+      };
+      const coreData = coreRuleset.ok ? (coreRuleset.data as CoreRuleset) : null;
+      const core_rules_digest = coreData
+        ? {
+            version: coreData.version ?? "unknown",
+            non_negotiable: coreData.non_negotiable ?? [],
+            instruction_hierarchy: coreData.safety?.instruction_hierarchy ?? "",
+            tool_budget: [
+              coreData.judgment_routing?.research_budget,
+              coreData.judgment_routing?.tool_call_scaling,
+            ]
+              .filter(Boolean)
+              .join(" | "),
+          }
+        : { _error: coreRuleset.ok === false ? coreRuleset.error : "parse failed" };
+
       const payload = {
         sot_version: "0.1",
+        core_rules_digest,
+        available_tools: [...TOOL_NAMES],
         memory_root: root,
         profile: profile.ok ? profile.data : { _error: profile.error },
         active_project: activeProject.ok ? activeProject.data : { _error: activeProject.error },
