@@ -12,5 +12,6 @@
 | [PAT-005](PAT-005-single-file-artifact-stack-pin.md) | 단일파일 산출물 스택핀+함정 | build | ★샌드박스 한정★ 자체호스팅엔 적용 금지 |
 | [PAT-006](PAT-006-browser-storage-ban-sandbox.md) | 브라우저 스토리지 금지(샌드박스) | browser-api | ★샌드박스 한정★ 자체호스팅 웹앱 정상 |
 | [PAT-007](PAT-007-llm-judge-quality-gate.md) | LLM-as-judge 품질게이트 3요소 | test | 임계+상한+폴백 (무한재시도 금지) |
+| [PAT-008](PAT-008-multimachine-git-autosync.md) | 멀티머신 git 부팅 자동풀 | git | 전체fetch+다중clean-FF+외부config+자기배포(문법게이트). push 수동 |
 
 > 채번: NNN = 기존 최대값+1(3자리, 없으면 001). 기존 `{카테고리}-{영문명}.md`는 개명 금지(append-only). 발견 출처: Fable 5 시스템 프롬프트 다중렌즈 흡수 분석(2026-06-15).
