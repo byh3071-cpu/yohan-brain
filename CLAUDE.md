@@ -9,7 +9,7 @@
 ## 필수 기준
 
 - 루트 규칙은 `AGENTS.md`가 우선이다.
-- 사용자 프로필과 금지사항은 `memory/profile.yaml`을 참조한다.
+- 사용자 정체성·일하는 방식·선호·금지사항은 `memory/soul.yaml`을 참조한다 (노션 SOUL 렌더 SSoT). 구 `memory/profile.yaml`은 흡수되어 deprecated 스텁이다.
 - 현재 작업 맥락은 `memory/active-project.yaml`을 참조한다.
 - 결정이 생기면 `memory/decisions/`에 즉시 남긴다.
 - 평가와 회고는 `memory/metrics/evaluations/`와 `memory/rules/evaluator-checklist.md`를 기준으로 한다.

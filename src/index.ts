@@ -430,17 +430,19 @@ async function main(): Promise<void> {
     "get_context",
     {
       description:
-        "Yohan OS 에이전트 SoT: profile, active-project, 최근 decisions, 최근 인제스트 요약, 노션 풀 큐(`notion_queue`) 미리보기. 노션 동기는 MCP `notion_push_decisions` / `notion_push_ocr_pair` / `notion_pull_to_queue` 또는 npm 스크립트. 세션 시작 시 호출.",
+        "Yohan OS 에이전트 SoT: soul(정체성·일하는 방식·선호·가드레일 SSoT, 노션 SOUL 렌더), profile(deprecated 스텁), active-project, 최근 decisions, 최근 인제스트 요약, 노션 풀 큐(`notion_queue`) 미리보기. 노션 동기는 MCP `notion_push_decisions` / `notion_push_ocr_pair` / `notion_pull_to_queue` 또는 npm 스크립트. 세션 시작 시 호출.",
     },
     async () => {
       const root = getMemoryDir();
+      const soulPath = join(root, "soul.yaml");
       const profilePath = join(root, "profile.yaml");
       const activePath = join(root, "active-project.yaml");
       const coreRulesetPath = join(root, "core", "core-ruleset.yaml");
       const decisionsPath = join(root, "decisions");
       const evaluationsPath = join(root, "metrics", "evaluations");
 
-      const [profile, activeProject, coreRuleset] = await Promise.all([
+      const [soul, profile, activeProject, coreRuleset] = await Promise.all([
+        readYamlFile<Record<string, unknown>>(soulPath),
         readYamlFile<Record<string, unknown>>(profilePath),
         readYamlFile<Record<string, unknown>>(activePath),
         readYamlFile<Record<string, unknown>>(coreRulesetPath),
@@ -488,6 +490,9 @@ async function main(): Promise<void> {
         core_rules_digest,
         available_tools: [...TOOL_NAMES],
         memory_root: root,
+        // soul.yaml = 사용자 정체성·일하는 방식·선호·가드레일 SSoT (노션 SOUL 렌더).
+        // profile.yaml 은 deprecated 스텁(soul.yaml 로 흡수됨) — 하위호환으로만 노출.
+        soul: soul.ok ? soul.data : { _error: soul.error },
         profile: profile.ok ? profile.data : { _error: profile.error },
         active_project: activeProject.ok ? activeProject.data : { _error: activeProject.error },
         recent_decisions: recentDecisions.map(({ file, content }) => ({

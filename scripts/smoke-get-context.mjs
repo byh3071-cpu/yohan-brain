@@ -72,10 +72,12 @@ try {
   } else {
     const text = res.result?.content?.[0]?.text ?? "";
     const payload = JSON.parse(text);
+    const soulOk = Boolean(payload.soul && !payload.soul._error);
     const profileOk = Boolean(payload.profile && !payload.profile._error);
     const activeOk = Boolean(payload.active_project && !payload.active_project._error);
     const summary = {
       keys: Object.keys(payload),
+      soul_ok: soulOk,
       profile_ok: profileOk,
       active_project_ok: activeOk,
       memory_root: payload.memory_root,
@@ -93,8 +95,9 @@ try {
       sample_wiki_files: payload.recent_changes_7d?.wiki?.files?.slice(0, 3),
     };
     console.log(JSON.stringify(summary, null, 2));
-    if (!profileOk || !activeOk) {
+    if (!soulOk || !activeOk) {
       console.error("SoT parse error:", {
+        soul: payload.soul?._error ?? null,
         profile: payload.profile?._error ?? null,
         active_project: payload.active_project?._error ?? null,
       });

@@ -5,9 +5,11 @@
 # yohan-profile-card — separate Next.js side project, own repo; not part of private Yohan OS snapshot
 /yohan-profile-card/
 
-# Claude Code / agents — local-only
+# Claude Code / agents — local-only (단, soul 상속 산출물·skills 는 추적)
 .claude/
-.agents/
+.agents/*
+!.agents/skills
+!.agents/SOUL.md
 
 # SoT 스냅샷/로컬 헬퍼 — 기기마다 다름
 sot-snapshot.md
