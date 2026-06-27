@@ -4,7 +4,7 @@
 
 schema: ecosystem-contract
 schema_version: 1
-version: "0.2.3"
+version: "0.2.4"
 updated: "2026-06-28"
 status: active  # draft | active — enforce forbidden/ownership only when active
 
@@ -15,6 +15,15 @@ summary: >
 summary_ko: "brain 정본·mcp 배선·vhk 설치·레포는 RULES만. Claude 메인, Cursor 반복작업."
 
 registry_ref: memory/core/inheritance-registry.yaml
+
+repo_entry_overrides:
+  yohan-brain:
+    tier: S
+    harness:
+      skip:
+        - rules_md
+        - vhk_sync_agents
+    note_ko: "SoT 레포 — RULES.md 생략, AGENTS.md 수기 유지, memory/ 직접"
 
 precedence:
   - repo_entry_overrides
@@ -210,7 +219,7 @@ agent_wiring:
   child_agents_md_line: "Ecosystem tier: yohan-brain memory/core/inheritance-registry.yaml"
 
 mcp_digest_example:
-  version: "0.2.3"
+  version: "0.2.4"
   status: active
   summary: "brain=SoT, mcp=nervous, vhk=scaffold; claude primary, cursor batch"
   clients:
@@ -260,4 +269,20 @@ maintenance:
     - date: "2026-06-28"
       change: "E5-01 — Core 4 bootstrap ecosystem.mdc v1 + registry harness_version"
       ticket: E5-01
+      approver: yohan
+    - date: "2026-06-28"
+      change: "E6-01 — vhk sync AGENTS.md Ecosystem block after Loop Protocol"
+      ticket: E6-01
+      approver: yohan
+    - date: "2026-06-28"
+      change: "E5-02/E5-04 — inject-bootstrap tier S (CORE-RULES · context seed · mcp.json.example)"
+      ticket: E5-02
+      approver: yohan
+    - date: "2026-06-28"
+      change: "E5-03 — yohan-mcp · yohan-cc-skills minimal harness (RULES→sync→AGENTS)"
+      ticket: E5-03
+      approver: yohan
+    - date: "2026-06-28"
+      change: "E5-05 — yohan-brain repo_entry_overrides (skip RULES/sync AGENTS)"
+      ticket: E5-05
       approver: yohan
