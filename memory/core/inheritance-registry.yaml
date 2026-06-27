@@ -3,7 +3,7 @@
 
 schema: inheritance-registry
 schema_version: 1
-contract_version: "0.2.0"
+contract_version: "0.2.1"
 updated: "2026-06-28"
 
 valid_tiers:
