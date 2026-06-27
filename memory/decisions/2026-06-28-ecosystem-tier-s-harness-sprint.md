@@ -149,7 +149,7 @@ contract `clients.primary: claude-code` · `clients.secondary: cursor-cli`와 **
 
 | 항목 | 내용 | 조치 |
 |------|------|------|
-| AGENTS boilerplate | cc-skills/mcp AGENTS가 `docs/context/agent-compact.md` 참조 — **파일 없음** | RULES에서 compact 포인터 제거 또는 stub 추가 (E7+) |
+| AGENTS boilerplate | cc-skills/mcp AGENTS가 `docs/context/agent-compact.md` 참조 — **파일 없음** | ✅ vhk#414 `resolveAgentCompactRel` — 파일 없으면 포인터 생략 |
 | Loop 이중 표현 | cc-skills `plugins/yohan-core/loop.md`(세션 점검) vs AGENTS Loop Protocol(vhk goal 루프) | **스코프 다름** — loop.md=운영 감시, AGENTS=goal 워크플로 |
 | brain mcp.json untrack | Claude/Cursor 로컬 MCP 설정 **수동 복원** 필요 | `mcp.json.example` → `vhk mcp-init` 또는 수동 merge |
 | CORE-RULES vs CLAUDE.md | yohan-core CLAUDE.md(말투·훅·MCP) + CORE-RULES(전역 독트린) | layering 원칙 준수 — 중복 시 CORE-RULES 우선(절대 규칙) |
@@ -176,7 +176,7 @@ contract `clients.primary: claude-code` · `clients.secondary: cursor-cli`와 **
 ## 8. 다음 (E7+)
 
 - **E7-01:** A-tier 레포 bootstrap (product harness)
-- agent-compact.md dead link 정리 (mcp · cc-skills)
+- agent-compact dead link 정리 — ✅ vhk sync `resolveAgentCompactRel` (2026-06-28)
 - A-tier `vhk start` dogfood 확대
 
 ---
