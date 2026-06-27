@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/byh3071-cpu/yohan-brain/memory/core/ecosystem-contract.schema.json",
+  "title": "EcosystemContract",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "version",
+    "status",
+    "registry_ref",
+    "precedence",
+    "roles",
+    "clients",
+    "tier_policy",
+    "forbidden"
+  ],
+  "properties": {
+    "schema": { "const": "ecosystem-contract" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "enum": ["draft", "active"] },
+    "registry_ref": { "type": "string" }
+  },
+  "additionalProperties": true
+}

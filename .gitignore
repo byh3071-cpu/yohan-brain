@@ -10,6 +10,11 @@
 .agents/*
 !.agents/skills
 !.agents/SOUL.md
+!.agents/CORE-RULES.md
+
+# Cursor MCP — 머신별 경로·시크릿 (example 만 커밋)
+.cursor/mcp.json
+!.cursor/mcp.json.example
 
 # SoT 스냅샷/로컬 헬퍼 — 기기마다 다름
 sot-snapshot.md
