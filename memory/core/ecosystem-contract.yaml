@@ -4,7 +4,7 @@
 
 schema: ecosystem-contract
 schema_version: 1
-version: "0.2.0"
+version: "0.2.1"
 updated: "2026-06-28"
 status: active  # draft | active — enforce forbidden/ownership only when active
 
@@ -84,7 +84,6 @@ clients:
 injection:
   primary: yohan-mcp
   fallback: vhk
-  until_ticket: E4-01
 
 file_ownership:
   - path: RULES.md
@@ -140,12 +139,9 @@ tier_policy:
       - inject-core-rules
       - vhk-context
     required_current:
-      - vhk-init
-      - vhk-sync
+      - vhk-start-includes-sync
       - inject-core-rules
       - vhk-context
-    gap_tickets:
-      - E3-01
 
   B:
     harness: light
@@ -213,7 +209,7 @@ agent_wiring:
   child_agents_md_line: "Ecosystem tier: yohan-brain memory/core/inheritance-registry.yaml"
 
 mcp_digest_example:
-  version: "0.2.0"
+  version: "0.2.1"
   status: active
   summary: "brain=SoT, mcp=nervous, vhk=scaffold; claude primary, cursor batch"
   clients:
@@ -251,4 +247,12 @@ maintenance:
     - date: "2026-06-28"
       change: "status draft → active (ecosystem enforce enabled)"
       ticket: E0-03
+      approver: yohan
+    - date: "2026-06-28"
+      change: "tier A gap E3-01 closed — vhk start includes sync"
+      ticket: E3-01
+      approver: yohan
+    - date: "2026-06-28"
+      change: "injection E4-01 closed — mcp reads yohan-brain/memory via YOHAN_BRAIN_ROOT"
+      ticket: E4-01
       approver: yohan
