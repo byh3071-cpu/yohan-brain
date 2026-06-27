@@ -3,7 +3,7 @@
 
 schema: inheritance-registry
 schema_version: 1
-contract_version: "0.2.3"
+contract_version: "0.2.4"
 updated: "2026-06-28"
 
 valid_tiers:
@@ -20,16 +20,17 @@ repos:
   # ── S (ecosystem core) ──
   yohan-brain:
     tier: S
-    harness_version: ecosystem-mdc-v1
+    harness_version: tier-s-v1
+    note_ko: "SoT — RULES 생략, AGENTS 수기 (repo_entry_overrides)"
   yohan-mcp:
     tier: S
-    harness_version: ecosystem-mdc-v1
+    harness_version: tier-s-v1
   vhk:
     tier: S
-    harness_version: ecosystem-mdc-v1
+    harness_version: tier-s-v1
   yohan-cc-skills:
     tier: S
-    harness_version: ecosystem-mdc-v1
+    harness_version: tier-s-v1
 
   # ── A (long-running products) ──
   yohan-studio:
