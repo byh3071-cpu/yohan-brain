@@ -1,0 +1,250 @@
+# ecosystem-contract.yaml — Yohan ecosystem policy (AI-readable SoT)
+# Repo facts live in inheritance-registry.yaml (registry_ref).
+# Human skim: summary_ko + registry tiers only.
+
+schema: ecosystem-contract
+schema_version: 1
+version: "0.2.0"
+updated: "2026-06-28"
+status: draft  # draft | active — enforce forbidden/ownership only when active
+
+summary: >
+  brain=SoT, mcp=nervous_system, vhk=scaffold, per-repo RULES.md=human SoT.
+  claude-code=primary, cursor-cli=secondary batch. Tier controls harness depth only.
+
+summary_ko: "brain 정본·mcp 배선·vhk 설치·레포는 RULES만. Claude 메인, Cursor 반복작업."
+
+registry_ref: memory/core/inheritance-registry.yaml
+
+precedence:
+  - repo_entry_overrides
+  - tier_policy
+  - defaults
+
+status_behavior:
+  draft:
+    agents: read_and_warn
+    enforce_forbidden: false
+  active:
+    agents: read_and_obey
+    enforce_forbidden: true
+
+roles:
+  brain:
+    repo: yohan-brain
+    responsibility: source_of_truth
+    owns:
+      - memory/core/core-ruleset.yaml
+      - memory/core/ecosystem-contract.yaml
+      - memory/core/inheritance-registry.yaml
+      - memory/soul.yaml
+    must_not:
+      - duplicate_doctrine_into_per_repo_cursorrules
+
+  mcp:
+    repo: yohan-mcp
+    responsibility: nervous_system
+    reads_from: yohan-brain/memory/
+    must_not:
+      - use_repo_local_memory_as_sot
+
+  vhk:
+    repo: vhk
+    responsibility: scaffold_and_harness
+    must_not:
+      - store_ecosystem_doctrine
+
+  cc_skills:
+    repo: yohan-cc-skills
+    responsibility: claude_code_operations
+    client: claude-code-only
+    owns:
+      - handoff
+      - parallel
+      - release-gate
+
+clients:
+  primary:
+    id: claude-code
+    owns:
+      - handoff
+      - epic_architecture
+      - vhk-auto
+  secondary:
+    id: cursor-cli
+    model_default: composer-2.5-fast
+    owns:
+      - tier_s_repeat
+      - headless_batch
+    must_not:
+      - handoff
+      - release-gate
+      - duplicate_subagents_in_dot_cursor_agents
+
+injection:
+  primary: yohan-mcp
+  fallback: vhk
+  until_ticket: E4-01
+
+file_ownership:
+  - path: RULES.md
+    sot: human_per_repo
+    editable_by: human
+
+  - path: AGENTS.md
+    sot: derived
+    generated_by: vhk-sync
+    editable_by: never_direct
+
+  - path: .cursorrules
+    sot: derived
+    generated_by: vhk-sync
+    scope: coding_only
+
+  - path: CLAUDE.md
+    sot: hybrid
+    generated_by: vhk-markers
+    editable_by: human_sections_only
+
+  - path: .agents/CORE-RULES.md
+    sot: derived
+    injected_from: memory/core/core-ruleset.yaml
+
+  - path: .agents/SOUL.md
+    sot: derived
+    injected_from: memory/soul.yaml
+    optional: true
+
+  - path: .cursor/rules/ecosystem.mdc
+    sot: template
+    copied_by: vhk-inject-bootstrap
+    client: cursor-only
+
+  - path: .vhk/**
+    sot: vhk_runtime
+
+tier_policy:
+  S:
+    harness: full
+    required_target:
+      - vhk-init
+      - vhk-sync
+      - inject-core-rules
+      - vhk-mcp-init
+      - vhk-context
+
+  A:
+    harness: product
+    required_target:
+      - vhk-start-includes-sync
+      - inject-core-rules
+      - vhk-context
+    required_current:
+      - vhk-init
+      - vhk-sync
+      - inject-core-rules
+      - vhk-context
+    gap_tickets:
+      - E3-01
+
+  B:
+    harness: light
+    required_target:
+      - vhk-init
+      - vhk-sync
+
+  C:
+    harness: none
+    required_target:
+      - registry-entry-only
+
+  D:
+    harness: template
+    required_target:
+      - matches-vhk-scaffold-output
+      - used-as-starter-only
+
+  special:
+    harness: minimal
+    required_target:
+      - registry-entry
+      - inject-core-rules-optional
+    note_ko: "베어메탈/OS 등 — webapp vhk preset 금지"
+
+forbidden:
+  - duplicate_core_ruleset_in_child_repos
+  - edit_agents_md_without_vhk_sync
+  - two_agents_same_repo_same_branch_without_worktree
+  - mcp_local_memory_as_sot
+  - global_agents_md_on_disk
+
+forbidden_by_stack:
+  baremetal-rust:
+    - vhk_webapp_stack_preset
+    - vhk_mobile_stack_preset
+
+registry_entry_schema:
+  required:
+    - tier
+  optional:
+    - stack
+    - parent_repo
+    - path
+    - harness
+    - last_inject_sha
+    - harness_version
+    - note_ko
+    - pending_tier_review
+
+agent_entry:
+  brain: "Before cross-repo or harness work: read memory/core/ecosystem-contract.yaml and registry_ref."
+  child: "Read AGENTS.md; resolve tier via inheritance-registry.yaml."
+  mcp_digest_fields:
+    - version
+    - status
+    - summary
+    - clients
+    - tier_policy
+    - forbidden
+    - precedence
+
+agent_wiring:
+  brain_agents_md_line: "Cross-repo/harness: read memory/core/ecosystem-contract.yaml (obey when status=active)."
+  child_agents_md_line: "Ecosystem tier: yohan-brain memory/core/inheritance-registry.yaml"
+
+mcp_digest_example:
+  version: "0.2.0"
+  status: draft
+  summary: "brain=SoT, mcp=nervous, vhk=scaffold; claude primary, cursor batch"
+  clients:
+    primary: claude-code
+    secondary: cursor-cli
+  forbidden:
+    - edit_agents_md_without_vhk_sync
+    - two_agents_same_repo_same_branch_without_worktree
+
+validation:
+  scripts:
+    - path: scripts/check-ecosystem.mjs
+      checks:
+        - schema_version_present
+        - contract_registry_version_match
+        - tier_enum_valid
+        - github_repo_coverage
+  on_fail: exit 1
+
+maintenance:
+  bump_version_on:
+    - tier_policy_change
+    - file_ownership_change
+    - precedence_change
+    - registry_schema_change
+  process:
+    - edit_yaml_first
+    - one_ticket_one_pr
+    - set_active_after_yohan_approval
+  decision_log:
+    - date: "2026-06-28"
+      change: "v0.2.0 initial ecosystem contract + full registry"
+      ticket: E0-02
+      approver: yohan

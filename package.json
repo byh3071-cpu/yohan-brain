@@ -47,6 +47,7 @@
     "automation:batch:dry": "tsx scripts/automation-batch.ts --dry-run",
     "automation:batch:test": "tsx scripts/automation-batch.ts --dry-run --no-notify",
     "check:drift": "tsx scripts/check-rule-drift.ts",
+    "check:ecosystem": "node scripts/check-ecosystem.mjs",
     "inject:soul": "node scripts/inject-soul.mjs",
     "inject:soul:write": "node scripts/inject-soul.mjs --write",
     "soul:render": "node scripts/soul-render.mjs",

@@ -19,6 +19,7 @@
 
 ## 1. 작업 순서
 
+0. **생태계·다레포·harness:** `[memory/core/ecosystem-contract.yaml](memory/core/ecosystem-contract.yaml)` + `[memory/core/inheritance-registry.yaml](memory/core/inheritance-registry.yaml)` — `status=active`일 때만 enforce. (현재 draft)
 1. **구조 이해 (선택, 1회):** `[docs/CONTEXT-AND-HARNESS-SYSTEM.md](docs/CONTEXT-AND-HARNESS-SYSTEM.md)` — 컨텍스트 vs 하네스, 파이프라인 다이어그램. **대시보드 작업 시:** `[docs/DASHBOARD-SPEC.md](docs/DASHBOARD-SPEC.md)` — 전체 스펙·로드맵·디자인·기술 스택. **하네스 = 통제만이 아니라 바닥(비전·안전) + 그 위의 유연함**은 동 문서 **§1.1** 참고. Claude 등 **타 클라이언트에 프로젝트 전체 맥락 붙일 때**는 `[docs/CLAUDE-CONTEXT-BOOTSTRAP.md](docs/CLAUDE-CONTEXT-BOOTSTRAP.md)` 전체를 첨부하거나 첫 턴에 붙여 넣기.
 2. **필수 하네스:** `[memory/rules/agent-harness.md](memory/rules/agent-harness.md)` — 세션 시작 `get_context`, SoT, P/G/E, 결정 로그.
 3. **Cursor:** `.cursor/rules/` — 세션 시작·Evaluator 형식 등 워크스페이스 규칙. 요약 스킬: `.cursor/skills/yohan-os-workflow/SKILL.md`.

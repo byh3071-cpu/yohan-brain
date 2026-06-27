@@ -1,0 +1,119 @@
+# inheritance-registry.yaml — repo facts (tiers, stacks, paths)
+# Policy lives in ecosystem-contract.yaml. Do not duplicate forbidden/rules here.
+
+schema: inheritance-registry
+schema_version: 1
+contract_version: "0.2.0"
+updated: "2026-06-28"
+
+valid_tiers:
+  - S
+  - A
+  - B
+  - C
+  - D
+  - special
+
+# GitHub org: byh3071-cpu — full audit 2026-06-28 (36 repos + 1 virtual entry)
+
+repos:
+  # ── S (ecosystem core) ──
+  yohan-brain:
+    tier: S
+  yohan-mcp:
+    tier: S
+  vhk:
+    tier: S
+  yohan-cc-skills:
+    tier: S
+
+  # ── A (long-running products) ──
+  yohan-studio:
+    tier: A
+  snapcontext:
+    tier: A
+  shotgrade:
+    tier: A
+  yohan-ai-dictionary:
+    tier: A
+  talos:
+    tier: A
+    note_ko: "제품 — studio급 harness"
+
+  yohan-brain-dashboard:
+    tier: A
+    parent_repo: yohan-brain
+    path: dashboard
+    note_ko: "별도 git repo 아님 — brain 서브앱"
+
+  # ── B (active experiments / automation) ──
+  yohan-control-tower:
+    tier: B
+  cafe-pos-vhk:
+    tier: B
+  youth-support-discord:
+    tier: B
+  atelier-ai:
+    tier: B
+  boot-auto-pull-setup:
+    tier: B
+  bamgolmok:
+    tier: B
+  kpocha:
+    tier: B
+  mova:
+    tier: B
+  changeopradar:
+    tier: B
+  mazinpro:
+    tier: B
+  youtube-summary:
+    tier: B
+  yohan-dca-bot:
+    tier: B
+    note_ko: "finance bot — may move to special later"
+  auto-trader:
+    tier: B
+    note_ko: "automation pipeline — may move to special later"
+  news-automation:
+    tier: B
+
+  # ── D (template / starter validation) ──
+  vhk-project:
+    tier: D
+    note_ko: "VHK A/B dogfood template"
+  vibe-starter-kit:
+    tier: D
+    note_ko: "vibe starter template"
+
+  # ── special (non-webapp harness) ──
+  yohan-os:
+    tier: special
+    stack: baremetal-rust
+    harness: minimal
+    note_ko: "Rust OS/베어메탈 — webapp vhk preset 금지"
+
+  # ── C (archive / low touch) ──
+  haruchi-game:
+    tier: C
+  dopamine-runner:
+    tier: C
+  dopamine-runner1:
+    tier: C
+  flexible-world:
+    tier: C
+  flexible:
+    tier: C
+  notion-uiux:
+    tier: C
+  desktop-tutorial:
+    tier: C
+  yohan-profile-card:
+    tier: C
+  ai-router:
+    tier: C
+  hamster-damagochi:
+    tier: C
+  "---":
+    tier: C
+    note_ko: "legacy repo name — archive"
