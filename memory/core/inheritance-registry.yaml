@@ -3,7 +3,7 @@
 
 schema: inheritance-registry
 schema_version: 1
-contract_version: "0.2.2"
+contract_version: "0.2.3"
 updated: "2026-06-28"
 
 valid_tiers:
@@ -20,12 +20,16 @@ repos:
   # ── S (ecosystem core) ──
   yohan-brain:
     tier: S
+    harness_version: ecosystem-mdc-v1
   yohan-mcp:
     tier: S
+    harness_version: ecosystem-mdc-v1
   vhk:
     tier: S
+    harness_version: ecosystem-mdc-v1
   yohan-cc-skills:
     tier: S
+    harness_version: ecosystem-mdc-v1
 
   # ── A (long-running products) ──
   yohan-studio:
