@@ -4,7 +4,7 @@
 
 schema: ecosystem-contract
 schema_version: 1
-version: "0.2.2"
+version: "0.2.3"
 updated: "2026-06-28"
 status: active  # draft | active — enforce forbidden/ownership only when active
 
@@ -210,7 +210,7 @@ agent_wiring:
   child_agents_md_line: "Ecosystem tier: yohan-brain memory/core/inheritance-registry.yaml"
 
 mcp_digest_example:
-  version: "0.2.2"
+  version: "0.2.3"
   status: active
   summary: "brain=SoT, mcp=nervous, vhk=scaffold; claude primary, cursor batch"
   clients:
@@ -256,4 +256,8 @@ maintenance:
     - date: "2026-06-28"
       change: "E1-02 — tier S inject-ecosystem-mdc (vhk inject-bootstrap + ecosystem.mdc v1.1)"
       ticket: E1-02
+      approver: yohan
+    - date: "2026-06-28"
+      change: "E5-01 — Core 4 bootstrap ecosystem.mdc v1 + registry harness_version"
+      ticket: E5-01
       approver: yohan
