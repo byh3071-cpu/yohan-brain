@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "soul.yaml 검증 스키마",
+  "description": "memory/soul.yaml 구조 검증 — 심정지 폴백 ① 감지용. 필수 최상위 키만 체크.",
+  "type": "object",
+  "required": [
+    "identity",
+    "values",
+    "body_map",
+    "work_process",
+    "voice",
+    "preferences",
+    "guardrails",
+    "agent_roles"
+  ],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "required": ["name", "alias", "one_liner", "role", "vocation", "north_star"],
+      "description": "핵심 정체성 — 이름, 별명, 한줄소개, 역할, 업, 북극성"
+    },
+    "values": {
+      "type": "object",
+      "required": ["top", "priority"],
+      "description": "최우선 가치 + 우선순위 배열"
+    },
+    "body_map": {
+      "type": "object",
+      "description": "인체 ↔ 생태계 매핑 — 키:값 쌍"
+    },
+    "work_process": {
+      "type": "object",
+      "required": ["flow", "human_owns", "agent_owns", "stages"],
+      "description": "일하는 방식 — 흐름, 요한/에이전트 역할, 단계"
+    },
+    "voice": {
+      "type": "object",
+      "required": ["language", "register", "structure"],
+      "description": "톤 & 언어 설정"
+    },
+    "preferences": {
+      "type": "object",
+      "required": ["code", "stack"],
+      "description": "선호 — 코드 스타일, 기술 스택"
+    },
+    "guardrails": {
+      "type": "array",
+      "description": "안전 가드레일 — 문자열 배열",
+      "items": { "type": "string" },
+      "minItems": 5
+    },
+    "agent_roles": {
+      "type": "object",
+      "description": "에이전트 역할 분담 — 키:값 매핑"
+    }
+  },
+  "additionalProperties": true
+}
