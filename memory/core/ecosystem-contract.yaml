@@ -6,7 +6,7 @@ schema: ecosystem-contract
 schema_version: 1
 version: "0.2.0"
 updated: "2026-06-28"
-status: draft  # draft | active — enforce forbidden/ownership only when active
+status: active  # draft | active — enforce forbidden/ownership only when active
 
 summary: >
   brain=SoT, mcp=nervous_system, vhk=scaffold, per-repo RULES.md=human SoT.
@@ -214,7 +214,7 @@ agent_wiring:
 
 mcp_digest_example:
   version: "0.2.0"
-  status: draft
+  status: active
   summary: "brain=SoT, mcp=nervous, vhk=scaffold; claude primary, cursor batch"
   clients:
     primary: claude-code
@@ -247,4 +247,8 @@ maintenance:
     - date: "2026-06-28"
       change: "v0.2.0 initial ecosystem contract + full registry"
       ticket: E0-02
+      approver: yohan
+    - date: "2026-06-28"
+      change: "status draft → active (ecosystem enforce enabled)"
+      ticket: E0-03
       approver: yohan
