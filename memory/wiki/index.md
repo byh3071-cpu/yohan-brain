@@ -10,8 +10,8 @@ updated: 2026-06-12
 ## 통계
 
 ```
-엔티티: 11/80 | 컨셉: 14/50 | 답변: 0 | 고아: 0
-Inferred TTL: 만료 0페이지 | 유효 18페이지
+엔티티: 13/80 | 컨셉: 15/50 | 답변: 0 | 고아: 0
+Inferred TTL: 만료 0페이지 | 유효 21페이지
 ```
 
 - **2026-06-12 만료 청산 완료:** 만료 16불릿 중 8건 소스 대조 후 Verified 승격, 8건 사용자 승인으로 TTL 재발급(~7/12, Owner 검증 대기). 다음 주간 리뷰: 재발급분 Owner Notes 확인.
@@ -27,6 +27,8 @@ Inferred TTL: 만료 0페이지 | 유효 18페이지
 - [supabase-naver-oidc-proxy-github-why-how](entities/supabase-naver-oidc-proxy-github-why-how.md) — tool. Naver OIDC ↔ Supabase Auth Edge Function 어댑터.
 - [awesome-design-md-github-why-how](entities/awesome-design-md-github-why-how.md) — tool. 서비스 UI 스타일을 `DESIGN.md`로 모은 에이전트 레퍼런스.
 - [llm-wiki-gist-why-how](entities/llm-wiki-gist-why-how.md) — tool. Karpathy LLM Wiki 패턴, 본 wiki의 설계 영향원.
+- [hermes-agent](entities/hermes-agent.md) — tool. Nous Research 오픈소스 24/7 자가개선 자율 에이전트.
+- [nous-research](entities/nous-research.md) — company. Hermes Agent·Hermes LLM 개발사.
 
 ## Entities — 인물
 
@@ -48,6 +50,7 @@ Inferred TTL: 만료 0페이지 | 유효 18페이지
 - [vibe-coding-pipeline](concepts/vibe-coding-pipeline.md) — 바이브코딩 파이프라인.
 - [agentic-engineering](concepts/agentic-engineering.md) — 인간이 통제·책임 유지한 채 에이전트 사용 — vibe coding의 대척점.
 - [cursor-skills](concepts/cursor-skills.md) — SKILL.md·에이전트 스킬 패키징.
+- [closed-learning-loop](concepts/closed-learning-loop.md) — 작업→SKILL.md 자가 저장·재사용, 메모리 자가 정리.
 - [exploration-vs-exploitation](concepts/exploration-vs-exploitation.md) — 통제력 vs 창조성 균형.
 
 ## Concepts — 재무·소득 구조

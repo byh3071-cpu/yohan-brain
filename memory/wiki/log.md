@@ -5,6 +5,13 @@ updated: 2026-06-12
 
 # Wiki Change Log (append-only)
 
+## 2026-06-15
+
+- **PROMOTE** hermes-agent-24-7-self-improving-team → entities/hermes-agent.md (tool)
+- **PROMOTE** hermes-agent-24-7-self-improving-team → concepts/closed-learning-loop.md
+- **PROMOTE** hermes-agent-24-7-self-improving-team → entities/nous-research.md (company)
+- index.md 통계 갱신 (entities 11→13, concepts 14→15, Inferred 유효 18→21). knowledge-hub/24-7-self-improving-agents.md 신설 + triple-map 6건 등록.
+
 ## 2026-04-12
 
 - **INIT** Phase 1 완료: `memory/wiki/` 구조 생성 (entities/, concepts/, answers/, index.md, log.md).

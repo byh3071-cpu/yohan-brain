@@ -1,6 +1,6 @@
 ---
 id: triple-map
-updated: 2026-06-12
+updated: 2026-06-15
 ---
 
 # 트리플 맵 (지식 그래프, append-only)
@@ -54,3 +54,9 @@ updated: 2026-06-12
 | 리스트 재작성 의식 | enables | 우선순위 재평가 강제 | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
 | 모멘텀 (완수→기분→완수) | triggers | 생산성 선순환 | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
 | 수면·운동·영양 | precondition_of | 지적 생산성 (합산 1.5x) | 자기이해 | 4 | samaltman-productivity | 2026-06-12 |
+| Hermes Agent | is_a | 서버 상주 자가개선 자율 에이전트 | AI/자동화 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |
+| Hermes Agent | implements | 닫힌 학습 루프 (SKILL.md 자가 저장) | AI/자동화 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |
+| 컨텍스트 4파일 (SOUL/USER/AGENTS/MEMORY) | precondition_of | 24/7 에이전트 성능 (높은 출발선) | AI/자동화 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |
+| 딥 인터뷰 | enables | USER/SOUL 초기 컨텍스트 고출발선 | AI/자동화 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |
+| 에이전트 proactiveness | enables | 인사이트 선제 제안 (인사이트 병목 해소) | AI/자동화 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |
+| Hermes 제품 도입 | opposite_of | 오케스트레이션 레이어 중복 거부 취향 | 자기이해 | 3 | hermes-agent-24-7-self-improving-team | 2026-06-15 |

@@ -26,6 +26,7 @@ updated: 2026-06-12
 
 ### 🔧 시스템·아키텍처
 - [지식 복리 루프 — 왜 이 구조인가](knowledge-compounding-loop.md) — 승격·역전파·트리플 대조·재사용 4메커니즘의 근거와 측정 지표. (ADR·트러블슈팅은 `docs/adr/`·`docs/troubleshooting/`에서 sync_to_notion으로 등재됨)
+- [24/7 자가 개선 에이전트 — 서버 상주 + 컨텍스트 엔지니어링](24-7-self-improving-agents.md) — Hermes Agent 사례에서 추린 4파일 컨텍스트·자가 루프·게이트웨이 도입 포인트와 요한 브레인 매핑(P0~P2).
 
 ### 🧭 전략·방향
 - [팔란티어 온톨로지 — 요한 OS의 전략적 원형](palantir-ontology.md) — 로우데이터→온톨로지→지식그래프 = RESOURCE→SUMMARY→트리플맵, 3레이어 OS 재해석.
