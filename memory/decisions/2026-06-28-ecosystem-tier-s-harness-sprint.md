@@ -47,12 +47,13 @@ status: accepted
 | **E0-03 gap** | ✅ merged | contract v0.2.1 | brain#8 |
 | **E1-02** | ✅ merged | `ecosystem.mdc` v1.1 + `vhk inject-bootstrap` | vhk#412, brain#9 (v0.2.2) |
 | **E5-01** | ✅ merged | Core 4 `ecosystem.mdc` + registry `harness_version` | brain#10, mcp#5, vhk#413, cc-skills#4 (v0.2.3) |
-| **E6-01** | 🟡 PR | `vhk sync` → AGENTS **Ecosystem block** 자동 삽입 | [vhk#414](https://github.com/byh3071-cpu/vhk/pull/414) |
-| **E5-02** | 🟡 PR | Core 4 `.agents/CORE-RULES.md` (core-ruleset 상속) | vhk#414 + mcp#6 + cc-skills#5 + brain#11 |
-| **E5-03** | 🟡 PR | mcp·cc-skills **RULES → sync → AGENTS** | mcp#6, cc-skills#5 |
-| **E5-04** | 🟡 PR | `.vhk/context.md` seed + `.cursor/mcp.json.example` | 4 PR |
-| **E5-05** | 🟡 PR | brain `repo_entry_overrides` + contract **v0.2.4** | [brain#11](https://github.com/byh3071-cpu/yohan-brain/pull/11) |
-| **E7-01** | ⏳ future | A-tier bootstrap | — |
+| **E6-01** | ✅ merged | `vhk sync` → AGENTS **Ecosystem block** 자동 삽입 | [vhk#414](https://github.com/byh3071-cpu/vhk/pull/414) |
+| **E5-02** | ✅ merged | Core 4 `.agents/CORE-RULES.md` (core-ruleset 상속) | vhk#414 + mcp#6 + cc-skills#5 + brain#11 |
+| **E5-03** | ✅ merged | mcp·cc-skills **RULES → sync → AGENTS** | mcp#6, cc-skills#5 |
+| **E5-04** | ✅ merged | `.vhk/context.md` seed + `.cursor/mcp.json.example` | 4 PR |
+| **E5-05** | ✅ merged | brain `repo_entry_overrides` + contract **v0.2.4** | [brain#11](https://github.com/byh3071-cpu/yohan-brain/pull/11) |
+| **E7-01** | ⏸ deferred | A-tier bootstrap — pilot 조건부 | `docs/handoffs/ecosystem-tier-s/handoff-e7-a-tier.md` |
+| **CDOCS** | 📋 planned | Cursor 공식문서 ingest | `docs/handoffs/ecosystem-tier-s/handoff-cursor-docs-ingest.md` |
 
 **운영 원칙:** 한 티켓씩 초안 → Yohan OK → PR. 이번 턴은 "전부 검증하고 ㄱㄱ"로 E6-01~E5-05 일괄 구현.
 
@@ -162,22 +163,28 @@ contract `clients.primary: claude-code` · `clients.secondary: cursor-cli`와 **
 
 ---
 
-## 7. 열린 PR (머지 대기)
+## 7. PR 머지 (완료)
 
-| PR | 레포 | 링크 |
-|----|------|------|
-| #414 | vhk | https://github.com/byh3071-cpu/vhk/pull/414 |
-| #6 | yohan-mcp | https://github.com/byh3071-cpu/yohan-mcp/pull/6 |
-| #5 | yohan-cc-skills | https://github.com/byh3071-cpu/yohan-cc-skills/pull/5 |
-| #11 | yohan-brain | https://github.com/byh3071-cpu/yohan-brain/pull/11 |
+| PR | 레포 | HEAD (2026-06-28) |
+|----|------|-------------------|
+| #414 | vhk | `a2c1c4b` |
+| #6 | yohan-mcp | `d8c71a0` |
+| #5 | yohan-cc-skills | `e9b233f` |
+| #11 | yohan-brain | `a40b635` |
+
+**로컬:** Core 4 clean · brain mcp.json 복원 · `.bak`/`.serena` 삭제 · `check-ecosystem` pass.
 
 ---
 
-## 8. 다음 (E7+)
+## 8. 다음 트랙
 
-- **E7-01:** A-tier 레포 bootstrap (product harness)
-- agent-compact dead link 정리 — ✅ vhk sync `resolveAgentCompactRel` (2026-06-28)
-- A-tier `vhk start` dogfood 확대
+| 우선 | 트랙 | 핸드오프 |
+|------|------|----------|
+| 1 | **CDOCS** Cursor 공식문서 ingest | `docs/handoffs/ecosystem-tier-s/handoff-cursor-docs-ingest.md` |
+| 2 | **E7** A-tier pilot (보류) | `docs/handoffs/ecosystem-tier-s/handoff-e7-a-tier.md` |
+
+- agent-compact dead link — ✅ vhk sync `resolveAgentCompactRel` (2026-06-28)
+- **세션 이어하기:** `HANDOFF.md` · `TRANSFER-PROMPT.md`
 
 ---
 

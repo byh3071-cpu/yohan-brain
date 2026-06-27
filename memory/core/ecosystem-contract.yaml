@@ -286,3 +286,8 @@ maintenance:
       change: "E5-05 — yohan-brain repo_entry_overrides (skip RULES/sync AGENTS)"
       ticket: E5-05
       approver: yohan
+    - date: "2026-06-28"
+      change: "Tier S harness closure — E6/E5 PRs merged, Core 4 verified clean"
+      ticket: E6-01-closure
+      approver: yohan
+      note: "HANDOFF.md + docs/handoffs/ecosystem-tier-s/"

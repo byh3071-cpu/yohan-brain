@@ -42,6 +42,13 @@ status: active
 - **SKILL:** `.cursor/skills/*/SKILL.md` · Claude Skills (능동 호출).
 - 결정: `docs/adr/ADR-005-harness-3-layer.md`.
 
+## Ecosystem harness (2026-06-28 — Tier S 완료)
+
+- **상태:** Core 4 tier S **머지·검증·로컬 clean** 완료. contract **v0.2.4**.
+- **다음 세션 진입:** `HANDOFF.md` → `docs/handoffs/ecosystem-tier-s/TRANSFER-PROMPT.md` 복붙.
+- **다음 트랙:** CDOCS(Cursor 공식문서 ingest) · E7(A-tier, 보류).
+- **결정:** `memory/decisions/2026-06-28-ecosystem-tier-s-harness-sprint.md`
+
 ## 다음 후보 (트랙 C)
 
 1. **P3-3 GitHub 템플릿화** — Settings → Template, README 3줄. (사용자 + AI 협업)
