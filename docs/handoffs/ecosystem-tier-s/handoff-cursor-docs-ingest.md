@@ -5,8 +5,10 @@ tags: [handoff, cursor, docs, ingest, cdocs]
 related:
   - docs/adr/ADR-005-harness-3-layer.md
   - memory/wiki/entities/cursor.md
-status: planned
+status: in-progress
 ---
+
+> **진행 (2026-06-28):** CDOCS-00 ✅ · CDOCS-01 🔀 cc-skills **PR #6** 머지 대기 — `cursor-docs/SKILL.md` 골격(cc-docs 미러), rules·context 실측 fetch 통과. index seed는 CDOCS-03으로. 다음: CDOCS-02 P0 ingest pilot.
 
 # 핸드오프 — Cursor 공식문서 ingest (CDOCS)
 
@@ -108,8 +110,8 @@ yohan-brain/memory/ingest/cursor-official/
 
 | 티켓 | 내용 | 완료 기준 |
 |------|------|-----------|
-| **CDOCS-00** | 범위·P0 목록 Yohan OK | 이 handoff § 범위 승인 |
-| **CDOCS-01** | `cursor-docs` SKILL + index seed (P0 6종 URL) | 스킬 호출 시 fetch+인용 동작 |
+| **CDOCS-00** | 범위·P0 목록 Yohan OK | ✅ 완료 2026-06-28 — 원안 6종(A) 승인 + 선행조사 박제 |
+| **CDOCS-01** | `cursor-docs` SKILL 골격 (cc-docs 미러) | 🔀 cc-skills PR #6 — rules·context 실측 fetch+인용 통과. index seed는 CDOCS-03 |
 | **CDOCS-02** | brain ingest P0 1페이지 pilot (Rules) | `memory/ingest/cursor-official/p0-rules.md` + 출처 |
 | **CDOCS-03** | P0 나머지 5종 ingest | 6파일 + index 동기화 |
 | **CDOCS-04** | P1 batch (우선 3종) | — |
@@ -119,20 +121,30 @@ yohan-brain/memory/ingest/cursor-official/
 
 ---
 
-## 선행 조사 (다음 세션 첫 30분)
+## 선행 조사 — ✅ 완료 (2026-06-28)
 
-```bash
-# 공식 doc discovery (404면 대체 URL 확인)
-# - https://docs.cursor.com
-# - https://cursor.com/docs
-# - llms.txt / llms-full.txt 존재 여부
-```
-
-| 확인 | 목적 |
+| 확인 | 결과 |
 |------|------|
-| 공식 docs base URL | fetch URL 패턴 고정 |
-| llms.txt 유무 | cc-docs의 llms.txt 패턴 재사용 |
-| P0 페이지 slug | index seed 작성 |
+| base URL | `docs.cursor.com` → **`cursor.com/docs`** (308 영구이전). fetch는 새 base 고정 |
+| llms.txt | **`cursor.com/llms.txt`** 유효(루트). `cursor.com/docs/llms.txt`는 404 → cc-docs llms.txt 패턴 재사용 가능 |
+| raw 원문 패턴 | 모든 페이지 `{url}.md` 접미사로 markdown 직접 fetch (예: `cursor.com/docs/rules.md`) |
+| P0 slug | 6종 전부 확정 (아래) |
+
+### P0 6종 확정 slug
+
+| P0 | 주제 | URL (`.md` = 원문) |
+|----|------|---------------------|
+| 1 | Rules | `cursor.com/docs/rules.md` |
+| 2 | MCP | `cursor.com/docs/mcp.md` |
+| 3 | Agent | `cursor.com/docs/agent/overview.md` |
+| 4 | Context/인덱싱 | `cursor.com/help/customization/context.md` · `indexing.md` (**help 축** — docs와 base 다름) |
+| 5 | Skills | `cursor.com/docs/skills.md` |
+| 6 | CLI | `cursor.com/docs/cli/overview.md` |
+
+### P0.5 후보 (범위 밖 — 기록만, 2026-06-28 결정 A)
+
+- `cursor.com/docs/hooks.md` · `subagents.md` · `plugins.md` (Customizing 섹션) — Cursor batch에서 hooks/subagents 실사용 시 P0 승격.
+- Agent 하위 풍부: `plan-mode.md` · `design-mode.md` · `agent/tools/{terminal,browser,search}.md` · `configuration/worktrees.md`.
 
 ---
 
