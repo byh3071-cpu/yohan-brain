@@ -1,12 +1,17 @@
 # 현재 집중 중인 작업
 
-id: yohan-os-revival
-name: "Yohan OS 재가동 — 인제스트·봇·RSS"
-goal: "텔레그램 수집·automation:batch·RSS ingest 파이프라인 재가동 + 일상 운영 큐시트"
-repo_path: null
-branch: null
+id: ecosystem-cdocs
+name: "Ecosystem harness + Cursor 공식문서 ingest (CDOCS)"
+goal: "CDOCS P0 풀커버 완료 → P1·경계문서, 양방향루프 PHASE 2~5"
+repo_path: C:\Users\Public\dev\yohan-ecosystem\yohan-brain
+branch: master
 notes: |
-  - [기준일] 2026-06-12
+  - [기준일] 2026-06-28
+  - [CDOCS 완료] CDOCS-00~03 P0 풀커버 — cursor-docs 스킬(cc-skills PR #6·#8) + index + brain ingest 6종(rules·mcp·agent·context·skills·cli, source는 bare URL — .md=404 실측). 핸드오프: docs/handoffs/ecosystem-tier-s/handoff-cursor-docs-ingest.md
+  - [다음] CDOCS-04(P1 batch: tab·bg agent·git)·CDOCS-05(ADR-005 경계문서) · 양방향루프 PHASE 2~5(post-session.sh)
+  - [열린 트랙] P0 관제탑 집컴 인제스트 · E7 A-tier 보류 · soul CP1 로그공백
+  - [멀티세션 주의] 6-28 CDOCS는 병렬 세션 동시 진행 — p0-rules 등 일부 파일 양쪽 생성
+  - ───── 이전 focus (yohan-os-revival, 2026-06-12, 보존) ─────
   - [재가동 완료 2026-06-12]
     - 봇 상시 등록: YohanOS-TelegramBot (로그온 트리거·재시작 x3, 노트북) — polling 가동 중
     - automation:batch 하루 2회(09:00·21:00)로 축소 — 알림 피로 해소 (decisions/2026-06-12-automation-batch-twice-daily)

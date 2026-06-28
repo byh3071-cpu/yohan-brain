@@ -34,7 +34,7 @@ C:\Users\Public\dev\yohan-ecosystem\
 
 | # | 트랙 | 핸드오프 | 상태 |
 |---|------|----------|------|
-| 1 | **Cursor 공식문서 ingest** | [handoff-cursor-docs-ingest.md](docs/handoffs/ecosystem-tier-s/handoff-cursor-docs-ingest.md) | 📋 범위·우선순위 확정, **미착수** |
+| 1 | **Cursor 공식문서 ingest** | [handoff-cursor-docs-ingest.md](docs/handoffs/ecosystem-tier-s/handoff-cursor-docs-ingest.md) | ✅ **P0 풀커버** (CDOCS-00~03: cursor-docs 스킬·index·P0 6종 ingest) · CDOCS-04/05(P1·경계) 남음 |
 | 2 | **E7 A-tier bootstrap** | [handoff-e7-a-tier.md](docs/handoffs/ecosystem-tier-s/handoff-e7-a-tier.md) | ⏸ **보류** — Cursor로 product 레포 작업 시작 시 1개 pilot |
 
 ## 복원 체크 (새 세션·다른 PC)
