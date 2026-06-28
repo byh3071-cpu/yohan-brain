@@ -30,6 +30,8 @@ status: active
 
 ## 1. 세션 시작 (필수)
 
+> **5줄 요약:** `memory/rules/session-checklist.md` — 아래는 상세.
+
 1. **MCP 도구 `get_context`를 호출**해 SoT 스냅샷을 읽는다. (연결되어 있지 않으면 사용자에게 MCP·`cwd` 설정을 안내한다.)
 2. 응답에 포함된 `**profile`**·`**active_project`**·`**recent_decisions`**를 작업 맥락에 반영한다.
 3. `**memory/profile.yaml`의 `must_not`** 를 위반하는 제안·변경을 하지 않는다.
