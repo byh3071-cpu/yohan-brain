@@ -8,7 +8,7 @@ related:
 status: in-progress
 ---
 
-> **진행 (2026-06-28):** CDOCS-00 ✅ · CDOCS-01 ✅ (cc-skills PR #6 머지 `ac4a148`) · CDOCS-02 ✅ `p0-rules.md`(병렬 세션 작성, source URL `.md`→bare 정정). 다음: CDOCS-03 P0 나머지 5종 ingest.
+> **진행 (2026-06-28):** CDOCS-00 ✅ · CDOCS-01 ✅ (cc-skills PR #6 `ac4a148`) · CDOCS-02 ✅ `p0-rules.md` · CDOCS-03 ✅ P0 6종 ingest(병렬 에이전트, bare URL, trust 5) + `cursor-docs-index.md`. 다음: CDOCS-04(P1 batch) 또는 마켓플레이스 반영.
 
 # 핸드오프 — Cursor 공식문서 ingest (CDOCS)
 
@@ -113,7 +113,7 @@ yohan-brain/memory/ingest/cursor-official/
 | **CDOCS-00** | 범위·P0 목록 Yohan OK | ✅ 완료 2026-06-28 — 원안 6종(A) 승인 + 선행조사 박제 |
 | **CDOCS-01** | `cursor-docs` SKILL 골격 (cc-docs 미러) | ✅ cc-skills PR #6 머지 `ac4a148`. rules·context 실측 통과. index seed는 CDOCS-03 |
 | **CDOCS-02** | brain ingest P0 pilot (Rules) | ✅ `p0-rules.md` (병렬 세션 작성, source URL `.md`→bare 정정) |
-| **CDOCS-03** | P0 나머지 5종 ingest | 6파일 + index 동기화 |
+| **CDOCS-03** | P0 나머지 5종 ingest | ✅ 6파일(rules·mcp·agent·context·skills·cli) + `cursor-docs-index.md`. 병렬 에이전트, bare URL, trust 5 |
 | **CDOCS-04** | P1 batch (우선 3종) | — |
 | **CDOCS-05** | ADR-005와 경계 문서 1장 | 내부 harness vs Cursor 공식 구분 |
 
