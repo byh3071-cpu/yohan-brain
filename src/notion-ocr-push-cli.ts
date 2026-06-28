@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { loadNotionOcrEnv } from "./notion/notion-ocr-env.js";
+import { JsonPayloadParseError, parsePayloadJson } from "./notion/parse-payload-json.js";
 import { OcrPushInputSchema, pushOcrResourceAndSummary } from "./notion/push-ocr.js";
 import { resolveRepoRoot } from "./paths.js";
 
@@ -16,7 +17,18 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   const rawJson = await readFile(path, "utf8");
-  const data = JSON.parse(rawJson) as unknown;
+  let data: unknown;
+  try {
+    data = parsePayloadJson(rawJson, path);
+  } catch (err) {
+    if (err instanceof JsonPayloadParseError) {
+      // malformed JSON: top-level catch의 generic 메시지 대신 사용자 친화 힌트 출력
+      console.error(err.message);
+      console.error("입력 파일이 올바른 JSON 형식인지 확인하세요.");
+      process.exit(1);
+    }
+    throw err;
+  }
   const parsed = OcrPushInputSchema.safeParse(data);
   if (!parsed.success) {
     console.error(JSON.stringify(parsed.error.format(), null, 2));
